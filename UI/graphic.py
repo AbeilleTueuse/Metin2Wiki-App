@@ -8,12 +8,26 @@ from datetime import datetime
 from config import config
 from UI.settings import Settings
 from api.metin2wiki import Metin2Wiki
+from api.mediawiki import BotManagement, Bot
 
 BUTTON_STYLE = {"padx": 10, "pady": 5, "activebackground": "darkorange"}
+BUTTON_ADD_STYLE = {
+    "background": "#4CAF50",
+    "foreground": "white",
+    "font": ("Helvetica", 12, "bold"),
+    "relief": tk.RAISED,
+}
 MENU_STYLE = {
     "tearoff": 0,
     "background": "gray90",
     "activebackground": "darkorange",
+}
+HEADER_LABEL = {
+    "font": ("Helvetica", 12, "bold"),
+    "background": "#3498db",
+    "foreground": "white",
+    "padx": 5,
+    "pady": 5,
 }
 
 TITLE = "Metin2Wiki App"
@@ -81,7 +95,9 @@ class MenuBar(tk.Menu):
         self.default_lang = master.settings["lang"]
         self.language_var = tk.StringVar()
         self.language_var.set(self.default_lang)
-        self.write(f"Default language: {self.default_lang}. Can be changed in Settings > Wiki language.")
+        self.write(
+            f"Default language: {self.default_lang}. Can be changed in Settings > Wiki language."
+        )
 
         self._create_file_menu()
         self._create_settings()
@@ -126,6 +142,7 @@ class MenuBar(tk.Menu):
         new_lang = self.language_var.get()
         if new_lang != self.default_lang:
             self.wiki_app.change_settings("lang", new_lang)
+            self.wiki_app.metin2wiki.change_lang(new_lang)
             self.write(f"Language modification: {self.default_lang} to {new_lang}.")
             self.default_lang = new_lang
 
@@ -153,7 +170,7 @@ class MainFrame(tk.Frame):
 
         self.current_frame = self.default_frame
 
-        self.bot_managing_frame = BotManagingFrame(self, master.console_frame)
+        self.bot_managing_frame = BotManagingFrame(self, master)
 
 
 class DefaultFrame(tk.Frame):
@@ -190,32 +207,57 @@ class ConsoleFrame(tk.Frame):
 class BotManagingFrame(tk.Frame):
     TABLE_COLUMNS = ["Bot name", "Bot password", "Check", "Permissions"]
 
-    def __init__(self, master: MainFrame, console_frame: ConsoleFrame):
+    def __init__(self, master: MainFrame, wiki_app: WikiApp):
         tk.Frame.__init__(self, master)
 
-        self.console_frame = console_frame
+        self.wiki_app = wiki_app
+        self.console_frame = wiki_app.console_frame
+        self.bot_management = BotManagement()
         self.table: list[tk.Button] = []
         self._table_initialisation()
+        self._add_saved_bots()
 
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
-            label = tk.Label(self, text=name)
-            label.grid(row=0, column=index)
+            self.columnconfigure(index, weight=1)
+            label = tk.Label(self, text=name, **HEADER_LABEL)
+            label.grid(row=0, column=index, sticky="nsew")
 
-            button = tk.Button(
-                self,
-                text="",
-                command=lambda index=index: self._on_cell_click(row=1, column=index),
-            )
-            button.grid(row=1, column=index)
+            # button = tk.Button(
+            #     self,
+            #     text="",
+            #     command=lambda index=index: self._on_cell_click(row=1, column=index),
+            # )
+            # button.grid(row=1, column=index)
 
-            self.table.append(button)
+            # self.table.append(button)
+
+    def _add_saved_bots(self):
+        for index, bot in enumerate(self.bot_management):
+            label_name = tk.Label(self, text=bot.name)
+            label_name.grid(row=index + 1, column=0, sticky="nsew")
+            label_password = tk.Label(self, text=bot.password)
+            label_password.grid(row=index + 1, column=1, sticky="nsew")
+            label_validation = tk.Label(self, text="✔️", fg="green")
+            label_validation.grid(row=index + 1, column=2, sticky="nsew")
+
+        add_bot = tk.Button(
+            self,
+            text="Add new bot",
+            **BUTTON_STYLE,
+            **BUTTON_ADD_STYLE,
+            command=self._add_new_bot,
+        )
+        add_bot.grid(row=index + 2, columnspan=len(self.TABLE_COLUMNS), sticky="nsew")
 
     def _create_row(self):
         button = tk.Button(
             self, text="buton", command=lambda: self._on_cell_click(0, 0)
         )
         button.grid(row=1, column=0)
+
+    def _add_new_bot(self):
+        pass
 
     def _on_cell_click(self, row: int, column: int):
         button = self.table[column]
@@ -248,7 +290,16 @@ class BotManagingFrame(tk.Frame):
                 )
                 return
 
-            self.write(f"Checking {bot_name} logins...")
+            self.write(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
+            new_bot = Bot(name=bot_name, password=bot_password)
+            self.wiki_app.metin2wiki.change_bot(new_bot=new_bot)
+            try:
+                self.wiki_app.metin2wiki.login()
+            except ConnectionError as err:
+                self.write(err)
+            else:
+                self.write(f"Sucess! The bot {bot_name} is now saved.")
+                self.bot_management.save_new_bot(new_bot=new_bot)
 
     def write(self, text):
         self.console_frame.write(text)
