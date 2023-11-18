@@ -34,7 +34,7 @@ TITLE = "Metin2Wiki App"
 VERSION = "v0.1"
 YEAR = 2023
 CREATOR = "ArcMeurtrier/Ankhseram"
-DIMENSION = "600x600"
+DIMENSION = "800x600"
 
 ALL_LANG = [
     "ae",
@@ -63,17 +63,17 @@ class WikiApp(tk.Tk):
         self.iconbitmap(config.FAVIVON_PATH)
 
         self.settings = Settings()
+        self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
 
         self.console_frame = ConsoleFrame(self)
-        self.console_frame.pack(side=tk.BOTTOM, fill=tk.X)
-
-        self.menu_bar = MenuBar(self)
-        self.config(menu=self.menu_bar)
+        self.console_frame.pack(side=tk.BOTTOM, fill=tk.X, expand=False)
 
         self.main_frame = MainFrame(self)
         self.main_frame.pack(fill=tk.BOTH)
 
-        self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
+        self.menu_bar = MenuBar(self, self.main_frame)
+        self.config(menu=self.menu_bar)
+
 
     def change_settings(self, key, value):
         self.settings[key] = value
@@ -85,12 +85,25 @@ class WikiApp(tk.Tk):
         self.main_frame.current_frame = frame
 
 
-class MenuBar(tk.Menu):
+class MainFrame(tk.Frame):
     def __init__(self, master: WikiApp):
+        tk.Frame.__init__(self, master)
+
+        self.default_frame = DefaultFrame(self)
+        self.default_frame.pack(fill=tk.BOTH)
+
+        self.current_frame = self.default_frame
+
+        self.bot_managing_frame = BotManagingFrame(self, master)
+
+
+class MenuBar(tk.Menu):
+    def __init__(self, master: WikiApp, main_frame: MainFrame):
         tk.Menu.__init__(self, master)
 
         self.wiki_app = master
         self.console_frame = master.console_frame
+        self.main_frame = main_frame
 
         self.default_lang = master.settings["lang"]
         self.language_var = tk.StringVar()
@@ -145,6 +158,8 @@ class MenuBar(tk.Menu):
             self.wiki_app.metin2wiki.change_lang(new_lang)
             self.write(f"Language modification: {self.default_lang} to {new_lang}.")
             self.default_lang = new_lang
+            self.main_frame.bot_managing_frame.reset_table()
+            self.main_frame.bot_managing_frame.add_saved_bots()
 
     def _create_about_us(self):
         file = tk.Menu(self, **MENU_STYLE)
@@ -159,18 +174,6 @@ class MenuBar(tk.Menu):
 
     def write(self, text):
         self.console_frame.write(text)
-
-
-class MainFrame(tk.Frame):
-    def __init__(self, master: WikiApp):
-        tk.Frame.__init__(self, master)
-
-        self.default_frame = DefaultFrame(self)
-        self.default_frame.pack(fill=tk.BOTH)
-
-        self.current_frame = self.default_frame
-
-        self.bot_managing_frame = BotManagingFrame(self, master)
 
 
 class DefaultFrame(tk.Frame):
@@ -195,6 +198,7 @@ class ConsoleFrame(tk.Frame):
             font=("Courier", 12),
             background="black",
             foreground="white",
+            height=10
         )
         self.console_text.pack(fill=tk.BOTH, expand=True)
 
@@ -205,17 +209,18 @@ class ConsoleFrame(tk.Frame):
 
 
 class BotManagingFrame(tk.Frame):
-    TABLE_COLUMNS = ["Bot name", "Bot password", "Check", "Permissions"]
+    TABLE_COLUMNS = ["Bot name", "Bot password", "Check", "Permissions", "Delete"]
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
         tk.Frame.__init__(self, master)
 
         self.wiki_app = wiki_app
         self.console_frame = wiki_app.console_frame
-        self.bot_management = BotManagement()
+        self.metin2wiki = wiki_app.metin2wiki
+        self.bot_management = BotManagement(metin2wiki=self.metin2wiki)
         self.table: list[tk.Button] = []
         self._table_initialisation()
-        self._add_saved_bots()
+        self.add_saved_bots()
 
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
@@ -223,83 +228,96 @@ class BotManagingFrame(tk.Frame):
             label = tk.Label(self, text=name, **HEADER_LABEL)
             label.grid(row=0, column=index, sticky="nsew")
 
-            # button = tk.Button(
-            #     self,
-            #     text="",
-            #     command=lambda index=index: self._on_cell_click(row=1, column=index),
-            # )
-            # button.grid(row=1, column=index)
+    def reset_table(self):
+        for widget in self.winfo_children()[len(self.TABLE_COLUMNS):]:
+            widget.destroy()
 
-            # self.table.append(button)
-
-    def _add_saved_bots(self):
+    def add_saved_bots(self):
+        index = 0
         for index, bot in enumerate(self.bot_management):
-            label_name = tk.Label(self, text=bot.name)
-            label_name.grid(row=index + 1, column=0, sticky="nsew")
-            label_password = tk.Label(self, text=bot.password)
-            label_password.grid(row=index + 1, column=1, sticky="nsew")
-            label_validation = tk.Label(self, text="✔️", fg="green")
-            label_validation.grid(row=index + 1, column=2, sticky="nsew")
+            index += 1
+            self._add_bot(bot, index)
 
-        add_bot = tk.Button(
+        self.add_bot_button = tk.Button(
             self,
             text="Add new bot",
             **BUTTON_STYLE,
             **BUTTON_ADD_STYLE,
-            command=self._add_new_bot,
+            command=self._new_bot_window,
         )
-        add_bot.grid(row=index + 2, columnspan=len(self.TABLE_COLUMNS), sticky="nsew")
+        self.add_bot_button.grid(row=index + 1, columnspan=len(self.TABLE_COLUMNS), sticky="nsew")
 
-    def _create_row(self):
-        button = tk.Button(
-            self, text="buton", command=lambda: self._on_cell_click(0, 0)
+    def _add_bot(self, bot: Bot, index: int):
+        label_name = tk.Label(self, text=bot.name)
+        label_name.grid(row=index, column=0, sticky="nsew")
+        label_password = tk.Label(self, text=bot.password)
+        label_password.grid(row=index, column=1, sticky="nsew")
+        label_validation = tk.Label(self, text="✔️", fg="green")
+        label_validation.grid(row=index, column=2, sticky="nsew")
+        delete_button = tk.Button(self, text="🗑️", fg="red", command=lambda: self._delete_bot(bot))
+        delete_button.grid(row=index, column=4, sticky="nsew")
+
+    def _add_new_bot(self, new_bot: Bot):
+        index = self.add_bot_button.grid_info()["row"]
+        self._add_bot(new_bot, index)
+        self.add_bot_button.grid(row=index + 1)
+
+    def _delete_bot(self, bot: Bot):
+        self.bot_management.delete(bot)
+        self.reset_table()
+        self.add_saved_bots()
+        self.write(f"The bot {bot.name} was deleted.")
+
+    def _new_bot_window(self):
+        new_bot_window = tk.Toplevel(self.master, padx=10, pady=10)
+        new_bot_window.title("Add new bot")
+
+        label_name = tk.Label(new_bot_window, text="Bot name:")
+        label_name.grid(row=0, column=0, sticky="e")
+
+        entry_name = tk.Entry(new_bot_window)
+        entry_name.grid(row=0, column=1)
+
+        label_password = tk.Label(new_bot_window, text="Bot password:")
+        label_password.grid(row=1, column=0, sticky="e")
+
+        entry_password = tk.Entry(new_bot_window)
+        entry_password.grid(row=1, column=1)
+
+        check_button = tk.Button(
+            new_bot_window,
+            text="Check login",
+            **BUTTON_STYLE,
+            **BUTTON_ADD_STYLE,
+            command=lambda: self._check_login(entry_name, entry_password),
         )
-        button.grid(row=1, column=0)
+        check_button.grid(row=2, columnspan=2, sticky="nsew", padx=5, pady=5)
 
-    def _add_new_bot(self):
-        pass
+    def _check_login(self, entry_name: tk.Entry, entry_password: tk.Entry):
+        bot_name = entry_name.get()
+        bot_password = entry_password.get()
 
-    def _on_cell_click(self, row: int, column: int):
-        button = self.table[column]
+        if not (bot_name and bot_password):
+            self.write(f"Please enter a bot name and a bot password before checking.")
+            return
+        
+        new_bot = Bot(name=bot_name, password=bot_password)
+        
+        if self.bot_management.has(new_bot):
+            self.write(f"The bot {bot_name} is already added.")
+            return
 
-        if column == 0:
-            user_input = askstring(
-                title="Bot login", prompt="Bot name:", initialvalue=button.cget("text")
-            )
-
-            if user_input is not None:
-                self.table[column].config(text=user_input)
-
-        if column == 1:
-            user_input = askstring(
-                title="Bot login",
-                prompt="Bot password:",
-                initialvalue=button.cget("text"),
-            )
-
-            if user_input is not None:
-                self.table[column].config(text=user_input)
-
-        if column == 2:
-            bot_name = self.table[0].cget("text")
-            bot_password = self.table[1].cget("text")
-
-            if not (bot_name and bot_password):
-                self.write(
-                    f"Please enter a bot name and a bot password before checking."
-                )
-                return
-
-            self.write(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
-            new_bot = Bot(name=bot_name, password=bot_password)
-            self.wiki_app.metin2wiki.change_bot(new_bot=new_bot)
-            try:
-                self.wiki_app.metin2wiki.login()
-            except ConnectionError as err:
-                self.write(err)
-            else:
-                self.write(f"Sucess! The bot {bot_name} is now saved.")
-                self.bot_management.save_new_bot(new_bot=new_bot)
+        self.write(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
+        
+        self.wiki_app.metin2wiki.change_bot(new_bot=new_bot)
+        try:
+            self.wiki_app.metin2wiki.login()
+        except ConnectionError as err:
+            self.write(err)
+        else:
+            self.write(f"Sucess! The bot {bot_name} is now saved.")
+            self.bot_management.save_new_bot(new_bot=new_bot)
+            self._add_new_bot(new_bot=new_bot)
 
     def write(self, text):
         self.console_frame.write(text)

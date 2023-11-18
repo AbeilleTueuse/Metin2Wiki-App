@@ -12,7 +12,15 @@ class Bot:
     def __init__(self, name: str, password: str):
         self.name = name
         self.password = password
+
+    def __eq__(self, other):
+        if not isinstance(other, Bot):
+            return False
+        return other.name == self.name
     
+    def __str__(self):
+        return f"(Bot: {self.name})"
+
 
 class BotEncoder(JSONEncoder):
     def default(self, o):
@@ -20,25 +28,56 @@ class BotEncoder(JSONEncoder):
 
 
 class BotManagement:
-    def __init__(self):
-        self.data: list[Bot] = self._get_data()
+    def __init__(self, metin2wiki):
+        self.data: dict[str, list[Bot]] = self._get_data()
+        self.metin2wiki = metin2wiki
 
-    def save_new_bot(self, new_bot):
-        self.data.append(new_bot)
+    def save_new_bot(self, new_bot: Bot):
+        current_lang = self._current_lang()
+        if current_lang in self.data:
+            self.data[current_lang].append(new_bot)
+        else:
+            self.data[current_lang] = [new_bot]
+        self.save()
+
+    def save(self):
         with open(config.BOT_LOGIN_PATH, "w") as file:
             json.dump(self.data, file, indent=4, cls=BotEncoder)
+
+    def has(self, bot: Bot):
+        for saved_bot in self:
+            if bot == saved_bot:
+                return True
+        return False
+    
+    def delete(self, bot: Bot):
+        if self.has(bot):
+            current_lang = self._current_lang()
+            self.data[current_lang].remove(bot)
+            self.save()
 
     def _get_data(self) -> list:
         try:
             with open(config.BOT_LOGIN_PATH, "r") as file:
-                data = [Bot(**bot_params) for bot_params in json.load(file)]
+                data = json.load(file)
+                data = {
+                    lang: [Bot(**bot_params) for bot_params in data[lang]]
+                    for lang in data
+                }
         except FileNotFoundError:
-            data = []
+            data = {}
 
         return data
-        
+    
+    def _current_lang(self):
+        return self.metin2wiki.lang
+
     def __iter__(self):
-        return iter(self.data)
+        current_lang = self._current_lang()
+        data = []
+        if current_lang in self.data:
+            data = self.data[current_lang]
+        return iter(data)
 
 
 class MediaWiki:
