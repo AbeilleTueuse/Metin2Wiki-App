@@ -50,11 +50,11 @@ class WikiApp(tk.Tk):
 
         self.settings = Settings()
 
-        self.menu_bar = MenuBar(self)
-        self.config(menu=self.menu_bar)
-
         self.console_frame = ConsoleFrame(self)
         self.console_frame.pack(side=tk.BOTTOM, fill=tk.X)
+
+        self.menu_bar = MenuBar(self)
+        self.config(menu=self.menu_bar)
 
         self.main_frame = MainFrame(self)
         self.main_frame.pack(fill=tk.BOTH)
@@ -76,9 +76,12 @@ class MenuBar(tk.Menu):
         tk.Menu.__init__(self, master)
 
         self.wiki_app = master
+        self.console_frame = master.console_frame
 
+        self.default_lang = master.settings["lang"]
         self.language_var = tk.StringVar()
-        self.language_var.set(master.settings["lang"])
+        self.language_var.set(self.default_lang)
+        self.write(f"Default language: {self.default_lang}. Can be changed in Settings > Wiki language.")
 
         self._create_file_menu()
         self._create_settings()
@@ -121,7 +124,10 @@ class MenuBar(tk.Menu):
 
     def _on_language_change(self):
         new_lang = self.language_var.get()
-        self.wiki_app.change_settings("lang", new_lang)
+        if new_lang != self.default_lang:
+            self.wiki_app.change_settings("lang", new_lang)
+            self.write(f"Language modification: {self.default_lang} to {new_lang}.")
+            self.default_lang = new_lang
 
     def _create_about_us(self):
         file = tk.Menu(self, **MENU_STYLE)
@@ -133,6 +139,9 @@ class MenuBar(tk.Menu):
             title="About",
             message="\n".join([f"{TITLE} {VERSION}", f"{YEAR}", f"{CREATOR}"]),
         )
+
+    def write(self, text):
+        self.console_frame.write(text)
 
 
 class MainFrame(tk.Frame):
