@@ -9,9 +9,10 @@ from config import config
 
 
 class Bot:
-    def __init__(self, name: str, password: str):
+    def __init__(self, name: str, password: str, default: int = 0):
         self.name = name
         self.password = password
+        self.default = default
 
     def __eq__(self, other):
         if not isinstance(other, Bot):
@@ -56,6 +57,20 @@ class BotManagement:
             self.data[current_lang].remove(bot)
             self.save()
 
+    @property
+    def default_bot_name(self):
+        for bot in self:
+            if bot.default:
+                return bot.name
+        return ""
+    
+    def change_default_bot(self, bot_name: str):
+        for bot in self:
+            bot.default = 0
+            if bot.name == bot_name:
+                bot.default = 1
+        self.save()
+
     def _get_data(self) -> list:
         try:
             with open(config.BOT_LOGIN_PATH, "r") as file:
@@ -78,6 +93,9 @@ class BotManagement:
         if current_lang in self.data:
             data = self.data[current_lang]
         return iter(data)
+    
+    def __len__(self):
+        return sum(1 for _ in self)
 
 
 class MediaWiki:
