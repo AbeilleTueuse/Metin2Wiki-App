@@ -1,5 +1,6 @@
 # %%
 import tkinter as tk
+from tkinter import ttk
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showinfo
 import tkinter.filedialog as fd
@@ -22,13 +23,14 @@ MENU_STYLE = {
     "background": "gray90",
     "activebackground": "darkorange",
 }
-HEADER_LABEL = {
+HEADER_LABEL_STYLE = {
     "font": ("Helvetica", 12, "bold"),
     "background": "#3498db",
     "foreground": "white",
     "padx": 5,
     "pady": 5,
 }
+TABLE_ROW_STYLE = {"background": "#B0C4DE", "borderwidth": 2, "relief": "solid"}
 
 TITLE = "Metin2Wiki App"
 VERSION = "v0.1"
@@ -82,7 +84,7 @@ class WikiApp(tk.Tk):
         self.main_frame.current_frame.pack_forget()
         frame.pack(fill=tk.BOTH)
         self.main_frame.current_frame = frame
-        self.console_frame.write(f"Switching to {frame.NAME}.")
+        self.console_frame.write(f"Switching to {frame.NAME.lower()}.")
 
 
 class MainFrame(tk.Frame):
@@ -197,7 +199,7 @@ class DefaultFrame(tk.Frame):
 
 
 class ConsoleFrame(tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master: WikiApp):
         tk.Frame.__init__(self, master)
 
         title_label = tk.Label(
@@ -222,7 +224,7 @@ class ConsoleFrame(tk.Frame):
 
 
 class BotManagingFrame(tk.Frame):
-    NAME = "bot managing"
+    NAME = "Bot managing"
     TABLE_COLUMNS = [
         "Bot name",
         "Bot password",
@@ -239,24 +241,26 @@ class BotManagingFrame(tk.Frame):
         self.console_frame = wiki_app.console_frame
         self.metin2wiki = wiki_app.metin2wiki
         self.bot_management = BotManagement(metin2wiki=self.metin2wiki)
-        self.default_bot_name = self.bot_management.default_bot_name
+        self.default_bot_name = self.bot_management.set_default_bot()
         self.bot_var = tk.StringVar()
         self.bot_var.set(self.default_bot_name)
         self._initial_message()
         self._table_initialisation()
         self.add_saved_bots()
-        
+
     def _initial_message(self):
         number_of_bots = len(self.bot_management)
         if number_of_bots:
-            self.write(f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing.")
+            self.write(
+                f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing."
+            )
         else:
             self.write("No saved bot. To add a new bot: Settings > Bot managing")
-            
+
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
             self.columnconfigure(index, weight=1)
-            label = tk.Label(self, text=name, **HEADER_LABEL)
+            label = tk.Label(self, text=name, **HEADER_LABEL_STYLE)
             label.grid(row=0, column=index, sticky="nsew")
 
     def reset_table(self):
@@ -288,7 +292,10 @@ class BotManagingFrame(tk.Frame):
         label_validation = tk.Label(self, text="✔️", fg="green")
         label_validation.grid(row=index, column=2, sticky="nsew")
         button_use = tk.Radiobutton(
-            self, value=bot.name, variable=self.bot_var, command=self._handle_default_bot
+            self,
+            value=bot.name,
+            variable=self.bot_var,
+            command=self._handle_default_bot,
         )
         button_use.grid(row=index, column=4, sticky="nsew")
         button_delete = tk.Button(
@@ -340,7 +347,7 @@ class BotManagingFrame(tk.Frame):
 
         if self.default_bot_name == new_default_bot_name:
             return
-        
+
         self.default_bot_name = new_default_bot_name
         self.write(f"Default bot is now set to {new_default_bot_name}.")
         self.bot_management.change_default_bot(new_default_bot_name)
@@ -376,25 +383,71 @@ class BotManagingFrame(tk.Frame):
 
 
 class ShortPagesFrame(tk.Frame):
-    NAME = "short pages tool"
+    NAME = "Short pages tool"
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
-        tk.Frame.__init__(self, master)
+        tk.Frame.__init__(self, master, padx=10, pady=10)
 
         self.wiki_app = wiki_app
         self.console_frame = wiki_app.console_frame
         self.metin2wiki = wiki_app.metin2wiki
+        self.short_pages = self.metin2wiki.short_pages()
 
-        button = tk.Button(
+        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
+        title_label.pack(pady=10)
+
+        self._create_table()
+
+        # button = tk.Button(
+        #     self,
+        #     text="Delete",
+        #     **BUTTON_STYLE,
+        #     **BUTTON_ADD_STYLE,
+        #     command=self._delete_short_pages,
+        # )
+        # button.pack(fill=tk.BOTH)
+
+    def _create_table(self):
+        for page in self.short_pages:
+            page_frame = tk.Frame(self)
+            page_title = tk.Text(page_frame, height=1, width=20, wrap=tk.WORD)
+            page_title.insert(tk.INSERT, page.title)
+            page_title.configure(state="disabled")
+            page_title.grid(row=0, column=0, sticky="we")
+
+            delete_button = ttk.Button(
+                page_frame,
+                text="Delete 🗑️",
+                command=lambda: self._delete_page(page_frame, page),
+            )
+            delete_button.grid(row=0, column=1, sticky="we")
+            page_frame.columnconfigure(0, weight=10)
+            page_frame.columnconfigure(1, weight=1)
+            page_frame.pack(fill=tk.X)
+
+        delete_all_button = tk.Button(
             self,
-            text="Delete",
-            **BUTTON_STYLE,
+            text="Delete all",
             **BUTTON_ADD_STYLE,
-            command=self._delete_short_pages,
+            command=self._delete_all_pages,
         )
-        button.pack(fill=tk.BOTH)
+        delete_all_button.pack(fill=tk.BOTH, pady=10)
 
-    def _delete_short_pages(self):
-        print(self.metin2wiki.bot)
-        for page in self.metin2wiki.short_pages():
+    def _delete_page(self, page_frame: tk.Frame, page):
+        self.metin2wiki.login()
+        try:
             page.delete("Page without any content")
+        except Exception:
+            self.write(f"An error occurs. The page {page.title} cannot be deleted.")
+        else:
+            self.write(f"The page {page.title} was successfully deleted")
+            page_frame.destroy()
+            self.short_pages.remove(page)
+
+    def _delete_all_pages(self):
+        self.write("Delete all button isn't implemented yet.")
+        for page in self.short_pages:
+            pass
+
+    def write(self, text):
+        self.console_frame.write(text)

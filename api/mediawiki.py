@@ -18,7 +18,7 @@ class Bot:
         if not isinstance(other, Bot):
             return False
         return other.name == self.name
-    
+
     def __str__(self):
         return f"(Bot: {self.name})"
 
@@ -50,24 +50,25 @@ class BotManagement:
             if bot == saved_bot:
                 return True
         return False
-    
+
     def delete(self, bot: Bot):
         if self.has(bot):
             current_lang = self._current_lang()
             self.data[current_lang].remove(bot)
             self.save()
 
-    @property
-    def default_bot_name(self):
+    def set_default_bot(self):
         for bot in self:
             if bot.default:
+                self.metin2wiki.set_bot(bot)
                 return bot.name
         return ""
-    
+
     def change_default_bot(self, bot_name: str):
         for bot in self:
             bot.default = 0
             if bot.name == bot_name:
+                self.metin2wiki.set_bot(bot)
                 bot.default = 1
         self.save()
 
@@ -83,7 +84,7 @@ class BotManagement:
             data = {}
 
         return data
-    
+
     def _current_lang(self):
         return self.metin2wiki.lang
 
@@ -93,13 +94,12 @@ class BotManagement:
         if current_lang in self.data:
             data = self.data[current_lang]
         return iter(data)
-    
+
     def __len__(self):
         return sum(1 for _ in self)
 
 
 class MediaWiki:
-    SESSION = requests.session()
     MAX_URL_LENGTH = 8213
     MAX_PARAMS = 500
     MAX_LAG = 1
@@ -110,8 +110,18 @@ class MediaWiki:
         bot: Bot,
     ):
         self.api_url = api_url
-        self.bot = (bot,)
+        self.bot = bot
         self.csrf_token = None
+        self.session = self._new_session()
+
+    def set_bot(self, bot: Bot):
+        self.bot = bot
+        self.csrf_token = None
+        self.session.close()
+        self.session = self._new_session()
+
+    def _new_session(self):
+        return requests.session()
 
     def _check_params(self, params: list | None, type_: str):
         def check_type_names(el):
@@ -138,8 +148,10 @@ class MediaWiki:
 
     def wiki_request(self, query_params: dict) -> dict:
         query_params["maxlag"] = self.MAX_LAG
+        return self.session.get(url=self.api_url, params=query_params).json()
 
-        return self.SESSION.get(url=self.api_url, params=query_params).json()
+    def wiki_post(self, query_params: dict) -> dict:
+        return self.session.post(self.api_url, data=query_params).json()
 
     def login(self):
         def get_login_token():
@@ -162,7 +174,7 @@ class MediaWiki:
             "format": "json",
         }
 
-        result = self.SESSION.post(self.api_url, data=query_params).json()
+        result = self.wiki_post(query_params)
 
         if result["login"]["result"] == "Failed":
             raise ConnectionError(result["login"]["reason"])
@@ -226,7 +238,7 @@ class MediaWiki:
             "text": str(page.content),
         }
 
-        request_result = self.SESSION.post(self.api_url, data=query_params).json()
+        request_result = self.wiki_post(query_params)
 
         if "error" in request_result:
             if request_result["error"]["code"] == "ratelimited":
@@ -257,7 +269,7 @@ class MediaWiki:
         else:
             raise ValueError("Page must have pageid or title attribute.")
 
-        request_result = self.SESSION.post(self.api_url, data=query_params).json()
+        request_result = self.wiki_post(query_params)
 
         if "error" in request_result:
             if request_result["error"]["code"] == "permissiondenied":
@@ -280,6 +292,3 @@ class MediaWiki:
         pages = request_result["query"]["allpages"]
 
         return [Page(self, page["title"], page["pageid"]) for page in pages]
-
-    def change_bot(self, new_bot: Bot):
-        self.bot = new_bot
