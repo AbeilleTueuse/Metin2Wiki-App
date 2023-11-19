@@ -1,6 +1,6 @@
 # %%
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, font
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showinfo
 import tkinter.filedialog as fd
@@ -64,6 +64,9 @@ class WikiApp(tk.Tk):
         self.geometry(DIMENSION)
         self.iconbitmap(config.FAVIVON_PATH)
 
+        self.defaultFont = font.nametofont("TkDefaultFont") 
+        self.defaultFont.configure(size=12) 
+
         self.settings = Settings()
         self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
 
@@ -87,6 +90,16 @@ class WikiApp(tk.Tk):
         self.console_frame.write(f"Switching to {frame.NAME.lower()}.")
 
 
+class WikiAppMixin:
+    def __init__(self, wiki_app: WikiApp):
+        self.wiki_app = wiki_app
+        self.console_frame = wiki_app.console_frame
+        self.metin2wiki = wiki_app.metin2wiki
+
+    def write_in_console(self, text):
+        self.console_frame.write(text)
+
+
 class MainFrame(tk.Frame):
     def __init__(self, master: WikiApp):
         tk.Frame.__init__(self, master)
@@ -101,18 +114,16 @@ class MainFrame(tk.Frame):
         self.short_pages_frame = ShortPagesFrame(self, master)
 
 
-class MenuBar(tk.Menu):
+class MenuBar(tk.Menu, WikiAppMixin):
     def __init__(self, master: WikiApp, main_frame: MainFrame):
         tk.Menu.__init__(self, master)
+        WikiAppMixin.__init__(self, master)
 
-        self.wiki_app = master
-        self.console_frame = master.console_frame
         self.main_frame = main_frame
-
         self.default_lang = master.settings["lang"]
         self.language_var = tk.StringVar()
         self.language_var.set(self.default_lang)
-        self.write(
+        self.write_in_console(
             f"Default language: {self.default_lang}. Can be changed in Settings > Wiki language."
         )
 
@@ -170,8 +181,8 @@ class MenuBar(tk.Menu):
         new_lang = self.language_var.get()
         if new_lang != self.default_lang:
             self.wiki_app.change_settings("lang", new_lang)
-            self.wiki_app.metin2wiki.change_lang(new_lang)
-            self.write(f"Language modification: {self.default_lang} to {new_lang}.")
+            self.metin2wiki.change_lang(new_lang)
+            self.write_in_console(f"Language modification: {self.default_lang} to {new_lang}.")
             self.default_lang = new_lang
             self.main_frame.bot_managing_frame.reset_table()
             self.main_frame.bot_managing_frame.add_saved_bots()
@@ -186,9 +197,6 @@ class MenuBar(tk.Menu):
             title="About",
             message="\n".join([f"{TITLE} {VERSION}", f"{YEAR}", f"{CREATOR}"]),
         )
-
-    def write(self, text):
-        self.console_frame.write(text)
 
 
 class DefaultFrame(tk.Frame):
@@ -223,7 +231,7 @@ class ConsoleFrame(tk.Frame):
         self.console_text.see(tk.END)
 
 
-class BotManagingFrame(tk.Frame):
+class BotManagingFrame(tk.Frame, WikiAppMixin):
     NAME = "Bot managing"
     TABLE_COLUMNS = [
         "Bot name",
@@ -236,10 +244,8 @@ class BotManagingFrame(tk.Frame):
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
         tk.Frame.__init__(self, master)
+        WikiAppMixin.__init__(self, wiki_app)
 
-        self.wiki_app = wiki_app
-        self.console_frame = wiki_app.console_frame
-        self.metin2wiki = wiki_app.metin2wiki
         self.bot_management = BotManagement(metin2wiki=self.metin2wiki)
         self.default_bot_name = self.bot_management.set_default_bot()
         self.bot_var = tk.StringVar()
@@ -251,11 +257,11 @@ class BotManagingFrame(tk.Frame):
     def _initial_message(self):
         number_of_bots = len(self.bot_management)
         if number_of_bots:
-            self.write(
+            self.write_in_console(
                 f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing."
             )
         else:
-            self.write("No saved bot. To add a new bot: Settings > Bot managing")
+            self.write_in_console("No saved bot. To add a new bot: Settings > Bot managing")
 
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
@@ -315,7 +321,7 @@ class BotManagingFrame(tk.Frame):
         self.bot_management.delete(bot)
         self.reset_table()
         self.add_saved_bots()
-        self.write(f"The bot {bot.name} was deleted.")
+        self.write_in_console(f"The bot {bot.name} was deleted.")
 
     def _new_bot_window(self):
         new_bot_window = tk.Toplevel(self.master, padx=10, pady=10)
@@ -349,7 +355,7 @@ class BotManagingFrame(tk.Frame):
             return
 
         self.default_bot_name = new_default_bot_name
-        self.write(f"Default bot is now set to {new_default_bot_name}.")
+        self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
         self.bot_management.change_default_bot(new_default_bot_name)
 
     def _check_login(self, entry_name: tk.Entry, entry_password: tk.Entry):
@@ -357,40 +363,35 @@ class BotManagingFrame(tk.Frame):
         bot_password = entry_password.get()
 
         if not (bot_name and bot_password):
-            self.write(f"Please enter a bot name and a bot password before checking.")
+            self.write_in_console(f"Please enter a bot name and a bot password before checking.")
             return
 
         new_bot = Bot(name=bot_name, password=bot_password)
 
         if self.bot_management.has(new_bot):
-            self.write(f"The bot {bot_name} is already added.")
+            self.write_in_console(f"The bot {bot_name} is already added.")
             return
 
-        self.write(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
+        self.write_in_console(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
 
-        self.wiki_app.metin2wiki.change_bot(new_bot=new_bot)
+        self.wiki_app.metin2wiki.set_bot(bot=new_bot)
         try:
             self.wiki_app.metin2wiki.login()
         except ConnectionError as err:
-            self.write(err)
+            self.write_in_console(err)
         else:
-            self.write(f"Sucess! The bot {bot_name} is now saved.")
+            self.write_in_console(f"Sucess! The bot {bot_name} is now saved.")
             self.bot_management.save_new_bot(new_bot=new_bot)
             self._add_new_bot(new_bot=new_bot)
 
-    def write(self, text):
-        self.console_frame.write(text)
 
-
-class ShortPagesFrame(tk.Frame):
+class ShortPagesFrame(tk.Frame, WikiAppMixin):
     NAME = "Short pages tool"
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
         tk.Frame.__init__(self, master, padx=10, pady=10)
+        WikiAppMixin.__init__(self, wiki_app)
 
-        self.wiki_app = wiki_app
-        self.console_frame = wiki_app.console_frame
-        self.metin2wiki = wiki_app.metin2wiki
         self.short_pages = self.metin2wiki.short_pages()
 
         title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
@@ -438,16 +439,13 @@ class ShortPagesFrame(tk.Frame):
         try:
             page.delete("Page without any content")
         except Exception:
-            self.write(f"An error occurs. The page {page.title} cannot be deleted.")
+            self.write_in_console(f"An error occurs. The page {page.title} cannot be deleted.")
         else:
-            self.write(f"The page {page.title} was successfully deleted")
+            self.write_in_console(f"The page {page.title} was successfully deleted")
             page_frame.destroy()
             self.short_pages.remove(page)
 
     def _delete_all_pages(self):
-        self.write("Delete all button isn't implemented yet.")
+        self.write_in_console("Delete all button isn't implemented yet.")
         for page in self.short_pages:
             pass
-
-    def write(self, text):
-        self.console_frame.write(text)
