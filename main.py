@@ -5,7 +5,6 @@ from models.page import MonsterPage, MetinPage, Page, Pages
 from data.read_files import MobProto, ItemProto
 from UI.graphic import WikiApp
 
-
 # def create_wiki_monster_data():
 #     metin2wiki = Metin2Wiki(bot_name=BOT_NAME, bot_password=BOT_PASSWORD)
 
