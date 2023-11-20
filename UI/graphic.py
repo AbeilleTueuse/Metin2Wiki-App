@@ -214,7 +214,7 @@ class ConsoleFrame(tk.Frame):
             self, text="Console", font=("Helvetica", 14, "bold"), background="lightgray"
         )
         title_label.pack(fill=tk.BOTH)
-
+        scrollbar = tk.Scrollbar(self, orient="vertical")
         self.console_text = tk.Text(
             self,
             wrap="word",
@@ -222,14 +222,16 @@ class ConsoleFrame(tk.Frame):
             background="black",
             foreground="white",
             height=10,
+            yscrollcommand=scrollbar.set
         )
+        scrollbar.config(command=self.console_text.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.console_text.pack(fill=tk.BOTH, expand=True)
 
     def write(self, text):
         time = datetime.now().strftime("%H:%M")
         self.console_text.insert(tk.END, f"{time}: {text}\n")
         self.console_text.see(tk.END)
-        print(self.wiki_app.metin2wiki.bot)
 
 
 class BotManagingFrame(tk.Frame, WikiAppMixin):
@@ -457,5 +459,3 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
 
     def _delete_all_pages(self):
         self.write_in_console("Delete all button isn't implemented yet.")
-        for page in self.short_pages:
-            pass
