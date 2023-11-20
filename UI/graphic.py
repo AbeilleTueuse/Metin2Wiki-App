@@ -64,8 +64,8 @@ class WikiApp(tk.Tk):
         self.geometry(DIMENSION)
         self.iconbitmap(config.FAVIVON_PATH)
 
-        self.defaultFont = font.nametofont("TkDefaultFont") 
-        self.defaultFont.configure(size=12) 
+        self.defaultFont = font.nametofont("TkDefaultFont")
+        self.defaultFont.configure(size=12)
 
         self.settings = Settings()
         self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
@@ -179,13 +179,13 @@ class MenuBar(tk.Menu, WikiAppMixin):
 
     def _on_language_change(self):
         new_lang = self.language_var.get()
-        if new_lang != self.default_lang:
+        prev_lang = self.default_lang
+        if new_lang != prev_lang:
             self.wiki_app.change_settings("lang", new_lang)
             self.metin2wiki.change_lang(new_lang)
-            self.write_in_console(f"Language modification: {self.default_lang} to {new_lang}.")
             self.default_lang = new_lang
-            self.main_frame.bot_managing_frame.reset_table()
-            self.main_frame.bot_managing_frame.add_saved_bots()
+            self.write_in_console(f"Language modification: {prev_lang} to {new_lang}.")
+            self.main_frame.bot_managing_frame.language_change()
 
     def _create_about_us(self):
         file = tk.Menu(self, **MENU_STYLE)
@@ -209,7 +209,7 @@ class DefaultFrame(tk.Frame):
 class ConsoleFrame(tk.Frame):
     def __init__(self, master: WikiApp):
         tk.Frame.__init__(self, master)
-
+        self.wiki_app = master
         title_label = tk.Label(
             self, text="Console", font=("Helvetica", 14, "bold"), background="lightgray"
         )
@@ -229,6 +229,7 @@ class ConsoleFrame(tk.Frame):
         time = datetime.now().strftime("%H:%M")
         self.console_text.insert(tk.END, f"{time}: {text}\n")
         self.console_text.see(tk.END)
+        print(self.wiki_app.metin2wiki.bot)
 
 
 class BotManagingFrame(tk.Frame, WikiAppMixin):
@@ -261,7 +262,9 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
                 f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing."
             )
         else:
-            self.write_in_console("No saved bot. To add a new bot: Settings > Bot managing")
+            self.write_in_console(
+                "No saved bot. To add a new bot: Settings > Bot managing"
+            )
 
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
@@ -348,22 +351,28 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
         )
         check_button.grid(row=2, columnspan=2, sticky="nsew", padx=5, pady=5)
 
-    def _handle_default_bot(self):
+    def _handle_default_bot(self, lang_is_changed=False):
         new_default_bot_name = self.bot_var.get()
 
-        if self.default_bot_name == new_default_bot_name:
+        if self.default_bot_name == new_default_bot_name and not lang_is_changed:
             return
 
         self.default_bot_name = new_default_bot_name
-        self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
         self.bot_management.change_default_bot(new_default_bot_name)
+
+        if new_default_bot_name:
+            self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
+        else:
+            self.write_in_console("No default bot.")
 
     def _check_login(self, entry_name: tk.Entry, entry_password: tk.Entry):
         bot_name = entry_name.get()
         bot_password = entry_password.get()
 
         if not (bot_name and bot_password):
-            self.write_in_console(f"Please enter a bot name and a bot password before checking.")
+            self.write_in_console(
+                f"Please enter a bot name and a bot password before checking."
+            )
             return
 
         new_bot = Bot(name=bot_name, password=bot_password)
@@ -372,7 +381,9 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
             self.write_in_console(f"The bot {bot_name} is already added.")
             return
 
-        self.write_in_console(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
+        self.write_in_console(
+            f"Trying connexion to Metin2Wiki with the bot {bot_name}..."
+        )
 
         self.wiki_app.metin2wiki.set_bot(bot=new_bot)
         try:
@@ -380,9 +391,15 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
         except ConnectionError as err:
             self.write_in_console(err)
         else:
-            self.write_in_console(f"Sucess! The bot {bot_name} is now saved.")
             self.bot_management.save_new_bot(new_bot=new_bot)
             self._add_new_bot(new_bot=new_bot)
+            self.write_in_console(f"Sucess! The bot {bot_name} is now saved.")
+
+    def language_change(self):
+        self.reset_table()
+        self.add_saved_bots()
+        self.bot_var.set(self.bot_management.set_default_bot())
+        self._handle_default_bot(True)
 
 
 class ShortPagesFrame(tk.Frame, WikiAppMixin):
@@ -398,15 +415,6 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
         title_label.pack(pady=10)
 
         self._create_table()
-
-        # button = tk.Button(
-        #     self,
-        #     text="Delete",
-        #     **BUTTON_STYLE,
-        #     **BUTTON_ADD_STYLE,
-        #     command=self._delete_short_pages,
-        # )
-        # button.pack(fill=tk.BOTH)
 
     def _create_table(self):
         for page in self.short_pages:
@@ -439,11 +447,13 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
         try:
             page.delete("Page without any content")
         except Exception:
-            self.write_in_console(f"An error occurs. The page {page.title} cannot be deleted.")
+            self.write_in_console(
+                f"An error occurs. The page {page.title} cannot be deleted."
+            )
         else:
-            self.write_in_console(f"The page {page.title} was successfully deleted")
             page_frame.destroy()
             self.short_pages.remove(page)
+            self.write_in_console(f"The page {page.title} was successfully deleted")
 
     def _delete_all_pages(self):
         self.write_in_console("Delete all button isn't implemented yet.")

@@ -65,11 +65,14 @@ class BotManagement:
         return ""
 
     def change_default_bot(self, bot_name: str):
+        if not bot_name:
+            self.metin2wiki.set_bot(None)
+            return
         for bot in self:
             bot.default = 0
             if bot.name == bot_name:
-                self.metin2wiki.set_bot(bot)
                 bot.default = 1
+                self.metin2wiki.set_bot(bot)
         self.save()
 
     def _get_data(self) -> list:
@@ -107,18 +110,20 @@ class MediaWiki:
     def __init__(
         self,
         api_url: str,
-        bot: Bot,
+        bot: Bot = None,
     ):
         self.api_url = api_url
         self.bot = bot
         self.csrf_token = None
         self.session = self._new_session()
+        self.logged = False
 
-    def set_bot(self, bot: Bot):
+    def set_bot(self, bot: Bot | None = None):
         self.bot = bot
         self.csrf_token = None
         self.session.close()
         self.session = self._new_session()
+        self.logged = False
 
     def _new_session(self):
         return requests.session()
@@ -161,11 +166,17 @@ class MediaWiki:
                 "type": "login",
                 "format": "json",
             }
-
+            
             request_result = self.wiki_request(query_params)
 
             return request_result["query"]["tokens"]["logintoken"]
-
+        
+        if self.logged:
+            return
+                
+        if self.bot is None:
+            raise ValueError("Add a bot before login.")
+        
         query_params = {
             "action": "login",
             "lgname": self.bot.name,
@@ -175,9 +186,12 @@ class MediaWiki:
         }
 
         result = self.wiki_post(query_params)
+        login_result = result["login"]["result"]
 
-        if result["login"]["result"] == "Failed":
+        if login_result == "Failed":
             raise ConnectionError(result["login"]["reason"])
+        elif login_result == "Success":
+            self.logged = True
 
     def get_csrf_token(self) -> str:
         query_params = {
