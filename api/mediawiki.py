@@ -112,6 +112,7 @@ class MediaWiki:
         self.api_url = api_url
         self.bot = bot
         self.csrf_token = None
+        self.logged = False
         self.session = self._new_session()
 
     def set_bot(self, bot: Bot):
@@ -154,6 +155,10 @@ class MediaWiki:
         return self.session.post(self.api_url, data=query_params).json()
 
     def login(self):
+
+        if self.logged:
+            return 
+        
         def get_login_token():
             query_params = {
                 "action": "query",
@@ -178,6 +183,8 @@ class MediaWiki:
 
         if result["login"]["result"] == "Failed":
             raise ConnectionError(result["login"]["reason"])
+        else:
+            self.logged = True
 
     def get_csrf_token(self) -> str:
         query_params = {

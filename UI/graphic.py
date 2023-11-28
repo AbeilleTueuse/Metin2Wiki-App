@@ -65,8 +65,11 @@ class WikiApp(tk.Tk):
         self.iconbitmap(config.FAVIVON_PATH)
 
         self.defaultFont = font.nametofont("TkDefaultFont") 
-        self.defaultFont.configure(size=12) 
+        self.defaultFont.configure(size=12)
 
+        self.create_frames()
+
+    def create_frames(self):
         self.settings = Settings()
         self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
 
@@ -78,6 +81,10 @@ class WikiApp(tk.Tk):
 
         self.menu_bar = MenuBar(self, self.main_frame)
         self.config(menu=self.menu_bar)
+
+    def delete_frames(self):
+        for child in self.winfo_children():
+            child.destroy()
 
     def change_settings(self, key, value):
         self.settings[key] = value
@@ -110,7 +117,6 @@ class MainFrame(tk.Frame):
         self.current_frame = self.default_frame
 
         self.bot_managing_frame = BotManagingFrame(self, master)
-
         self.short_pages_frame = ShortPagesFrame(self, master)
 
 
@@ -181,11 +187,8 @@ class MenuBar(tk.Menu, WikiAppMixin):
         new_lang = self.language_var.get()
         if new_lang != self.default_lang:
             self.wiki_app.change_settings("lang", new_lang)
-            self.metin2wiki.change_lang(new_lang)
-            self.write_in_console(f"Language modification: {self.default_lang} to {new_lang}.")
-            self.default_lang = new_lang
-            self.main_frame.bot_managing_frame.reset_table()
-            self.main_frame.bot_managing_frame.add_saved_bots()
+            self.wiki_app.delete_frames()
+            self.wiki_app.create_frames()
 
     def _create_about_us(self):
         file = tk.Menu(self, **MENU_STYLE)
