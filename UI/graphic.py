@@ -1,8 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, font
-from tkinter.simpledialog import askstring
 from tkinter.messagebox import showinfo
-import tkinter.filedialog as fd
 import customtkinter as ctk
 from datetime import datetime
 
@@ -42,8 +39,8 @@ class WikiApp(ctk.CTk):
         self.geometry(DIMENSION)
         self.iconbitmap(config.FAVIVON_PATH)
 
-        self.defaultFont = font.nametofont("TkDefaultFont")
-        self.defaultFont.configure(size=12)
+        # self.defaultFont = font.nametofont("TkDefaultFont")
+        # self.defaultFont.configure(size=12)
 
         self.grid_rowconfigure(0, weight=5, minsize=200)
         self.grid_rowconfigure(1, weight=1)
@@ -72,7 +69,8 @@ class WikiApp(ctk.CTk):
         self.settings[key] = value
         self.settings.save_settings()
 
-    def _switch_frame(self, frame: tk.Frame):
+    def _switch_frame(self, frame: ctk.CTkScrollableFrame):
+        self.main_frame.current_frame.grid_forget()
         frame.grid(row=0, column=0, sticky="nswe")
         self.main_frame.current_frame = frame
         self.console_frame.write(f"Switching to {frame.NAME.lower()}.")
@@ -102,7 +100,6 @@ class MainFrame(ctk.CTkFrame):
 
         self.bot_managing_frame = BotManagingFrame(self, master)
         self.short_pages_frame = ShortPagesFrame(self, master)
-        self.get_pages_frame = GetPagesFrame(self, master)
         self.empty_images_frame = EmptyImagesFrame(self, master)
 
 
@@ -113,7 +110,7 @@ class MenuBar(tk.Menu, WikiAppMixin):
 
         self.main_frame = main_frame
         self.default_lang = master.settings["lang"]
-        self.language_var = tk.StringVar()
+        self.language_var = ctk.StringVar()
         self.language_var.set(self.default_lang)
         self.write_in_console(
             f"Default language: {self.default_lang}. Can be changed in Settings > Wiki language."
@@ -144,12 +141,6 @@ class MenuBar(tk.Menu, WikiAppMixin):
             label="Short pages",
             command=lambda: self.wiki_app._switch_frame(
                 self.wiki_app.main_frame.short_pages_frame
-            ),
-        )
-        menu.add_command(
-            label="Get pages",
-            command=lambda: self.wiki_app._switch_frame(
-                self.wiki_app.main_frame.get_pages_frame
             ),
         )
         menu.add_command(
@@ -209,22 +200,18 @@ class DefaultFrame(ctk.CTkScrollableFrame):
         self.label.pack(pady=10)
 
 
-class ConsoleFrame(tk.Frame):
+class ConsoleFrame(ctk.CTkFrame):
     def __init__(self, master: WikiApp):
-        tk.Frame.__init__(self, master)
+        ctk.CTkFrame.__init__(self, master)
 
-        title_label = tk.Label(
-            self, text="Console", font=("Helvetica", 14, "bold"), background="lightgray"
+        title_label = ctk.CTkLabel(
+            self, text="Console"
         )
         title_label.pack(fill=tk.BOTH)
 
-        self.console_text = tk.Text(
+        self.console_text = ctk.CTkTextbox(
             self,
             wrap="word",
-            font=("Courier", 12),
-            background="black",
-            foreground="white",
-            height=10,
         )
         self.console_text.pack(fill=tk.BOTH, expand=True)
 
@@ -251,7 +238,7 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
         WikiAppMixin.__init__(self, wiki_app)
 
         self.default_bot_name = self.metin2wiki.set_default_bot()
-        self.bot_var = tk.StringVar()
+        self.bot_var = ctk.StringVar()
         self.bot_var.set(self.default_bot_name)
         self._initial_message()
         self._table_initialisation()
@@ -274,7 +261,7 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
             self.columnconfigure(index, weight=1)
-            label = tk.Label(self, text=name, **HEADER_LABEL_STYLE)
+            label = ctk.CTkLabel(self, text=name)
             label.grid(row=0, column=index, sticky="nsew")
 
     def reset_table(self):
@@ -297,13 +284,13 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
         )
 
     def _add_bot(self, bot: Bot, index: int):
-        label_name = tk.Label(self, text=bot.name)
+        label_name = ctk.CTkLabel(self, text=bot.name)
         label_name.grid(row=index, column=0, sticky="nsew")
-        label_password = tk.Label(self, text=bot.password)
+        label_password = ctk.CTkLabel(self, text=bot.password)
         label_password.grid(row=index, column=1, sticky="nsew")
-        label_validation = tk.Label(self, text="✔️", fg="green")
+        label_validation = ctk.CTkLabel(self, text="✔️")
         label_validation.grid(row=index, column=2, sticky="nsew")
-        button_use = tk.Radiobutton(
+        button_use = ctk.CTkRadioButton(
             self,
             value=bot.name,
             variable=self.bot_var,
@@ -332,19 +319,19 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
         self.add_saved_bots()
 
     def _new_bot_window(self):
-        new_bot_window = tk.Toplevel(self.master, padx=10, pady=10)
+        new_bot_window = ctk.CTkToplevel(self.master)
         new_bot_window.title("Add new bot")
 
-        label_name = tk.Label(new_bot_window, text="Bot name:")
+        label_name = ctk.CTkLabel(new_bot_window, text="Bot name:")
         label_name.grid(row=0, column=0, sticky="e")
-
-        entry_name = tk.Entry(new_bot_window)
+        
+        entry_name = ctk.CTkEntry(new_bot_window)
         entry_name.grid(row=0, column=1)
 
-        label_password = tk.Label(new_bot_window, text="Bot password:")
+        label_password = ctk.CTkLabel(new_bot_window, text="Bot password:")
         label_password.grid(row=1, column=0, sticky="e")
 
-        entry_password = tk.Entry(new_bot_window)
+        entry_password = ctk.CTkEntry(new_bot_window)
         entry_password.grid(row=1, column=1)
 
         check_button = ctk.CTkButton(
@@ -369,7 +356,7 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
             self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
             self.metin2wiki.change_default_bot(new_default_bot_name)
 
-    def _check_login(self, entry_name: tk.Entry, entry_password: tk.Entry):
+    def _check_login(self, entry_name: ctk.CTkEntry, entry_password: ctk.CTkEntry):
         bot_name = entry_name.get()
         bot_password = entry_password.get()
 
@@ -403,31 +390,26 @@ class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
             self._handle_default_bot()
 
 
-class ShortPagesFrame(tk.Frame, WikiAppMixin):
+class ShortPagesFrame(ctk.CTkScrollableFrame, WikiAppMixin):
     NAME = "Short pages tool"
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
-        tk.Frame.__init__(self, master, padx=10, pady=10)
+        ctk.CTkScrollableFrame.__init__(self, master)
         WikiAppMixin.__init__(self, wiki_app)
 
-        self.short_pages = self.metin2wiki.short_pages()
-
-        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
+        title_label = ctk.CTkLabel(self, text=self.NAME)
         title_label.pack(pady=10)
 
-        self._create_table()
+        self._add_search_button()
 
-        # button = ctk.CTkButton(
-        #     self,
-        #     text="Delete",
-        #     command=self._delete_short_pages,
-        # )
-        # button.pack(fill=tk.BOTH)
+    def _add_search_button(self):
+        button = ctk.CTkButton(self, text="Search empty pages", command=self._run_tool)
+        button.pack(fill=tk.X)
 
-    def _create_table(self):
-        for page in self.short_pages:
-            page_frame = tk.Frame(self)
-            page_title = tk.Text(page_frame, height=1, width=20, wrap=tk.WORD)
+    def _create_table(self, short_pages):
+        for page in short_pages:
+            page_frame = ctk.CTkFrame(self)
+            page_title = ctk.CTkTextbox(page_frame, height=1, width=20, wrap=tk.WORD)
             page_title.insert(tk.INSERT, page.title)
             page_title.configure(state="disabled")
             page_title.grid(row=0, column=0, sticky="we")
@@ -449,7 +431,15 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
         )
         delete_all_button.pack(fill=tk.BOTH, pady=10)
 
-    def _delete_page(self, page_frame: tk.Frame, page):
+    def _run_tool(self):
+        self.write_in_console("Run tool...")
+        self.wiki_app.metin2wiki.login()
+        short_pages = self.metin2wiki.short_pages()
+        self.write_in_console(f"{len(short_pages)} short page(s) found.")
+        self._create_table(short_pages)
+
+
+    def _delete_page(self, page_frame: ctk.CTkFrame, page):
         try:
             page.delete("Page without any content")
         except PermissionError:
@@ -463,19 +453,6 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
 
     def _delete_all_pages(self):
         self.write_in_console("Delete all button isn't implemented yet.")
-        for page in self.short_pages:
-            pass
-
-
-class GetPagesFrame(tk.Frame, WikiAppMixin):
-    NAME = "Get pages tool"
-
-    def __init__(self, master: MainFrame, wiki_app: WikiApp):
-        tk.Frame.__init__(self, master, padx=10, pady=10)
-        WikiAppMixin.__init__(self, wiki_app)
-
-        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
-        title_label.pack(pady=10)
 
 
 class EmptyImagesFrame(ctk.CTkScrollableFrame, WikiAppMixin):
@@ -485,7 +462,7 @@ class EmptyImagesFrame(ctk.CTkScrollableFrame, WikiAppMixin):
         ctk.CTkScrollableFrame.__init__(self, master)
         WikiAppMixin.__init__(self, wiki_app)
 
-        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
+        title_label = ctk.CTkLabel(self, text=self.NAME, font=("Helvetica", 16, "bold"))
         title_label.pack(pady=10)
         self._add_search_button()
 
@@ -506,12 +483,12 @@ class EmptyImagesFrame(ctk.CTkScrollableFrame, WikiAppMixin):
         self._create_table(empty_pages)
 
 
-class PageFrame(tk.Frame, WikiAppMixin):
+class PageFrame(ctk.CTkFrame, WikiAppMixin):
     def __init__(self, page, master, wiki_app: WikiApp):
-        tk.Frame.__init__(self, master, padx=10, pady=10)
+        ctk.CTkFrame.__init__(self, master, padx=10, pady=10)
         WikiAppMixin.__init__(self, wiki_app)
-
-        page_title = tk.Text(self, height=1, width=20, wrap=tk.WORD)
+        
+        page_title = ctk.CTkTextbox(self, height=1, width=20, wrap=tk.WORD)
         page_title.insert(tk.INSERT, page.title)
         page_title.configure(state="disabled")
         page_title.grid(row=0, column=0, sticky="we")
