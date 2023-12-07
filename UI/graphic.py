@@ -1,23 +1,18 @@
-# %%
 import tkinter as tk
 from tkinter import ttk, font
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showinfo
 import tkinter.filedialog as fd
+import customtkinter as ctk
 from datetime import datetime
 
 from config import config
 from UI.settings import Settings
 from api.metin2wiki import Metin2Wiki
-from api.mediawiki import BotManagement, Bot
+from api.mediawiki import Bot
 
-BUTTON_STYLE = {"padx": 10, "pady": 5, "activebackground": "darkorange"}
-BUTTON_ADD_STYLE = {
-    "background": "#4CAF50",
-    "foreground": "white",
-    "font": ("Helvetica", 12, "bold"),
-    "relief": tk.RAISED,
-}
+ctk.set_appearance_mode("dark")
+
 MENU_STYLE = {
     "tearoff": 0,
     "background": "gray90",
@@ -38,25 +33,8 @@ YEAR = 2023
 CREATOR = "ArcMeurtrier/Ankhseram"
 DIMENSION = "800x600"
 
-ALL_LANG = [
-    "ae",
-    "cz",
-    "de",
-    "en",
-    "es",
-    "fr",
-    "gr",
-    "hu",
-    "it",
-    "nl",
-    "pl",
-    "pt",
-    "ro",
-    "tr",
-]
 
-
-class WikiApp(tk.Tk):
+class WikiApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
@@ -64,8 +42,12 @@ class WikiApp(tk.Tk):
         self.geometry(DIMENSION)
         self.iconbitmap(config.FAVIVON_PATH)
 
-        self.defaultFont = font.nametofont("TkDefaultFont") 
+        self.defaultFont = font.nametofont("TkDefaultFont")
         self.defaultFont.configure(size=12)
+
+        self.grid_rowconfigure(0, weight=5, minsize=200)
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
         self.create_frames()
 
@@ -74,10 +56,10 @@ class WikiApp(tk.Tk):
         self.metin2wiki = Metin2Wiki(lang=self.settings["lang"])
 
         self.console_frame = ConsoleFrame(self)
-        self.console_frame.pack(side=tk.BOTTOM, fill=tk.X, expand=False)
+        self.console_frame.grid(row=1, column=0, sticky="nswe")
 
         self.main_frame = MainFrame(self)
-        self.main_frame.pack(fill=tk.BOTH)
+        self.main_frame.grid(row=0, column=0, sticky="nswe")
 
         self.menu_bar = MenuBar(self, self.main_frame)
         self.config(menu=self.menu_bar)
@@ -91,8 +73,7 @@ class WikiApp(tk.Tk):
         self.settings.save_settings()
 
     def _switch_frame(self, frame: tk.Frame):
-        self.main_frame.current_frame.pack_forget()
-        frame.pack(fill=tk.BOTH)
+        frame.grid(row=0, column=0, sticky="nswe")
         self.main_frame.current_frame = frame
         self.console_frame.write(f"Switching to {frame.NAME.lower()}.")
 
@@ -103,21 +84,26 @@ class WikiAppMixin:
         self.console_frame = wiki_app.console_frame
         self.metin2wiki = wiki_app.metin2wiki
 
-    def write_in_console(self, text):
-        self.console_frame.write(text)
+    def write_in_console(self, *text):
+        self.console_frame.write(*text)
 
 
-class MainFrame(tk.Frame):
+class MainFrame(ctk.CTkFrame):
     def __init__(self, master: WikiApp):
-        tk.Frame.__init__(self, master)
+        ctk.CTkFrame.__init__(self, master)
+
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
         self.default_frame = DefaultFrame(self)
-        self.default_frame.pack(fill=tk.BOTH)
+        self.default_frame.grid(row=0, column=0, sticky="nswe")
 
         self.current_frame = self.default_frame
 
         self.bot_managing_frame = BotManagingFrame(self, master)
         self.short_pages_frame = ShortPagesFrame(self, master)
+        self.get_pages_frame = GetPagesFrame(self, master)
+        self.empty_images_frame = EmptyImagesFrame(self, master)
 
 
 class MenuBar(tk.Menu, WikiAppMixin):
@@ -139,7 +125,7 @@ class MenuBar(tk.Menu, WikiAppMixin):
         self._create_about_us()
 
     def _create_menu(self, menu_name):
-        menu_button = tk.Menubutton(self, text=menu_name, **BUTTON_STYLE)
+        menu_button = tk.Menubutton(self, text=menu_name)
         menu_button.pack(side=tk.LEFT)
 
         menu = tk.Menu(menu_button, **MENU_STYLE)
@@ -160,13 +146,25 @@ class MenuBar(tk.Menu, WikiAppMixin):
                 self.wiki_app.main_frame.short_pages_frame
             ),
         )
+        menu.add_command(
+            label="Get pages",
+            command=lambda: self.wiki_app._switch_frame(
+                self.wiki_app.main_frame.get_pages_frame
+            ),
+        )
+        menu.add_command(
+            label="Empty images",
+            command=lambda: self.wiki_app._switch_frame(
+                self.wiki_app.main_frame.empty_images_frame
+            ),
+        )
         self.add_cascade(label="Tools", menu=menu)
 
     def _create_settings(self):
         menu = tk.Menu(self, **MENU_STYLE)
         lang_menu = tk.Menu(menu, **MENU_STYLE)
 
-        for lang in ALL_LANG:
+        for lang in self.metin2wiki.ALL_LANG:
             lang_menu.add_radiobutton(
                 label=lang,
                 value=lang,
@@ -186,6 +184,8 @@ class MenuBar(tk.Menu, WikiAppMixin):
     def _on_language_change(self):
         new_lang = self.language_var.get()
         if new_lang != self.default_lang:
+            self.wiki_app.metin2wiki.logout()
+            self.wiki_app.metin2wiki.session.close()
             self.wiki_app.change_settings("lang", new_lang)
             self.wiki_app.delete_frames()
             self.wiki_app.create_frames()
@@ -202,10 +202,10 @@ class MenuBar(tk.Menu, WikiAppMixin):
         )
 
 
-class DefaultFrame(tk.Frame):
+class DefaultFrame(ctk.CTkScrollableFrame):
     def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        self.label = tk.Label(self, text="Default frame")
+        ctk.CTkScrollableFrame.__init__(self, master)
+        self.label = ctk.CTkLabel(self, text="Default frame")
         self.label.pack(pady=10)
 
 
@@ -228,13 +228,14 @@ class ConsoleFrame(tk.Frame):
         )
         self.console_text.pack(fill=tk.BOTH, expand=True)
 
-    def write(self, text):
-        time = datetime.now().strftime("%H:%M")
-        self.console_text.insert(tk.END, f"{time}: {text}\n")
-        self.console_text.see(tk.END)
+    def write(self, *text):
+        for msg in text:
+            time = datetime.now().strftime("%H:%M")
+            self.console_text.insert(tk.END, f"{time}: {msg}\n")
+            self.console_text.see(tk.END)
 
 
-class BotManagingFrame(tk.Frame, WikiAppMixin):
+class BotManagingFrame(ctk.CTkScrollableFrame, WikiAppMixin):
     NAME = "Bot managing"
     TABLE_COLUMNS = [
         "Bot name",
@@ -246,11 +247,10 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
     ]
 
     def __init__(self, master: MainFrame, wiki_app: WikiApp):
-        tk.Frame.__init__(self, master)
+        ctk.CTkScrollableFrame.__init__(self, master)
         WikiAppMixin.__init__(self, wiki_app)
 
-        self.bot_management = BotManagement(metin2wiki=self.metin2wiki)
-        self.default_bot_name = self.bot_management.set_default_bot()
+        self.default_bot_name = self.metin2wiki.set_default_bot()
         self.bot_var = tk.StringVar()
         self.bot_var.set(self.default_bot_name)
         self._initial_message()
@@ -258,13 +258,18 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
         self.add_saved_bots()
 
     def _initial_message(self):
-        number_of_bots = len(self.bot_management)
+        number_of_bots = self.metin2wiki.get_number_of_bots()
         if number_of_bots:
-            self.write_in_console(
-                f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing."
-            )
+            if self.default_bot_name is None:
+                message = f"{number_of_bots} bot(s) are saved. No default bot is selected. Can be changed in Settings > Bot managing."
+            else:
+                message = f"{number_of_bots} bot(s) are saved. Default bot is: {self.default_bot_name}. Can be changed in Settings > Bot managing."
+
+            self.write_in_console(message)
         else:
-            self.write_in_console("No saved bot. To add a new bot: Settings > Bot managing")
+            self.write_in_console(
+                "No saved bot. To add a new bot: Settings > Bot managing"
+            )
 
     def _table_initialisation(self):
         for index, name in enumerate(self.TABLE_COLUMNS):
@@ -278,15 +283,13 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
 
     def add_saved_bots(self):
         index = 0
-        for index, bot in enumerate(self.bot_management):
+        for index, bot in enumerate(self.metin2wiki.bot_management):
             index += 1
             self._add_bot(bot, index)
 
-        self.add_bot_button = tk.Button(
+        self.add_bot_button = ctk.CTkButton(
             self,
             text="Add new bot",
-            **BUTTON_STYLE,
-            **BUTTON_ADD_STYLE,
             command=self._new_bot_window,
         )
         self.add_bot_button.grid(
@@ -307,8 +310,8 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
             command=self._handle_default_bot,
         )
         button_use.grid(row=index, column=4, sticky="nsew")
-        button_delete = tk.Button(
-            self, text="🗑️", fg="red", command=lambda: self._delete_bot(bot)
+        button_delete = ctk.CTkButton(
+            self, text="🗑️", command=lambda: self._delete_bot(bot)
         )
         button_delete.grid(row=index, column=5, sticky="nsew")
 
@@ -316,15 +319,17 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
         index = self.add_bot_button.grid_info()["row"]
         self._add_bot(new_bot, index)
         self.add_bot_button.grid(row=index + 1)
-        if index == 1:
-            self.bot_var.set(new_bot.name)
-            self._handle_default_bot()
 
     def _delete_bot(self, bot: Bot):
-        self.bot_management.delete(bot)
+        self.metin2wiki.bot_management.delete(bot)
+        self.write_in_console(f"The bot {bot.name} was deleted.")
+
+        if bot.name == self.default_bot_name:
+            self.bot_var.set(None)
+            self._handle_default_bot()
+
         self.reset_table()
         self.add_saved_bots()
-        self.write_in_console(f"The bot {bot.name} was deleted.")
 
     def _new_bot_window(self):
         new_bot_window = tk.Toplevel(self.master, padx=10, pady=10)
@@ -342,11 +347,9 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
         entry_password = tk.Entry(new_bot_window)
         entry_password.grid(row=1, column=1)
 
-        check_button = tk.Button(
+        check_button = ctk.CTkButton(
             new_bot_window,
             text="Check login",
-            **BUTTON_STYLE,
-            **BUTTON_ADD_STYLE,
             command=lambda: self._check_login(entry_name, entry_password),
         )
         check_button.grid(row=2, columnspan=2, sticky="nsew", padx=5, pady=5)
@@ -358,25 +361,35 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
             return
 
         self.default_bot_name = new_default_bot_name
-        self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
-        self.bot_management.change_default_bot(new_default_bot_name)
+
+        if new_default_bot_name == "None":
+            self.metin2wiki.delete_bot()
+            self.write_in_console(f"No default bot is selected.")
+        else:
+            self.write_in_console(f"Default bot is now set to {new_default_bot_name}.")
+            self.metin2wiki.change_default_bot(new_default_bot_name)
 
     def _check_login(self, entry_name: tk.Entry, entry_password: tk.Entry):
         bot_name = entry_name.get()
         bot_password = entry_password.get()
 
         if not (bot_name and bot_password):
-            self.write_in_console(f"Please enter a bot name and a bot password before checking.")
+            self.write_in_console(
+                f"Please enter a bot name and a bot password before checking."
+            )
             return
 
         new_bot = Bot(name=bot_name, password=bot_password)
 
-        if self.bot_management.has(new_bot):
+        if self.metin2wiki.bot_management.has(new_bot):
             self.write_in_console(f"The bot {bot_name} is already added.")
             return
 
-        self.write_in_console(f"Trying connexion to Metin2Wiki with the bot {bot_name}...")
+        self.write_in_console(
+            f"Trying connexion to Metin2Wiki with the bot {bot_name}..."
+        )
 
+        self.wiki_app.metin2wiki.logout()
         self.wiki_app.metin2wiki.set_bot(bot=new_bot)
         try:
             self.wiki_app.metin2wiki.login()
@@ -384,8 +397,10 @@ class BotManagingFrame(tk.Frame, WikiAppMixin):
             self.write_in_console(err)
         else:
             self.write_in_console(f"Sucess! The bot {bot_name} is now saved.")
-            self.bot_management.save_new_bot(new_bot=new_bot)
+            self.metin2wiki.bot_management.save_new_bot(new_bot=new_bot)
             self._add_new_bot(new_bot=new_bot)
+            self.bot_var.set(new_bot.name)
+            self._handle_default_bot()
 
 
 class ShortPagesFrame(tk.Frame, WikiAppMixin):
@@ -402,11 +417,9 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
 
         self._create_table()
 
-        # button = tk.Button(
+        # button = ctk.CTkButton(
         #     self,
         #     text="Delete",
-        #     **BUTTON_STYLE,
-        #     **BUTTON_ADD_STYLE,
         #     command=self._delete_short_pages,
         # )
         # button.pack(fill=tk.BOTH)
@@ -419,7 +432,7 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
             page_title.configure(state="disabled")
             page_title.grid(row=0, column=0, sticky="we")
 
-            delete_button = ttk.Button(
+            delete_button = ctk.CTkButton(
                 page_frame,
                 text="Delete 🗑️",
                 command=lambda: self._delete_page(page_frame, page),
@@ -429,22 +442,22 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
             page_frame.columnconfigure(1, weight=1)
             page_frame.pack(fill=tk.X)
 
-        delete_all_button = tk.Button(
+        delete_all_button = ctk.CTkButton(
             self,
             text="Delete all",
-            **BUTTON_ADD_STYLE,
             command=self._delete_all_pages,
         )
         delete_all_button.pack(fill=tk.BOTH, pady=10)
 
     def _delete_page(self, page_frame: tk.Frame, page):
-        self.metin2wiki.login()
         try:
             page.delete("Page without any content")
-        except Exception:
-            self.write_in_console(f"An error occurs. The page {page.title} cannot be deleted.")
+        except PermissionError:
+            self.write_in_console(
+                f"You don't have the permission to delete the page {page.title}."
+            )
         else:
-            self.write_in_console(f"The page {page.title} was successfully deleted")
+            self.write_in_console(f"The page {page.title} was successfully deleted.")
             page_frame.destroy()
             self.short_pages.remove(page)
 
@@ -452,3 +465,53 @@ class ShortPagesFrame(tk.Frame, WikiAppMixin):
         self.write_in_console("Delete all button isn't implemented yet.")
         for page in self.short_pages:
             pass
+
+
+class GetPagesFrame(tk.Frame, WikiAppMixin):
+    NAME = "Get pages tool"
+
+    def __init__(self, master: MainFrame, wiki_app: WikiApp):
+        tk.Frame.__init__(self, master, padx=10, pady=10)
+        WikiAppMixin.__init__(self, wiki_app)
+
+        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
+        title_label.pack(pady=10)
+
+
+class EmptyImagesFrame(ctk.CTkScrollableFrame, WikiAppMixin):
+    NAME = "Empty images tool"
+
+    def __init__(self, master: MainFrame, wiki_app: WikiApp):
+        ctk.CTkScrollableFrame.__init__(self, master)
+        WikiAppMixin.__init__(self, wiki_app)
+
+        title_label = tk.Label(self, text=self.NAME, font=("Helvetica", 16, "bold"))
+        title_label.pack(pady=10)
+        self._add_search_button()
+
+    def _add_search_button(self):
+        button = ctk.CTkButton(self, text="Search empty images", command=self._run_tool)
+        button.pack(fill=tk.X)
+
+    def _create_table(self, empty_pages):
+        for page in empty_pages:
+            page_frame = PageFrame(page, self, self.wiki_app)
+            page_frame.pack(fill=tk.X)
+
+    def _run_tool(self):
+        self.write_in_console("Run tool...")
+        self.wiki_app.metin2wiki.login()
+        empty_pages = self.wiki_app.metin2wiki.empty_images()
+        self.write_in_console(f"{len(empty_pages)} empty image(s) found.")
+        self._create_table(empty_pages)
+
+
+class PageFrame(tk.Frame, WikiAppMixin):
+    def __init__(self, page, master, wiki_app: WikiApp):
+        tk.Frame.__init__(self, master, padx=10, pady=10)
+        WikiAppMixin.__init__(self, wiki_app)
+
+        page_title = tk.Text(self, height=1, width=20, wrap=tk.WORD)
+        page_title.insert(tk.INSERT, page.title)
+        page_title.configure(state="disabled")
+        page_title.grid(row=0, column=0, sticky="we")

@@ -1,6 +1,7 @@
 import os
 
 from api.metin2wiki import Metin2Wiki
+from api.mediawiki import Bot
 from models.page import MonsterPage, MetinPage, Page, Pages
 from data.read_files import MobProto, ItemProto
 from UI.graphic import WikiApp

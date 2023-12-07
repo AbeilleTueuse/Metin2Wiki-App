@@ -247,9 +247,22 @@ class Pages:
             result += request_result["query"]["pages"]
 
         return [create_page(page_data) for page_data in result]
+    
+    def filter_by(self):
+        query_params = {
+            'action': 'query',
+            'prop': 'imageinfo',
+            'format': 'json'
+        }
 
+        result: list[Page] = []
 
-if __name__ == "__main__":
-    pages = Pages(0, ["0", "1", "2"])
-    print(pages.data)
-    print(pages.data[2].pageid)
+        for pages in self.data:
+            query_params["pageids"] = "|".join(map(str, pages))
+            request_result = self.mediawiki.wiki_request(query_params)
+            images_data: dict = request_result["query"]["pages"]
+            for image in images_data.values():
+                if not image["imagerepository"]:
+                    result.append(Page(self.mediawiki, title=image["title"], pageid=image["pageid"]))
+
+        return result

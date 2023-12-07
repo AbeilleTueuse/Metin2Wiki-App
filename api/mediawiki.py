@@ -29,16 +29,15 @@ class BotEncoder(JSONEncoder):
 
 
 class BotManagement:
-    def __init__(self, metin2wiki):
+    def __init__(self, lang: str):
         self.data: dict[str, list[Bot]] = self._get_data()
-        self.metin2wiki = metin2wiki
+        self.lang = lang
 
     def save_new_bot(self, new_bot: Bot):
-        current_lang = self._current_lang()
-        if current_lang in self.data:
-            self.data[current_lang].append(new_bot)
+        if self.lang in self.data:
+            self.data[self.lang].append(new_bot)
         else:
-            self.data[current_lang] = [new_bot]
+            self.data[self.lang] = [new_bot]
         self.save()
 
     def save(self):
@@ -53,27 +52,27 @@ class BotManagement:
 
     def delete(self, bot: Bot):
         if self.has(bot):
-            current_lang = self._current_lang()
-            self.data[current_lang].remove(bot)
+            self.data[self.lang].remove(bot)
             self.save()
 
-    def set_default_bot(self):
+    def get_default_bot(self):
         for bot in self:
             if bot.default:
-                self.metin2wiki.set_bot(bot)
-                return bot.name
-        return ""
+                return bot
+        return None
 
     def change_default_bot(self, bot_name: str):
-        if not bot_name:
-            self.metin2wiki.set_bot(None)
-            return
+        default_bot = None
         for bot in self:
             bot.default = 0
             if bot.name == bot_name:
                 bot.default = 1
-                self.metin2wiki.set_bot(bot)
+                default_bot = bot
         self.save()
+        return default_bot
+
+    def change_lang(self, new_lang: str):
+        self.lang = new_lang
 
     def _get_data(self) -> list:
         try:
@@ -88,14 +87,10 @@ class BotManagement:
 
         return data
 
-    def _current_lang(self):
-        return self.metin2wiki.lang
-
     def __iter__(self):
-        current_lang = self._current_lang()
         data = []
-        if current_lang in self.data:
-            data = self.data[current_lang]
+        if self.lang in self.data:
+            data = self.data[self.lang]
         return iter(data)
 
     def __len__(self):
@@ -106,6 +101,11 @@ class MediaWiki:
     MAX_URL_LENGTH = 8213
     MAX_PARAMS = 500
     MAX_LAG = 1
+    LIST_TO_PREFIX = {
+        "categorymembers": "cm",
+        "allimages": "ai",
+        "allpages": "ap",
+    }
 
     def __init__(
         self,
@@ -115,13 +115,6 @@ class MediaWiki:
         self.api_url = api_url
         self.bot = bot
         self.csrf_token = None
-        self.session = self._new_session()
-        self.logged = False
-
-    def set_bot(self, bot: Bot | None = None):
-        self.bot = bot
-        self.csrf_token = None
-        self.session.close()
         self.session = self._new_session()
         self.logged = False
 
@@ -166,17 +159,17 @@ class MediaWiki:
                 "type": "login",
                 "format": "json",
             }
-            
+
             request_result = self.wiki_request(query_params)
 
             return request_result["query"]["tokens"]["logintoken"]
-        
+
         if self.logged:
             return
-                
+
         if self.bot is None:
             raise ValueError("Add a bot before login.")
-        
+
         query_params = {
             "action": "login",
             "lgname": self.bot.name,
@@ -193,7 +186,25 @@ class MediaWiki:
         elif login_result == "Success":
             self.logged = True
 
+    def logout(self):
+        if not self.logged:
+            return
+
+        query_params = {
+            "action": "logout",
+            "token": self.get_csrf_token(),
+            "format": "json",
+        }
+
+        result = self.wiki_post(query_params)
+
+        if not "error" in result:
+            self.logged = False
+
     def get_csrf_token(self) -> str:
+        if self.csrf_token is not None:
+            return self.csrf_token
+
         query_params = {
             "action": "query",
             "meta": "tokens",
@@ -201,14 +212,33 @@ class MediaWiki:
         }
 
         request_result = self.wiki_request(query_params)
+        csrf_token = request_result["query"]["tokens"]["csrftoken"]
+        self.csrf_token = csrf_token
 
-        return request_result["query"]["tokens"]["csrftoken"]
+        return csrf_token
 
     def page(self, title: str | None = None, pageid: int | None = None):
         return Page(self, title=title, pageid=pageid)
 
     def pages(self, data: list[int] | list[Page]):
         return Pages(self, data)
+    
+    def query_request_recursive(self, query_params, result: list):
+        request_result = self.wiki_request(query_params)
+        continue_value = request_result.get("continue", False)
+        list_value = query_params["list"]
+
+        result += request_result["query"][list_value]
+
+        if continue_value:
+            prefix = self.LIST_TO_PREFIX[list_value] + "continue"
+            query_params[prefix] = continue_value[prefix]
+            self.query_request_recursive(query_params, result)
+
+        return result
+    
+    def to_page_list(self, pages: dict):
+        return [Page(self, page["title"], page["pageid"]) for page in pages]
 
     def category(self, category: str):
         query_params = {
@@ -220,31 +250,15 @@ class MediaWiki:
             "cmtype": "page",
         }
 
-        def request(query_params, pages):
-            request_result = self.wiki_request(query_params)
+        pages = self.query_request_recursive(query_params, [])
 
-            cmcontinue = request_result.get("continue", False)
-
-            pages += request_result["query"]["categorymembers"]
-
-            if cmcontinue:
-                query_params["cmcontinue"] = cmcontinue["cmcontinue"]
-                request(query_params, pages)
-
-            return pages
-
-        pages = request(query_params, [])
-
-        return [Page(self, page["title"], page["pageid"]) for page in pages]
+        return self.to_page_list(pages)
 
     def edit(self, page: Page, summary=""):
-        if self.csrf_token is None:
-            self.csrf_token = self.get_csrf_token()
-
         query_params = {
             "action": "edit",
             "pageid": page.pageid,
-            "token": self.csrf_token,
+            "token": self.get_csrf_token(),
             "format": "json",
             "bot": "true",
             "minor": "true",
@@ -265,13 +279,12 @@ class MediaWiki:
         if len(page.backlinks) != 0:
             print(f"Page {page.title} has {len(page.backlinks)} backlinks.")
             return
-
-        if self.csrf_token is None:
-            self.csrf_token = self.get_csrf_token()
+        
+        self.login()
 
         query_params = {
             "action": "delete",
-            "token": self.csrf_token,
+            "token": self.get_csrf_token(),
             "format": "json",
             "reason": reason,
         }
@@ -287,7 +300,7 @@ class MediaWiki:
 
         if "error" in request_result:
             if request_result["error"]["code"] == "permissiondenied":
-                print(request_result["error"]["info"])
+                raise PermissionError(request_result["error"]["info"])
 
         else:
             print(f"{page.title} deleted.")
@@ -305,4 +318,21 @@ class MediaWiki:
 
         pages = request_result["query"]["allpages"]
 
-        return [Page(self, page["title"], page["pageid"]) for page in pages]
+        return self.to_page_list(pages)
+    
+    def all_images(self):
+        query_params = {
+            "action": "query",
+            "list": "allpages",
+            "apnamespace": 6,
+            "aplimit": "max",
+            "format": "json",
+        }
+
+        pages = self.query_request_recursive(query_params, [])
+        return self.to_page_list(pages)
+    
+    def empty_images(self):
+        pages = self.pages(self.all_images())
+        pages = pages.filter_by()
+        return pages
