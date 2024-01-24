@@ -1,83 +1,34 @@
-from typing import Any, Literal
+from typing import Union, Literal
 import mwparserfromhell
+from mwparserfromhell.wikicode import Wikicode
+from mwparserfromhell.nodes.template import Template
+from mwparserfromhell.nodes.extras.parameter import Parameter
+from mwparserfromhell.nodes.wikilink import Wikilink
+import pandas as pd
+from unidecode import unidecode
 
 
 class Page:
     def __init__(
         self,
-        mediawiki,
-        title: str | None = None,
-        pageid: int | None = None,
-        content=None,
-        parse=False,
+        data: dict,
     ):
-        self.mediawiki = mediawiki
-        self.title = title
-        self.pageid = pageid
-        self.content = self._parse(content, parse)
+        self.title = data["title"]
+        self.pageid = data["pageid"]
+        self.content = self._content(data)
+
+    def _content(self, data):
+        if "revisions" in data:
+            return mwparserfromhell.parse(data["revisions"][0]["content"])
+        return None
 
     def __str__(self):
-        return f"(Page: [name: {self.title}, content: {self.content}])"
+        return f"(Page: [title: {self.title}])"
 
     def __eq__(self, __value):
         if self.pageid is not None and isinstance(__value, Page):
             return self.pageid == __value.pageid
         return False
-
-    def _parse(self, content, parse):
-        if content is not None:
-            if parse:
-                return mwparserfromhell.parse(content)
-            return content
-
-    @property
-    def backlinks(self):
-        query_params = {
-            "action": "query",
-            "format": "json",
-            "list": "backlinks",
-            "bllimit": "max",
-        }
-
-        if self.title is not None:
-            query_params["bltitle"] = self.title
-        else:
-            query_params["blpageid"] = self.pageid
-
-        request_result = self.mediawiki.wiki_request(query_params)
-        pages = request_result["query"]["backlinks"]
-
-        return [Page(self, page["title"], page["pageid"]) for page in pages]
-
-    def get_content(self, parse=False):
-        if self.content is not None:
-            return
-
-        query_params = {
-            "action": "query",
-            "format": "json",
-            "prop": "revisions",
-            "rvprop": "content",
-            "formatversion": "2",
-        }
-
-        if self.pageid is not None:
-            query_params["pageids"] = str(self.pageid)
-        elif self.title is not None:
-            query_params["titles"] = str(self.title)
-        else:
-            raise ValueError()
-
-        request_result = self.mediawiki.wiki_request(query_params)
-        content = request_result["query"]["pages"][0]["revisions"][0]["content"]
-
-        self.content = self._parse(content, parse)
-
-    def write(self, summary=""):
-        self.mediawiki.edit(page=self, summary=summary)
-
-    def delete(self, reason=""):
-        self.mediawiki.delete(page=self, reason=reason)
 
     def get_parameters(self, template):
         return [param.name for param in template.params]
@@ -114,38 +65,28 @@ class Page:
     def change_text(self, text_to_change, new_text):
         self.content = self.content.replace(text_to_change, new_text)
 
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+ALPHABET += ALPHABET.upper()
+BASE = len(ALPHABET)
 
+def code_to_vnum(letters: str) -> int:
+    number = 0
+
+    for i, letter in enumerate(letters):
+        value = ALPHABET.index(letter)
+        number += value * (BASE**i)
+
+    return number
+    
 class EntityPage(Page):
-    def __init__(self, page: Page, entity: Literal["Monstres", "Metin"] = "Monstre"):
-        super().__init__(
-            mediawiki=page.mediawiki,
-            title=page.title,
-            pageid=page.pageid,
-            content=page.content,
-        )
-        self.page = page
+    def __init__(self, data: dict, entity: Literal["Monstres", "Metin"] = "Monstre"):
+        super().__init__(data=data)
         self.entity = entity
-        self.template = self._check_template()
+        self.template = self.content.filter(Template)[0]
         self.vnum = self._get_vnum()
 
-    def _check_template(self):
-        if self.content is None:
-            self.get_content(parse=True)
-
-        if not isinstance(self.content, mwparserfromhell.wikicode.Wikicode):
-            self.content = self._parse(self.content, True)
-
-        template = self.content.filter_templates()[0]
-        if template.name.matches(self.entity):
-            return template
-        else:
-            raise ValueError(f"{self.page.title} doesn't have {self.entity} template.")
-
     def _get_vnum(self):
-        code = self.template.get("Code").value
-        code = str(code).strip()
-
-        return self.mediawiki.code_to_vnum(str(code))
+        return code_to_vnum(self.template.get("Code").value.strip())
 
     def get_parameters(self):
         return super().get_parameters(self.template)
@@ -205,64 +146,69 @@ class EntityPage(Page):
 
 
 class MonsterPage(EntityPage):
-    def __init__(self, page: Page):
-        super().__init__(page=page, entity="Monstres")
+    def __init__(self, data: dict):
+        super().__init__(data=data, entity="Monstres")
 
 
 class MetinPage(EntityPage):
     def __init__(self, page: Page):
         super().__init__(page=page, entity="Metin")
 
+def vnum_conversion(number: int):
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+    ALPHABET += ALPHABET.upper()
+    BASE = len(ALPHABET)
 
-class Pages:
-    def __init__(self, mediawiki, data: list[int] | list[Page]):
-        self.mediawiki = mediawiki
-        self.data = self.mediawiki._check_params(data, type_="ids")
+    if number == 0:
+        return "a"
 
-    def content(self, parse=False):
-        def create_page(page_data):
-            page = Page(
-                mediawiki=self.mediawiki,
-                title=page_data["title"],
-                pageid=page_data["pageid"],
-                content=page_data["revisions"][0]["content"],
-                parse=parse,
-            )
+    converted_number = ""
 
-            return page
+    while number > 0:
+        number, remainder = divmod(number, BASE)
+        converted_number += ALPHABET[remainder]
 
-        query_params = {
-            "action": "query",
-            "format": "json",
-            "prop": "revisions",
-            "rvprop": "content",
-            "formatversion": "2",
-        }
+    return converted_number
 
-        result = []
+def image_formatting(name: str):
+    if isinstance(name, int):
+        return name
+    if name[-2] == "+" and name[-1].isdigit():
+        name = name[:-2]
+    return "".join(letter for letter in unidecode(name.lower()) if letter.isalnum()).capitalize()
 
-        for pages in self.data:
-            query_params["pageids"] = "|".join(map(str, pages))
-            request_result = self.mediawiki.wiki_request(query_params)
-            result += request_result["query"]["pages"]
-
-        return [create_page(page_data) for page_data in result]
+def create_monster_page(vnum, mob_proto: pd.DataFrame, mob_drop: pd.DataFrame, localisation="", zone=""):
+    mob_data = mob_proto.loc[vnum]
+    template = Template(name="Monstres\n")
+    template.add(name="Code", value=vnum_conversion(vnum) + "\n")
+    template.add(name="Image", value=image_formatting(mob_data["NameFR"]))
+    parameters = ["Niveau", "Rang", "Type", "Exp", "Élément", "Dégâts", "Agressif", "Poison", "Ralentissement", "Étourdissement"]
     
-    def filter_by(self):
-        query_params = {
-            'action': 'query',
-            'prop': 'imageinfo',
-            'format': 'json'
-        }
+    for param in parameters:
+        template.add(name=param, value=mob_data[param])
 
-        result: list[Page] = []
+    template.add(name="Repousser", value="")
+    template.add(name="Localisation", value=localisation)
+    template.add(name="Zones", value=zone)
+    template.add(name="Lâche", value="")
+    if int(mob_data["PM"]):
+        template.add(name="PM", value=mob_data["PM"])
+    template.add(name="InfoSup", value="")
 
-        for pages in self.data:
-            query_params["pageids"] = "|".join(map(str, pages))
-            request_result = self.mediawiki.wiki_request(query_params)
-            images_data: dict = request_result["query"]["pages"]
-            for image in images_data.values():
-                if not image["imagerepository"]:
-                    result.append(Page(self.mediawiki, title=image["title"], pageid=image["pageid"]))
+    if vnum in mob_drop:
+        param = template.get("Lâche")
+        drop_template = Template("Drop\n")
+        drop_template.add(name="Catégorie", value="\n")
+        for index, item in enumerate(mob_drop[vnum]):
+            L_template = Template("L")
+            item_image = image_formatting(item)
+            L_template.add(name="1", value=item_image)
+            if item_image != item:
+                L_template.add(name="2", value=item)
 
-        return result
+            drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
+            param.value = "\n" + str(drop_template) + "\n"
+
+    print(template)
+    
+

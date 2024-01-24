@@ -8,6 +8,7 @@ PATHS = {
     "mob_proto_old": r"data\mob_proto_old.txt",
     "mob_template": r"data\mob_template.txt",
     "item_proto": r"data\item_proto.txt",
+    "mob_drop_item": r"data\mob_drop_item.txt",
     "result": {
         "weapons": r"data\result\weapon_data.txt",
         "monsters": r"data\result\monster_data.txt",
@@ -449,12 +450,58 @@ class ItemProto:
             print(weapon_data, file=file)
 
 
+class ItemName:
+    LOCAL_NAME = "LOCALE_NAME"
+    INDEX = "VNUM"
+
+    def __init__(self, lang="fr"):
+        self.lang = lang
+        self.data = self._read_csv()
+
+    def _read_csv(self):
+        item_names = pd.read_csv(
+            PATHS[self.lang]["item_names"],
+            index_col=self.INDEX,
+            encoding="Windows-1252",
+            sep="\t",
+        )
+
+        item_names[self.LOCAL_NAME] = item_names[self.LOCAL_NAME].str.replace(chr(160), " ")
+
+        return item_names
+
+class MobDrop:
+    SEPARATOR = "\t"
+
+    def __init__(self, item_names: pd.Series):
+        self.item_names = item_names
+        self.data = self._read_file()
+
+    def _read_file(self):
+        mob_drop: dict[int, list] = {}
+
+        with open(PATHS["mob_drop_item"], "r") as file:
+            for line in file:
+                line = line.strip().lower()
+
+                if line.startswith("mob"):
+                    mob_vnum = int(line.split(self.SEPARATOR)[1])
+                    if mob_vnum not in mob_drop:
+                        mob_drop[mob_vnum] = []
+
+                elif line and line[0].isdigit():
+                    item_vnum = int(line.split(self.SEPARATOR)[1])
+                    mob_drop[mob_vnum].append(self.vnum_to_item_name(item_vnum))
+
+        return mob_drop
+    
+    def vnum_to_item_name(self, vnum: int):
+        if vnum in self.item_names.index:
+            return self.item_names.at[vnum]
+        return vnum
+    
+
 if __name__ == "__main__":
-    # mob_proto = ItemProto(processing = 'weapon')
-
-    # mob_proto.create_wiki_weapon_data()
-
-    mob_proto = MobProto(processing="wiki_data")
-    mob_proto.create_wiki_monster_data(
-        vnums=[3960, 3961, 3962], titles=["Chien1", "Chien2", "Chien3"]
-    )
+    item_names = ItemName().data["LOCALE_NAME"]
+    mob_drop = MobDrop(item_names=item_names)
+    print(mob_drop.data)

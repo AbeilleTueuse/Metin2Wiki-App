@@ -3,7 +3,7 @@ import time
 import json
 from json import JSONEncoder
 
-from models.page import Page, Pages
+from models.page import Page, MonsterPage
 from utils.utils import data_slicing
 from config import config
 
@@ -29,7 +29,7 @@ class BotEncoder(JSONEncoder):
 
 
 class BotManagement:
-    def __init__(self, lang: str):
+    def __init__(self, lang: str = "fr"):
         self.data: dict[str, list[Bot]] = self._get_data()
         self.lang = lang
 
@@ -217,13 +217,7 @@ class MediaWiki:
 
         return csrf_token
 
-    def page(self, title: str | None = None, pageid: int | None = None):
-        return Page(self, title=title, pageid=pageid)
-
-    def pages(self, data: list[int] | list[Page]):
-        return Pages(self, data)
-    
-    def query_request_recursive(self, query_params, result: list):
+    def query_request_recursive(self, query_params, result: list) -> list[dict]:
         request_result = self.wiki_request(query_params)
         continue_value = request_result.get("continue", False)
         list_value = query_params["list"]
@@ -237,10 +231,12 @@ class MediaWiki:
 
         return result
     
-    def to_page_list(self, pages: dict):
-        return [Page(self, page["title"], page["pageid"]) for page in pages]
+    def pages(self, pages: list[dict], category: str):
+        if category == "monster":
+            return [MonsterPage(page) for page in pages]
+        return [Page(page) for page in pages]
 
-    def category(self, category: str):
+    def category(self, category: str, exclude_category: str = None):
         query_params = {
             "action": "query",
             "format": "json",
@@ -252,7 +248,11 @@ class MediaWiki:
 
         pages = self.query_request_recursive(query_params, [])
 
-        return self.to_page_list(pages)
+        if exclude_category is not None:
+            pages_to_exclude = self.category(exclude_category)
+            pages = [page for page in pages if page not in pages_to_exclude]
+
+        return pages
 
     def edit(self, page: Page, summary=""):
         query_params = {
@@ -279,7 +279,7 @@ class MediaWiki:
         if len(page.backlinks) != 0:
             print(f"Page {page.title} has {len(page.backlinks)} backlinks.")
             return
-        
+
         self.login()
 
         query_params = {
@@ -319,7 +319,7 @@ class MediaWiki:
         pages = request_result["query"]["allpages"]
 
         return self.to_page_list(pages)
-    
+
     def all_images(self):
         query_params = {
             "action": "query",
@@ -331,8 +331,47 @@ class MediaWiki:
 
         pages = self.query_request_recursive(query_params, [])
         return self.to_page_list(pages)
-    
+
     def empty_images(self):
         pages = self.pages(self.all_images())
         pages = pages.filter_by()
         return pages
+
+    def get_content(self, pages: list[dict]) -> list[dict]:
+        pages_with_content = []
+        for pages_slice in data_slicing(pages, self.MAX_PARAMS):
+                pages_with_content += self._get_content_limited(pages_slice)
+
+        return pages_with_content
+
+    def _get_content_limited(self, pages: list[dict]) -> list[dict]:
+        if len(pages) > self.MAX_PARAMS:
+            raise ValueError(f"Number of pages must be inferior to {self.MAX_PARAMS}")
+
+        query_params = {
+            "action": "query",
+            "format": "json",
+            "prop": "revisions",
+            "rvprop": "content",
+            "formatversion": "2",
+            "pageids": "|".join(str(page["pageid"]) for page in pages),
+        }
+
+        request_result = self.wiki_request(query_params)
+
+        return request_result["query"]["pages"]
+    
+    def get_image_urls(self, image_name: str):
+        query_params = {
+            "action": "query",
+            "format": "json",
+            "prop": "imageinfo",
+            "titles": image_name,
+            "iiprop": "url",
+        }
+
+        request_result = self.wiki_request(query_params)
+
+        pages_info: dict = request_result["query"]["pages"]
+
+        return pages_info

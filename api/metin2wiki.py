@@ -66,7 +66,7 @@ class Metin2Wiki(MediaWiki):
 
     def get_number_of_bots(self):
         return len(self.bot_management)
-
+    
     def vnum_conversion(self, number: int):
         if number == 0:
             return "a"
