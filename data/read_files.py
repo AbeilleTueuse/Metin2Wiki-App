@@ -1,27 +1,46 @@
-# %%
 import pandas as pd
 from typing import Literal
+import json
+
+from config.config import *
 
 
-PATHS = {
-    "mob_proto": r"data\mob_proto.txt",
-    "mob_proto_old": r"data\mob_proto_old.txt",
-    "mob_template": r"data\mob_template.txt",
-    "item_proto": r"data\item_proto.txt",
-    "result": {
-        "weapons": r"data\result\weapon_data.txt",
-        "monsters": r"data\result\monster_data.txt",
-    },
-    "fr": {
-        "item_names": r"data\fr\item_names.txt",
-        "mob_names": r"data\fr\mob_names.txt",
-    },
-    "en": {
-        "item_names": r"data\en\item_names.txt",
-        "mob_names": r"data\en\mob_names.txt",
-    },
-}
+class GameNames:
+    INDEX_NAME = "vnum"
+    SEPARATOR = "\t"
 
+    def __init__(self, lang: str):
+        self.lang = lang
+        self.encoding = self._get_encoding()
+        self.mob_names = self._get_data(MOB_NAMES_PATH)
+        self.item_names = self._get_data(ITEM_NAMES_PATH)
+
+    def _get_encoding(self) -> dict[str, str]:
+        with open(LANG_ENCODING_PATH, "r") as file:
+            return json.load(file)
+
+    def _read_csv(self, path: str, lang: str, encoding: str):
+        names = pd.read_csv(
+            filepath_or_buffer=path.format(lang=lang),
+            index_col=0,
+            usecols=[0, 1],
+            names=[self.INDEX_NAME, lang],
+            encoding=encoding,
+            sep=self.SEPARATOR,
+            skiprows=1,
+        )
+
+        return names[lang]
+
+    def _get_data(self, path: str):
+        return pd.concat(
+            (
+                self._read_csv(path, lang, encoding)
+                for lang, encoding in self.encoding.items()
+            ),
+            axis=1,
+        )
+    
 
 class MobProto:
     MAPPING = {
@@ -446,8 +465,7 @@ class ItemProto:
         )
 
         with open(PATHS["result"]["weapons"], "w") as file:
-            print(weapon_data, file=file)
-
+            print(weapon_data, file=file)    
 
 if __name__ == "__main__":
     # mob_proto = ItemProto(processing = 'weapon')
