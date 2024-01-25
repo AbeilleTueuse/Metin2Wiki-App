@@ -4,7 +4,13 @@ import json
 import polars as pl
 
 from config.config import *
-from data.proto_schema import MOB_SCHEMA
+from data.proto_info import (
+    MOB_TYPE,
+    RANK_MAPPING,
+    RACE_MAPPING,
+    TYPE_MAPPING,
+    USECOLS_CALCULATOR,
+)
 
 
 class GameNames:
@@ -41,7 +47,7 @@ class GameNames:
         )
 
         return names
-    
+
 
 class GameProto:
     VNUM = "Vnum"
@@ -50,24 +56,41 @@ class GameProto:
     ENCODING = "ISO-8859-1"
 
     def __init__(self):
-        self.mob = self._read_csv(MOB_PROTO_PATH, MOB_SCHEMA)
+        self.mob = self._read_csv(MOB_PROTO_PATH, MOB_TYPE)
         # self.item = self._read_csv(ITEM_PROTO_PATH)
 
-    def _read_csv(self, path: str, schema: dict) -> pl.DataFrame:
-        names = (
-            pl.read_csv(
-                source=path,
-                has_header=True,
-                separator=self.SEPARATOR,
-                schema=schema,
-                encoding=self.ENCODING,
-                # truncate_ragged_lines=True
-            )
-            .drop(self.NAME)
-            # .drop_nulls()
+    def _read_csv(self, path: str, dtypes: dict) -> pl.DataFrame:
+        return pl.read_csv(
+            source=path,
+            has_header=True,
+            separator=self.SEPARATOR,
+            columns=list(dtypes.keys()),
+            dtypes=dtypes,
         )
 
-        return names
+    def save_mob_data_for_calculator(self, vnums: tuple):
+        data = (
+            (
+                self.mob[USECOLS_CALCULATOR]
+                .filter(pl.col(self.VNUM).is_in(vnums))
+                .with_columns(
+                    pl.col("Rank").replace(RANK_MAPPING, return_dtype=pl.Int8),
+                    pl.col("Type").replace(TYPE_MAPPING, return_dtype=pl.Int8),
+                    pl.col("RaceFlags").replace(
+                        RACE_MAPPING, default=-1, return_dtype=pl.Int8
+                    ),
+                )
+            )
+        )
+
+        print(data)
+
+        monster_data_wiki = {
+            monster_data[-1]: monster_data[:-1] for monster_data in data
+        }
+
+        with open(RESULT_MONSTER_PATH, "w") as file:
+            print(monster_data_wiki, file=file)
 
 
 class MobProto:

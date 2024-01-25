@@ -2,7 +2,7 @@ import os
 
 from api.metin2wiki import Metin2Wiki
 from models.page import MonsterPage, MetinPage, Page, Pages
-from data.read_files import MobProto, ItemProto
+from data.read_files import GameProto, GameNames
 from UI.graphic import WikiApp
 
 # def create_wiki_monster_data():
@@ -30,5 +30,8 @@ from UI.graphic import WikiApp
 
 
 if __name__ == "__main__":
-    wiki_app = WikiApp()
-    wiki_app.mainloop()
+    # wiki_app = WikiApp()
+    # wiki_app.mainloop()
+    game_proto = GameProto()
+    game_names = GameNames()
+    game_proto.save_mob_data_for_calculator((101, 102, 103, 691))
