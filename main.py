@@ -1,33 +1,12 @@
 import os
 
+import polars as pl
+
 from api.metin2wiki import Metin2Wiki
 from api.mediawiki import Bot, BotManagement
 from models.page import MonsterPage, MetinPage, Page, create_monster_page
-from data.read_files import MobProto, ItemProto, MobDrop, ItemName
+from data.read_files import MobProto, GameProto, GameNames
 from UI.graphic import WikiApp
-
-# def create_wiki_monster_data():
-#     metin2wiki = Metin2Wiki(bot_name=BOT_NAME, bot_password=BOT_PASSWORD)
-
-#     metin2wiki.login()
-
-#     monster_pages = metin2wiki.category("Monstres (temporaire)")
-#     monster_pages = metin2wiki.pages(monster_pages)
-#     monster_pages = [MonsterPage(page) for page in monster_pages.content(parse=True)]
-
-#     metin_pages = metin2wiki.category("Pierres Metin")
-#     metin_pages = metin2wiki.pages(metin_pages)
-#     metin_pages = [MetinPage(page) for page in metin_pages.content(parse=True)]
-
-#     monster_pages += metin_pages
-
-#     monster_pages.sort(key=lambda x: x.vnum)
-
-#     mob_proto = MobProto(processing="wiki_data")
-
-#     vnums, titles = zip(*[[page.vnum, page.title] for page in monster_pages])
-
-#     mob_proto.create_wiki_monster_data(vnums=vnums, titles=titles)
 
 
 if __name__ == "__main__":
@@ -41,7 +20,12 @@ if __name__ == "__main__":
     bot = Bot(name="AbeilleBot@AbeilleBot", password="ligkhmees4pvg4e9563a4452dcihkasp")
     metin2wiki = Metin2Wiki(bot=bot)
     metin2wiki.login()
-    vnums = metin2wiki.get_monster_and_stone_vnums()
+    pages = metin2wiki.get_monsters_and_stones()
+
+    game_proto = GameProto()
+
+    game_proto.save_mob_data_for_calculator(pages)
+
     # pages = metin2wiki.category("Monstres (temporaire)")
     # pages = metin2wiki.get_content(pages)
     # pages = metin2wiki.pages(pages, category="monster")

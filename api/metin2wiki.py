@@ -1,3 +1,5 @@
+import polars as pl
+
 from api.mediawiki import MediaWiki, Bot
 
 
@@ -26,29 +28,8 @@ class Metin2Wiki(MediaWiki):
         self.api_url = self.construct_api_url(lang=new_lang)
         self.lang = new_lang
 
-    def vnum_conversion(self, number: int):
-        if number == 0:
-            return "a"
-
-        converted_number = ""
-
-        while number > 0:
-            number, remainder = divmod(number, self.BASE)
-            converted_number += self.ALPHABET[remainder]
-
-        return converted_number
-
-    def code_to_vnum(self, letters: str) -> int:
-        number = 0
-
-        for i, letter in enumerate(letters):
-            value = self.ALPHABET.index(letter)
-            number += value * (self.BASE**i)
-
-        return number
-    
-    def get_monster_and_stone_vnums(self):
+    def get_monsters_and_stones(self):
         pages = self.category("Monstres (temporaire)") + self.category("Pierres Metin")
         pages = self.get_content(pages)
         pages = self.pages(pages)
-        return [page.vnum for page in pages]
+        return ((page.vnum, page.title) for page in pages)
