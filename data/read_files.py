@@ -8,8 +8,13 @@ from data.proto_info import (
     MOB_TYPE,
     RANK_MAPPING,
     RACE_MAPPING,
-    TYPE_MAPPING,
-    USECOLS_CALCULATOR,
+    MONSTER_TYPE_MAPPING,
+    USECOLS_CALCULATOR_MOB,
+    ITEM_TYPE,
+    WEAPON_MAPPING,
+    MAX_VNUM_WEAPON,
+    HERO_WEAPON_RANGE,
+    ITEM_WEAPON,
 )
 
 
@@ -57,7 +62,7 @@ class GameProto:
 
     def __init__(self):
         self.mob = self._read_csv(MOB_PROTO_PATH, MOB_TYPE)
-        # self.item = self._read_csv(ITEM_PROTO_PATH)
+        self.item = self._read_csv(ITEM_PROTO_PATH, ITEM_TYPE)
 
     def _read_csv(self, path: str, dtypes: dict) -> pl.DataFrame:
         return pl.read_csv(
@@ -72,12 +77,13 @@ class GameProto:
         pages = pl.DataFrame(
             pages, schema={self.VNUM: pl.Int64, "wiki_name": pl.String}
         ).sort(self.VNUM)
+
         data = (
-            self.mob[USECOLS_CALCULATOR]
+            self.mob[USECOLS_CALCULATOR_MOB]
             .filter(pl.col(self.VNUM).is_in(pages[self.VNUM]))
             .with_columns(
                 pl.col("Rank").replace(RANK_MAPPING, return_dtype=pl.Int8),
-                pl.col("Type").replace(TYPE_MAPPING, return_dtype=pl.Int8),
+                pl.col("Type").replace(MONSTER_TYPE_MAPPING, return_dtype=pl.Int8),
                 pl.col("RaceFlags").replace(
                     RACE_MAPPING, default=-1, return_dtype=pl.Int8
                 ),
@@ -94,6 +100,24 @@ class GameProto:
 
         with open(CALCULATOR_DATA_PATH, "w") as file:
             print(f"var monsterData = {mob_data_for_calculator}", file=file)
+            print(f"Data saved to {CALCULATOR_DATA_PATH}.")
+
+    def test(self, page_vnums):
+        data = (
+            self.item.filter(
+                pl.col("Type") == ITEM_WEAPON,
+            )
+            .filter(
+                pl.col(self.VNUM).cast(pl.Int64).is_in(page_vnums)
+                | pl.col(self.VNUM).is_between(*HERO_WEAPON_RANGE)
+            )
+            .with_columns(
+                pl.col("SubType").replace(WEAPON_MAPPING, return_dtype=pl.Int8),
+                pl.col("SubType").replace(0, 7 * "ANTI_MUSA" in pl.col("AntiFlags"))
+            )
+            .drop(self.VNUM, "Type")
+        )
+        print(data)
 
 
 class MobProto:
@@ -263,145 +287,100 @@ class MobProto:
 
         return data
 
-# class ItemProto:
-#     MAX_VNUM_WEAPON = 7509
-#     WEAPON_MAPPING = {
-#         "WEAPON_SWORD": 0,
-#         "WEAPON_DAGGER": 1,
-#         "WEAPON_BOW": 2,
-#         "WEAPON_TWO_HANDED": 3,
-#         "WEAPON_BELL": 4,
-#         "WEAPON_CLAW": 5,
-#         "WEAPON_FAN": 6,
-#     }
-#     WEAPON_TO_REMOVE = [
-#         210,
-#         220,
-#         230,
-#         260,
-#         1140,
-#         1150,
-#         1160,
-#         2190,
-#         3170,
-#         3180,
-#         3200,
-#         4030,
-#         5130,
-#         5140,
-#         5150,
-#         7170,
-#         7180,
-#     ]
 
-#     def __init__(self, processing: Literal["default", "weapon"] = "default"):
-#         self.processing = processing
-#         self.data = self._read_csv()
+class ItemProto:
+    MAX_VNUM_WEAPON = 7509
+    WEAPON_TO_REMOVE = [
+        210,
+        220,
+        230,
+        260,
+        1140,
+        1150,
+        1160,
+        2190,
+        3170,
+        3180,
+        3200,
+        4030,
+        5130,
+        5140,
+        5150,
+        7170,
+        7180,
+    ]
 
-#     def _read_csv(self):
-#         data = pd.read_csv(PATHS["item_proto"], encoding="ISO-8859-1", sep="\t")
+    def __init__(self, processing: Literal["default", "weapon"] = "default"):
+        self.processing = processing
 
-#         data = data[pd.to_numeric(data["Vnum"], errors="coerce").notnull()]
-#         data.set_index("Vnum", inplace=True)
-#         data.index = data.index.astype(int)
+    def _default_processing(self, data: pd.DataFrame):
+        equipments = (
+            (data["Type"] == "ITEM_WEAPON")
+            | (data["Type"] == "ITEM_ARMOR")
+            | (data["Type"] == "ITEM_BELT")
+        )
 
-#         data = self._add_translation(data)
+        data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].str.replace(
+            r" ?\+\d+", "", regex=True
+        )
+        data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].drop_duplicates(
+            keep="first"
+        )
+        data.dropna(inplace=True)
 
-#         if self.processing == "default":
-#             data = self._default_processing(data)
+        return data
 
-#         elif self.processing == "weapon":
-#             data = self._add_translation(data, lang="en")
-#             data = self._weapon_processing(data)
+    # def _weapon_processing(self, data: pd.DataFrame):
+    #     data = pd.concat([data.loc[: self.MAX_VNUM_WEAPON], data.loc[21900:21976]])
 
-#         return data
+    #     data = data[data["SubType"].isin(self.WEAPON_MAPPING.keys())]
 
-#     def _add_translation(self, data: pd.DataFrame, lang="fr"):
-#         item_names = pd.read_csv(
-#             PATHS[lang]["item_names"],
-#             index_col="VNUM",
-#             encoding="Windows-1252",
-#             sep="\t",
-#         )
+    #     data.drop(
+    #         [
+    #             index
+    #             for start_index in self.WEAPON_TO_REMOVE
+    #             for index in range(start_index, start_index + 10)
+    #         ],
+    #         inplace=True,
+    #     )
 
-#         column_name = f"Name{lang.upper()}"
+    #     data.reset_index(drop=True, inplace=True)
 
-#         data[column_name] = item_names.loc[data.index]
-#         data[column_name] = data[column_name].str.replace(chr(160), " ")
+    #     data["NameFR"] = data.loc[data.index, "NameFR"].str.replace(
+    #         r"\s?\+\d+", "", regex=True
+    #     )
+    #     data["NameEN"] = data.loc[data.index, "NameEN"].str.replace(
+    #         r"\s?\+\d+", "", regex=True
+    #     )
 
-#         return data
+    #     data["SubType"].replace(self.WEAPON_MAPPING, inplace=True)
 
-#     def _default_processing(self, data: pd.DataFrame):
-#         equipments = (
-#             (data["Type"] == "ITEM_WEAPON")
-#             | (data["Type"] == "ITEM_ARMOR")
-#             | (data["Type"] == "ITEM_BELT")
-#         )
+    #     return data
 
-#         data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].str.replace(
-#             r" ?\+\d+", "", regex=True
-#         )
-#         data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].drop_duplicates(
-#             keep="first"
-#         )
-#         data.dropna(inplace=True)
+    def create_weapon_data(self, weapon):
+        weapon_dataframe = self.data[self.data["NameEN"] == weapon]
 
-#         return data
+        weapon_base = weapon_dataframe.iloc[0]
 
-#     def _weapon_processing(self, data: pd.DataFrame):
-#         data = pd.concat([data.loc[: self.MAX_VNUM_WEAPON], data.loc[21900:21976]])
+        weapon_base_values = weapon_base[[f"Value{i}" for i in range(1, 5)]].to_list()
+        weapon_up = weapon_dataframe["Value5"].to_list()
 
-#         data = data[data["SubType"].isin(self.WEAPON_MAPPING.keys())]
+        weapon_type = weapon_base["SubType"]
 
-#         data.drop(
-#             [
-#                 index
-#                 for start_index in self.WEAPON_TO_REMOVE
-#                 for index in range(start_index, start_index + 10)
-#             ],
-#             inplace=True,
-#         )
+        if (weapon_type == 0) and ("ANTI_MUSA" in weapon_base["AntiFlags"]):
+            weapon_type == 7
 
-#         data.reset_index(drop=True, inplace=True)
+        return [weapon_base["NameFR"], weapon_type, weapon_base_values, weapon_up]
 
-#         data["NameFR"] = data.loc[data.index, "NameFR"].str.replace(
-#             r"\s?\+\d+", "", regex=True
-#         )
-#         data["NameEN"] = data.loc[data.index, "NameEN"].str.replace(
-#             r"\s?\+\d+", "", regex=True
-#         )
+    def create_wiki_weapon_data(self):
+        if self.processing != "weapon":
+            print("Weapon processing should be used.")
+            return
 
-#         data["SubType"].replace(self.WEAPON_MAPPING, inplace=True)
-
-#         return data
-
-#     def create_weapon_data(self, weapon):
-#         weapon_dataframe = self.data[self.data["NameEN"] == weapon]
-
-#         weapon_base = weapon_dataframe.iloc[0]
-
-#         weapon_base_values = weapon_base[[f"Value{i}" for i in range(1, 5)]].to_list()
-#         weapon_up = weapon_dataframe["Value5"].to_list()
-
-#         weapon_type = weapon_base["SubType"]
-
-#         if (weapon_type == 0) and ("ANTI_MUSA" in weapon_base["AntiFlags"]):
-#             weapon_type == 7
-
-#         return [weapon_base["NameFR"], weapon_type, weapon_base_values, weapon_up]
-
-#     def create_wiki_weapon_data(self):
-#         if self.processing != "weapon":
-#             print("Weapon processing should be used.")
-#             return
-
-#         weapon_data = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
-#         weapon_data.update(
-#             {
-#                 weapon: self.create_weapon_data(weapon)
-#                 for weapon in self.data["NameEN"].unique()
-#             }
-#         )
-
-#         with open(PATHS["result"]["weapons"], "w") as file:
-#             print(weapon_data, file=file)
+        weapon_data = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
+        weapon_data.update(
+            {
+                weapon: self.create_weapon_data(weapon)
+                for weapon in self.data["NameEN"].unique()
+            }
+        )

@@ -4,6 +4,7 @@ INT = pl.Int32
 STRING = pl.String
 FLOAT = pl.Float32
 
+# MOB PROTO
 MOB_TYPE = {
     "Vnum": INT,
     "Rank": STRING,
@@ -78,7 +79,7 @@ RANK_MAPPING = {
     "KING": 6,
 }
 
-TYPE_MAPPING = {"MONSTER": 0, "STONE": 1}
+MONSTER_TYPE_MAPPING = {"MONSTER": 0, "STONE": 1}
 
 RACE_MAPPING = {
     "ANIMAL": 0,
@@ -92,7 +93,7 @@ RACE_MAPPING = {
     "OUTPOST": -1,
 }
 
-USECOLS_CALCULATOR = [
+USECOLS_CALCULATOR_MOB = [
     "Vnum",
     "Rank",
     "Type",
@@ -130,3 +131,31 @@ USECOLS_CALCULATOR = [
     "ResistEarth",
     "DamMultiply",
 ]
+
+# ITEM PROTO
+ITEM_TYPE = {
+    "Vnum": STRING,
+    "Type": STRING,
+    "SubType": STRING,
+    "AntiFlags": STRING,
+    "Value0": INT,
+    "Value1": INT,
+    "Value2": INT,
+    "Value3": INT,
+    "Value4": INT,
+    "Value5": INT,
+}
+
+WEAPON_MAPPING = {
+    "WEAPON_SWORD": 0,
+    "WEAPON_DAGGER": 1,
+    "WEAPON_BOW": 2,
+    "WEAPON_TWO_HANDED": 3,
+    "WEAPON_BELL": 4,
+    "WEAPON_CLAW": 5,
+    "WEAPON_FAN": 6,
+}
+
+ITEM_WEAPON = "ITEM_WEAPON"
+MAX_VNUM_WEAPON = 7509
+HERO_WEAPON_RANGE = [21900, 21976]

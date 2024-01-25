@@ -20,11 +20,7 @@ if __name__ == "__main__":
     bot = Bot(name="AbeilleBot@AbeilleBot", password="ligkhmees4pvg4e9563a4452dcihkasp")
     metin2wiki = Metin2Wiki(bot=bot)
     metin2wiki.login()
-    pages = metin2wiki.get_monsters_and_stones()
-
-    game_proto = GameProto()
-
-    game_proto.save_mob_data_for_calculator(pages)
+    metin2wiki.test()
 
     # pages = metin2wiki.category("Monstres (temporaire)")
     # pages = metin2wiki.get_content(pages)
