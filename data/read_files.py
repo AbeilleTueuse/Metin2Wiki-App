@@ -1,46 +1,74 @@
 import pandas as pd
 from typing import Literal
 import json
+import polars as pl
 
 from config.config import *
+from data.proto_schema import MOB_SCHEMA
 
 
 class GameNames:
-    INDEX_NAME = "vnum"
+    VNUM = "VNUM"
+    LOCAL_NAME = "LOCALE_NAME"
     SEPARATOR = "\t"
+    SCHEMA = {VNUM: pl.Int64, LOCAL_NAME: pl.String}
 
-    def __init__(self, lang: str):
+    def __init__(self, lang: str = "fr"):
         self.lang = lang
         self.encoding = self._get_encoding()
-        self.mob_names = self._get_data(MOB_NAMES_PATH)
-        self.item_names = self._get_data(ITEM_NAMES_PATH)
+        self.mob = self._read_csv(MOB_NAMES_PATH)
+        self.item = self._read_csv(ITEM_NAMES_PATH)
 
     def _get_encoding(self) -> dict[str, str]:
         with open(LANG_ENCODING_PATH, "r") as file:
-            return json.load(file)
+            return json.load(file)[self.lang]
 
-    def _read_csv(self, path: str, lang: str, encoding: str):
-        names = pd.read_csv(
-            filepath_or_buffer=path.format(lang=lang),
-            index_col=0,
-            usecols=[0, 1],
-            names=[self.INDEX_NAME, lang],
-            encoding=encoding,
-            sep=self.SEPARATOR,
-            skiprows=1,
+    def _read_csv(self, path: str):
+        names = (
+            pl.read_csv(
+                source=path.format(lang=self.lang),
+                has_header=True,
+                separator=self.SEPARATOR,
+                schema=self.SCHEMA,
+                encoding=self.encoding,
+            )
+            .drop_nulls()
+            .with_columns(
+                pl.col(self.LOCAL_NAME)
+                .str.replace_all(chr(160), " ", literal=True)
+                .str.strip_chars()
+            )
         )
 
-        return names[lang]
-
-    def _get_data(self, path: str):
-        return pd.concat(
-            (
-                self._read_csv(path, lang, encoding)
-                for lang, encoding in self.encoding.items()
-            ),
-            axis=1,
-        )
+        return names
     
+
+class GameProto:
+    VNUM = "Vnum"
+    NAME = "Name"
+    SEPARATOR = "\t"
+    ENCODING = "ISO-8859-1"
+
+    def __init__(self):
+        self.mob = self._read_csv(MOB_PROTO_PATH, MOB_SCHEMA)
+        # self.item = self._read_csv(ITEM_PROTO_PATH)
+
+    def _read_csv(self, path: str, schema: dict) -> pl.DataFrame:
+        names = (
+            pl.read_csv(
+                source=path,
+                has_header=True,
+                separator=self.SEPARATOR,
+                schema=schema,
+                encoding=self.ENCODING,
+                # truncate_ragged_lines=True
+            )
+            .drop(self.NAME)
+            # .drop_nulls()
+        )
+
+        return names
+
 
 class MobProto:
     MAPPING = {
@@ -95,55 +123,23 @@ class MobProto:
     TRUE_VALUE = "O"
     FALSE_VALUE = "N"
 
-    def __init__(self, processing: Literal["default", "wiki_data"], get_template=False):
-        self.processing = processing
+    def __init__(self):
         self.data = self._read_csv()
-        if get_template:
-            self.template = self._get_template()
-
-    def _get_template(self):
-        with open(file=PATHS["mob_template"], mode="r", encoding="utf-8") as file:
-            return file.read()
 
     def _read_csv(self):
-        mob_names = pd.read_csv(
-            PATHS["fr"]["mob_names"],
-            index_col="VNUM",
-            encoding="Windows-1252",
-            sep="\t",
-        )
-
-        # usecols = [
-        #     'Vnum', 'Rank', 'Type', 'BattleType',
-        #     'Level', 'AiFlags0', 'RaceFlags', 'Exp', 'SungMaExp',
-        #     'EnchantSlow', 'EnchantPoison', 'EnchantStun',
-        #     'AttElec', 'AttFire', 'AttIce', 'AttWind',
-        #     'AttEarth', 'AttDark', 'DrainSp'
-        # ]
-
-        data = pd.read_csv(
-            PATHS["mob_proto"],
+        data = pl.read_csv(
+            MOB_PROTO_PATH,
             index_col="Vnum",
-            # usecols = usecols,
             encoding="ISO-8859-1",
             sep="\t",
         )
-
-        if self.processing == "default":
-            data = self._data_processing(data)
-        elif self.processing == "wiki_data":
-            pass
-
-        data["NameFR"] = mob_names.loc[data.index]
-        data["NameFR"] = data["NameFR"].str.replace(chr(160), " ")
 
         return data
 
     def _get_old_data(self):
         old_data = pd.read_csv(
-            PATHS["mob_proto_old"],
+            MOB_PROTO_OLD_PATH,
             index_col="VNUM",
-            # usecols = usecols,
             encoding="ISO-8859-1",
             sep="\t",
         )
@@ -320,159 +316,149 @@ class MobProto:
             monster_data[-1]: monster_data[:-1] for monster_data in data
         }
 
-        with open(PATHS["result"]["monsters"], "w") as file:
+        with open(RESULT_MONSTER_PATH, "w") as file:
             print(monster_data_wiki, file=file)
 
 
-class ItemProto:
-    MAX_VNUM_WEAPON = 7509
-    WEAPON_MAPPING = {
-        "WEAPON_SWORD": 0,
-        "WEAPON_DAGGER": 1,
-        "WEAPON_BOW": 2,
-        "WEAPON_TWO_HANDED": 3,
-        "WEAPON_BELL": 4,
-        "WEAPON_CLAW": 5,
-        "WEAPON_FAN": 6,
-    }
-    WEAPON_TO_REMOVE = [
-        210,
-        220,
-        230,
-        260,
-        1140,
-        1150,
-        1160,
-        2190,
-        3170,
-        3180,
-        3200,
-        4030,
-        5130,
-        5140,
-        5150,
-        7170,
-        7180,
-    ]
+# class ItemProto:
+#     MAX_VNUM_WEAPON = 7509
+#     WEAPON_MAPPING = {
+#         "WEAPON_SWORD": 0,
+#         "WEAPON_DAGGER": 1,
+#         "WEAPON_BOW": 2,
+#         "WEAPON_TWO_HANDED": 3,
+#         "WEAPON_BELL": 4,
+#         "WEAPON_CLAW": 5,
+#         "WEAPON_FAN": 6,
+#     }
+#     WEAPON_TO_REMOVE = [
+#         210,
+#         220,
+#         230,
+#         260,
+#         1140,
+#         1150,
+#         1160,
+#         2190,
+#         3170,
+#         3180,
+#         3200,
+#         4030,
+#         5130,
+#         5140,
+#         5150,
+#         7170,
+#         7180,
+#     ]
 
-    def __init__(self, processing: Literal["default", "weapon"] = "default"):
-        self.processing = processing
-        self.data = self._read_csv()
+#     def __init__(self, processing: Literal["default", "weapon"] = "default"):
+#         self.processing = processing
+#         self.data = self._read_csv()
 
-    def _read_csv(self):
-        data = pd.read_csv(PATHS["item_proto"], encoding="ISO-8859-1", sep="\t")
+#     def _read_csv(self):
+#         data = pd.read_csv(PATHS["item_proto"], encoding="ISO-8859-1", sep="\t")
 
-        data = data[pd.to_numeric(data["Vnum"], errors="coerce").notnull()]
-        data.set_index("Vnum", inplace=True)
-        data.index = data.index.astype(int)
+#         data = data[pd.to_numeric(data["Vnum"], errors="coerce").notnull()]
+#         data.set_index("Vnum", inplace=True)
+#         data.index = data.index.astype(int)
 
-        data = self._add_translation(data)
+#         data = self._add_translation(data)
 
-        if self.processing == "default":
-            data = self._default_processing(data)
+#         if self.processing == "default":
+#             data = self._default_processing(data)
 
-        elif self.processing == "weapon":
-            data = self._add_translation(data, lang="en")
-            data = self._weapon_processing(data)
+#         elif self.processing == "weapon":
+#             data = self._add_translation(data, lang="en")
+#             data = self._weapon_processing(data)
 
-        return data
+#         return data
 
-    def _add_translation(self, data: pd.DataFrame, lang="fr"):
-        item_names = pd.read_csv(
-            PATHS[lang]["item_names"],
-            index_col="VNUM",
-            encoding="Windows-1252",
-            sep="\t",
-        )
+#     def _add_translation(self, data: pd.DataFrame, lang="fr"):
+#         item_names = pd.read_csv(
+#             PATHS[lang]["item_names"],
+#             index_col="VNUM",
+#             encoding="Windows-1252",
+#             sep="\t",
+#         )
 
-        column_name = f"Name{lang.upper()}"
+#         column_name = f"Name{lang.upper()}"
 
-        data[column_name] = item_names.loc[data.index]
-        data[column_name] = data[column_name].str.replace(chr(160), " ")
+#         data[column_name] = item_names.loc[data.index]
+#         data[column_name] = data[column_name].str.replace(chr(160), " ")
 
-        return data
+#         return data
 
-    def _default_processing(self, data: pd.DataFrame):
-        equipments = (
-            (data["Type"] == "ITEM_WEAPON")
-            | (data["Type"] == "ITEM_ARMOR")
-            | (data["Type"] == "ITEM_BELT")
-        )
+#     def _default_processing(self, data: pd.DataFrame):
+#         equipments = (
+#             (data["Type"] == "ITEM_WEAPON")
+#             | (data["Type"] == "ITEM_ARMOR")
+#             | (data["Type"] == "ITEM_BELT")
+#         )
 
-        data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].str.replace(
-            r" ?\+\d+", "", regex=True
-        )
-        data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].drop_duplicates(
-            keep="first"
-        )
-        data.dropna(inplace=True)
+#         data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].str.replace(
+#             r" ?\+\d+", "", regex=True
+#         )
+#         data.loc[equipments, "NameFR"] = data.loc[equipments, "NameFR"].drop_duplicates(
+#             keep="first"
+#         )
+#         data.dropna(inplace=True)
 
-        return data
+#         return data
 
-    def _weapon_processing(self, data: pd.DataFrame):
-        data = pd.concat([data.loc[: self.MAX_VNUM_WEAPON], data.loc[21900:21976]])
+#     def _weapon_processing(self, data: pd.DataFrame):
+#         data = pd.concat([data.loc[: self.MAX_VNUM_WEAPON], data.loc[21900:21976]])
 
-        data = data[data["SubType"].isin(self.WEAPON_MAPPING.keys())]
+#         data = data[data["SubType"].isin(self.WEAPON_MAPPING.keys())]
 
-        data.drop(
-            [
-                index
-                for start_index in self.WEAPON_TO_REMOVE
-                for index in range(start_index, start_index + 10)
-            ],
-            inplace=True,
-        )
+#         data.drop(
+#             [
+#                 index
+#                 for start_index in self.WEAPON_TO_REMOVE
+#                 for index in range(start_index, start_index + 10)
+#             ],
+#             inplace=True,
+#         )
 
-        data.reset_index(drop=True, inplace=True)
+#         data.reset_index(drop=True, inplace=True)
 
-        data["NameFR"] = data.loc[data.index, "NameFR"].str.replace(
-            r"\s?\+\d+", "", regex=True
-        )
-        data["NameEN"] = data.loc[data.index, "NameEN"].str.replace(
-            r"\s?\+\d+", "", regex=True
-        )
+#         data["NameFR"] = data.loc[data.index, "NameFR"].str.replace(
+#             r"\s?\+\d+", "", regex=True
+#         )
+#         data["NameEN"] = data.loc[data.index, "NameEN"].str.replace(
+#             r"\s?\+\d+", "", regex=True
+#         )
 
-        data["SubType"].replace(self.WEAPON_MAPPING, inplace=True)
+#         data["SubType"].replace(self.WEAPON_MAPPING, inplace=True)
 
-        return data
+#         return data
 
-    def create_weapon_data(self, weapon):
-        weapon_dataframe = self.data[self.data["NameEN"] == weapon]
+#     def create_weapon_data(self, weapon):
+#         weapon_dataframe = self.data[self.data["NameEN"] == weapon]
 
-        weapon_base = weapon_dataframe.iloc[0]
+#         weapon_base = weapon_dataframe.iloc[0]
 
-        weapon_base_values = weapon_base[[f"Value{i}" for i in range(1, 5)]].to_list()
-        weapon_up = weapon_dataframe["Value5"].to_list()
+#         weapon_base_values = weapon_base[[f"Value{i}" for i in range(1, 5)]].to_list()
+#         weapon_up = weapon_dataframe["Value5"].to_list()
 
-        weapon_type = weapon_base["SubType"]
+#         weapon_type = weapon_base["SubType"]
 
-        if (weapon_type == 0) and ("ANTI_MUSA" in weapon_base["AntiFlags"]):
-            weapon_type == 7
+#         if (weapon_type == 0) and ("ANTI_MUSA" in weapon_base["AntiFlags"]):
+#             weapon_type == 7
 
-        return [weapon_base["NameFR"], weapon_type, weapon_base_values, weapon_up]
+#         return [weapon_base["NameFR"], weapon_type, weapon_base_values, weapon_up]
 
-    def create_wiki_weapon_data(self):
-        if self.processing != "weapon":
-            print("Weapon processing should be used.")
-            return
+#     def create_wiki_weapon_data(self):
+#         if self.processing != "weapon":
+#             print("Weapon processing should be used.")
+#             return
 
-        weapon_data = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
-        weapon_data.update(
-            {
-                weapon: self.create_weapon_data(weapon)
-                for weapon in self.data["NameEN"].unique()
-            }
-        )
+#         weapon_data = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
+#         weapon_data.update(
+#             {
+#                 weapon: self.create_weapon_data(weapon)
+#                 for weapon in self.data["NameEN"].unique()
+#             }
+#         )
 
-        with open(PATHS["result"]["weapons"], "w") as file:
-            print(weapon_data, file=file)    
-
-if __name__ == "__main__":
-    # mob_proto = ItemProto(processing = 'weapon')
-
-    # mob_proto.create_wiki_weapon_data()
-
-    mob_proto = MobProto(processing="wiki_data")
-    mob_proto.create_wiki_monster_data(
-        vnums=[3960, 3961, 3962], titles=["Chien1", "Chien2", "Chien3"]
-    )
+#         with open(PATHS["result"]["weapons"], "w") as file:
+#             print(weapon_data, file=file)
