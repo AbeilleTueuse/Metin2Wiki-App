@@ -340,7 +340,7 @@ class MediaWiki:
     def get_content(self, pages: list[dict]) -> list[dict]:
         pages_with_content = []
         for pages_slice in data_slicing(pages, self.MAX_PARAMS):
-                pages_with_content += self._get_content_limited(pages_slice)
+            pages_with_content += self._get_content_limited(pages_slice)
 
         return pages_with_content
 
