@@ -7,6 +7,8 @@ from mwparserfromhell.nodes.wikilink import Wikilink
 import pandas as pd
 from unidecode import unidecode
 
+from utils.utils import code_to_vnum
+
 
 class Page:
     def __init__(
@@ -15,9 +17,31 @@ class Page:
     ):
         self.title = data["title"]
         self.pageid = data["pageid"]
-        self.content = self._content(data)
+        self.content = self.get_content(data)
+        self._vnum = None
+        self._templates = None
 
-    def _content(self, data):
+    @property
+    def vnum(self):
+        if self._vnum is not None:
+            return self._vnum
+        templates = self.templates
+        if templates is not None:
+            return self._get_vnum(templates[0])
+    
+    @property
+    def templates(self) -> None | list[Template]:
+        if self._templates is not None:
+            return self._templates
+        if self.content is None:
+            return None
+        return self.content.filter(Template)
+    
+    def _get_vnum(self, template: Template):
+        code: Parameter = template.get("Code")
+        return code_to_vnum(code.value.strip_code())
+    
+    def get_content(self, data: dict):
         if "revisions" in data:
             return mwparserfromhell.parse(data["revisions"][0]["content"])
         return None
@@ -65,18 +89,7 @@ class Page:
     def change_text(self, text_to_change, new_text):
         self.content = self.content.replace(text_to_change, new_text)
 
-ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-ALPHABET += ALPHABET.upper()
-BASE = len(ALPHABET)
 
-def code_to_vnum(letters: str) -> int:
-    number = 0
-
-    for i, letter in enumerate(letters):
-        value = ALPHABET.index(letter)
-        number += value * (BASE**i)
-
-    return number
     
 class EntityPage(Page):
     def __init__(self, data: dict, entity: Literal["Monstres", "Metin"] = "Monstre"):

@@ -31,7 +31,6 @@ from UI.graphic import WikiApp
 
 
 if __name__ == "__main__":
-    pass
     # wiki_app = WikiApp()
     # wiki_app.mainloop()
     # mob_proto = MobProto(processing="default").data
@@ -39,9 +38,10 @@ if __name__ == "__main__":
     # mob_drop = MobDrop(item_names).data
     # create_monster_page(5163, mob_proto, mob_drop, localisation="I", zone="[[Repaire de Meley]]")
 
-    # bot = Bot(name="AbeilleBot@AbeilleBot", password="ligkhmees4pvg4e9563a4452dcihkasp")
-    # metin2wiki = Metin2Wiki(bot=bot)
-    # metin2wiki.login()
+    bot = Bot(name="AbeilleBot@AbeilleBot", password="ligkhmees4pvg4e9563a4452dcihkasp")
+    metin2wiki = Metin2Wiki(bot=bot)
+    metin2wiki.login()
+    vnums = metin2wiki.get_monster_and_stone_vnums()
     # pages = metin2wiki.category("Monstres (temporaire)")
     # pages = metin2wiki.get_content(pages)
     # pages = metin2wiki.pages(pages, category="monster")

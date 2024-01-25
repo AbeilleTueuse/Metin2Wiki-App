@@ -231,9 +231,7 @@ class MediaWiki:
 
         return result
     
-    def pages(self, pages: list[dict], category: str):
-        if category == "monster":
-            return [MonsterPage(page) for page in pages]
+    def pages(self, pages: list[dict]):
         return [Page(page) for page in pages]
 
     def category(self, category: str, exclude_category: str = None):
