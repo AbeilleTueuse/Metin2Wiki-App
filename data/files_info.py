@@ -157,5 +157,22 @@ WEAPON_MAPPING = {
 }
 
 ITEM_WEAPON = "ITEM_WEAPON"
-MAX_VNUM_WEAPON = 7509
 HERO_WEAPON_RANGE = [21900, 21976]
+EXCLUDE_WEAPON_RANGE = [7180, 7189]
+
+LANG_ENCODING = {
+    "ae": "Windows-1256",
+    "de": "ISO-8859-1",
+    "dk": "ISO-8859-1",
+    "en": "ISO-8859-1",
+    "es": "ISO-8859-1",
+    "fr": "Windows-1252",
+    "hu": "ISO-8859-1",
+    "it": "Windows-1252",
+    "nl": "ISO-8859-1",
+    "pl": "Windows-1252",
+    "pt": "ISO-8859-1",
+    "ro": "ISO-8859-16",
+    "ru": "windows-1251",
+    "tr": "Windows-1252",
+}

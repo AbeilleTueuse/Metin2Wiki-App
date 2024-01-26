@@ -3,7 +3,7 @@ import json
 import polars as pl
 
 from config.config import *
-from data.proto_info import (
+from data.files_info import (
     MOB_TYPE,
     RANK_MAPPING,
     RACE_MAPPING,
@@ -11,9 +11,10 @@ from data.proto_info import (
     USECOLS_CALCULATOR_MOB,
     ITEM_TYPE,
     WEAPON_MAPPING,
-    MAX_VNUM_WEAPON,
     HERO_WEAPON_RANGE,
+    EXCLUDE_WEAPON_RANGE,
     ITEM_WEAPON,
+    LANG_ENCODING,
 )
 
 
@@ -23,24 +24,14 @@ class GameNames:
     SEPARATOR = "\t"
     SCHEMA = {VNUM: pl.Int64, LOCAL_NAME: pl.String}
 
-    def __init__(self, lang: str = "fr"):
-        self.lang = lang
-        self.encoding = self._get_encoding()
-        self.mob = self._read_csv(MOB_NAMES_PATH)
-        self.item = self._read_csv(ITEM_NAMES_PATH)
-
-    def _get_encoding(self) -> dict[str, str]:
-        with open(LANG_ENCODING_PATH, "r") as file:
-            return json.load(file)[self.lang]
-
-    def _read_csv(self, path: str):
+    def _read_csv(self, path: str, lang: str):
         names = (
             pl.read_csv(
-                source=path.format(lang=self.lang),
+                source=path.format(lang=lang),
                 has_header=True,
                 separator=self.SEPARATOR,
                 schema=self.SCHEMA,
-                encoding=self.encoding,
+                encoding=LANG_ENCODING[lang],
             )
             .drop_nulls()
             .with_columns(
@@ -53,13 +44,27 @@ class GameNames:
         return names
 
 
+class MobNames(GameNames):
+    def __init__(self, lang: str = "fr"):
+        self.lang = lang
+        self.data = self._read_csv(MOB_NAMES_PATH, lang)
+
+
+class ItemNames(GameNames):
+    def __init__(self, lang: str = "fr"):
+        self.lang = lang
+        self.data = self._read_csv(ITEM_NAMES_PATH, lang)
+
+    def prepare_for_calculator(self, vnum_col: str):
+        upgrade_pattern = r" ?\+\d{1,3}$"
+        self.data = self.data.with_columns(
+            pl.col(self.LOCAL_NAME).str.replace(upgrade_pattern, "")
+        ).rename({self.VNUM: vnum_col})
+
+
 class GameProto:
     VNUM = "Vnum"
     SEPARATOR = "\t"
-
-    def __init__(self):
-        self.mob = self._read_csv(MOB_PROTO_PATH, MOB_TYPE)
-        self.item = self._read_csv(ITEM_PROTO_PATH, ITEM_TYPE)
 
     def _read_csv(self, path: str, dtypes: dict) -> pl.DataFrame:
         return pl.read_csv(
@@ -70,13 +75,18 @@ class GameProto:
             dtypes=dtypes,
         )
 
-    def save_mob_data_for_calculator(self, pages):
+
+class MobProto(GameProto):
+    def __init__(self):
+        self.data = self._read_csv(MOB_PROTO_PATH, MOB_TYPE)
+
+    def get_mob_data_for_calculator(self, pages):
         pages = pl.DataFrame(
             pages, schema={self.VNUM: pl.Int64, "wiki_name": pl.String}
         ).sort(self.VNUM)
 
         data = (
-            self.mob[USECOLS_CALCULATOR_MOB]
+            self.data[USECOLS_CALCULATOR_MOB]
             .filter(pl.col(self.VNUM).is_in(pages[self.VNUM]))
             .with_columns(
                 pl.col("Rank").replace(RANK_MAPPING, return_dtype=pl.Int8),
@@ -87,31 +97,38 @@ class GameProto:
                 pages["wiki_name"],
             )
             .drop(self.VNUM)
-            .to_numpy()
-            .tolist()
         )
 
-        mob_data_for_calculator = {
-            monster_data[-1]: monster_data[:-1] for monster_data in data
-        }
+        return {row[-1]: list(row[:-1]) for row in data.iter_rows()}
 
-        with open(CALCULATOR_DATA_PATH, "w") as file:
-            print(f"var monsterData = {mob_data_for_calculator}", file=file)
-            print(f"Data saved to {CALCULATOR_DATA_PATH}.")
 
-    def test(self, page_vnums, game_name: GameNames):
-        print(game_name.item.columns, game_name.VNUM, self.VNUM, self.item.columns)
+class ItemProto(GameProto):
+    def __init__(self):
+        self.data = self._read_csv(ITEM_PROTO_PATH, ITEM_TYPE)
+        self.data = self._remove_string_vnum()
+
+    def _remove_string_vnum(self):
+        return self.data.with_columns(
+            pl.col(self.VNUM).str.to_integer(strict=False),
+        ).drop_nulls()
+
+    def get_item_data_for_calculator(
+        self, page_vnums: list[str], item_names: ItemNames, en_names: ItemNames
+    ):
+        item_names.prepare_for_calculator(self.VNUM)
+        en_names.prepare_for_calculator(self.VNUM)
+
         data = (
-            self.item.filter(
+            self.data.filter(
                 pl.col("Type") == ITEM_WEAPON,
-            )
-            .filter(
-                pl.col(self.VNUM).cast(pl.Int64).is_in(page_vnums)
-                | pl.col(self.VNUM).is_between(*HERO_WEAPON_RANGE)
+                (pl.col(self.VNUM) <= max(page_vnums) + 9)
+                & (pl.col(self.VNUM).is_between(*EXCLUDE_WEAPON_RANGE).is_not())
+                | (pl.col(self.VNUM).is_between(*HERO_WEAPON_RANGE)),
             )
             .with_columns(
-                pl.col(self.VNUM).cast(pl.Int64),
-                pl.col("SubType").replace(WEAPON_MAPPING, return_dtype=pl.Int8),
+                pl.col("SubType").replace(
+                    WEAPON_MAPPING, default=-1, return_dtype=pl.Int8
+                ),
             )
             .with_columns(
                 pl.when(
@@ -122,10 +139,37 @@ class GameProto:
                 .otherwise(pl.col("SubType"))
                 .alias("SubType"),
             )
-            .join(game_name.item.rename({game_name.VNUM: self.VNUM}), on=self.VNUM)
-            .drop(self.VNUM, "Type", "AntiFlags")
+            .join(en_names.data, on=self.VNUM)
+            .group_by(en_names.LOCAL_NAME)
+            .agg(
+                pl.col(self.VNUM).first(),
+                pl.col("SubType").first(),
+                pl.first(f"Value{index}" for index in range(1, 5)),
+                pl.col("Value5"),
+            )
+            .filter(
+                pl.col(self.VNUM).is_in(page_vnums)
+                | pl.col(self.VNUM).is_between(*HERO_WEAPON_RANGE),
+            )
+            .sort(pl.col(self.VNUM))
+            .with_columns(pl.concat_list(f"Value{index}" for index in range(1, 5)))
+            .join(item_names.data, on=self.VNUM, suffix=f"_{item_names.lang}")
         )
-        print(data)
+
+        item_data_for_calculator = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
+        item_data_for_calculator.update(
+            {
+                row[0]: [
+                    row[-1],
+                    row[2],
+                    row[3],
+                    row[-2],
+                ]
+                for row in data.iter_rows()
+            }
+        )
+
+        return item_data_for_calculator
 
 
 # class MobProto:

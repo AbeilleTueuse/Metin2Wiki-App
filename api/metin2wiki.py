@@ -1,7 +1,13 @@
 import polars as pl
 
 from api.mediawiki import MediaWiki, Bot
-from data.read_files import GameProto, GameNames
+from data.read_files import (
+    MobProto,
+    MobNames,
+    ItemProto,
+    ItemNames,
+    CALCULATOR_DATA_PATH,
+)
 
 
 class Metin2Wiki(MediaWiki):
@@ -29,17 +35,33 @@ class Metin2Wiki(MediaWiki):
         self.api_url = self.construct_api_url(lang=new_lang)
         self.lang = new_lang
 
-    def save_data_for_calculator(self):
-        game_proto = GameProto()
+    def _get_mob_data_for_calculator(self):
         pages = self.category("Monstres (temporaire)") + self.category("Pierres Metin")
         pages = self.get_content(pages)
-        game_proto.save_mob_data_for_calculator(
+        mob_proto = MobProto()
+
+        return mob_proto.get_mob_data_for_calculator(
             (page.vnum, page.title) for page in self.pages(pages)
         )
 
-    def test(self):
-        game_proto = GameProto()
-        game_names = GameNames(lang=self.lang)
+    def _get_item_data_for_calculator(self):
+        item_proto = ItemProto()
+        item_names = ItemNames(lang=self.lang)
+        en_names = ItemNames(lang="en")
         pages = self.category("Armes")
         pages = self.get_content(pages)
-        game_proto.test([page.vnum for page in self.pages(pages)], game_names)
+
+        return item_proto.get_item_data_for_calculator(
+            [page.vnum for page in self.pages(pages)], item_names, en_names
+        )
+
+    def save_data_for_calculator(self):
+        item_data = self._get_item_data_for_calculator()
+        mob_data = self._get_mob_data_for_calculator()
+
+        with open(CALCULATOR_DATA_PATH, "w") as file:
+            print(
+                f"var weaponData = {item_data}", f"var monsterData = {mob_data}",
+                sep="\n\n",
+                file=file,
+            )

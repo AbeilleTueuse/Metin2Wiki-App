@@ -17,10 +17,9 @@ if __name__ == "__main__":
     # mob_drop = MobDrop(item_names).data
     # create_monster_page(5163, mob_proto, mob_drop, localisation="I", zone="[[Repaire de Meley]]")
 
-    bot = Bot(name="AbeilleBot@AbeilleBot", password="8rcobtm3g8rifgoeio4sgj38ilqbo5tf")
     metin2wiki = Metin2Wiki(bot=bot)
     metin2wiki.login()
-    metin2wiki.test()
+    metin2wiki.save_data_for_calculator()
 
     # pages = metin2wiki.category("Monstres (temporaire)")
     # pages = metin2wiki.get_content(pages)
