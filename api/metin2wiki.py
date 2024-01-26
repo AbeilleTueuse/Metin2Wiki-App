@@ -1,7 +1,7 @@
 import polars as pl
 
 from api.mediawiki import MediaWiki, Bot
-from data.read_files import GameProto
+from data.read_files import GameProto, GameNames
 
 
 class Metin2Wiki(MediaWiki):
@@ -39,6 +39,7 @@ class Metin2Wiki(MediaWiki):
 
     def test(self):
         game_proto = GameProto()
+        game_names = GameNames(lang=self.lang)
         pages = self.category("Armes")
         pages = self.get_content(pages)
-        game_proto.test([page.vnum for page in self.pages(pages)])
+        game_proto.test([page.vnum for page in self.pages(pages)], game_names)

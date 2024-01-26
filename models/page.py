@@ -1,10 +1,9 @@
-from typing import Union, Literal
+from typing import Literal
 import mwparserfromhell
 from mwparserfromhell.wikicode import Wikicode
 from mwparserfromhell.nodes.template import Template
 from mwparserfromhell.nodes.extras.parameter import Parameter
 from mwparserfromhell.nodes.wikilink import Wikilink
-import pandas as pd
 from unidecode import unidecode
 
 from utils.utils import code_to_vnum
@@ -190,7 +189,7 @@ def image_formatting(name: str):
         name = name[:-2]
     return "".join(letter for letter in unidecode(name.lower()) if letter.isalnum()).capitalize()
 
-def create_monster_page(vnum, mob_proto: pd.DataFrame, mob_drop: pd.DataFrame, localisation="", zone=""):
+def create_monster_page(vnum, mob_proto, mob_drop, localisation="", zone=""):
     mob_data = mob_proto.loc[vnum]
     template = Template(name="Monstres\n")
     template.add(name="Code", value=vnum_conversion(vnum) + "\n")

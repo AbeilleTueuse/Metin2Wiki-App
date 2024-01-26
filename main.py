@@ -5,7 +5,7 @@ import polars as pl
 from api.metin2wiki import Metin2Wiki
 from api.mediawiki import Bot, BotManagement
 from models.page import MonsterPage, MetinPage, Page, create_monster_page
-from data.read_files import MobProto, GameProto, GameNames
+from data.read_files import GameProto, GameNames
 from UI.graphic import WikiApp
 
 
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # mob_drop = MobDrop(item_names).data
     # create_monster_page(5163, mob_proto, mob_drop, localisation="I", zone="[[Repaire de Meley]]")
 
-    bot = Bot(name="AbeilleBot@AbeilleBot", password="ligkhmees4pvg4e9563a4452dcihkasp")
+    bot = Bot(name="AbeilleBot@AbeilleBot", password="8rcobtm3g8rifgoeio4sgj38ilqbo5tf")
     metin2wiki = Metin2Wiki(bot=bot)
     metin2wiki.login()
     metin2wiki.test()
