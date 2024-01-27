@@ -14,8 +14,8 @@ class Page:
         self,
         data: dict,
     ):
-        self.title = data["title"]
-        self.pageid = data["pageid"]
+        self.title: str = data["title"]
+        self.pageid: int = data["pageid"]
         self.content = self.get_content(data)
         self._vnum = None
         self._templates = None
@@ -48,45 +48,42 @@ class Page:
     def __str__(self):
         return f"(Page: [title: {self.title}])"
 
-    def __eq__(self, __value):
-        if self.pageid is not None and isinstance(__value, Page):
-            return self.pageid == __value.pageid
-        return False
+    def get_parameter_value(self, parameter_name: str):
+        parameter: Parameter = self.templates[0].get(parameter_name)
+        return parameter.value.strip_code()
+    
+    def has_parameter(self, parameter_name: str):
+        return self.templates[0].has(parameter_name)
 
-    def get_parameters(self, template):
-        return [param.name for param in template.params]
+    def split_name(self):
+        sep = r" ("
+        return self.title.split(sep)
 
-    def add_parameter(
-        self,
-        template,
-        parameter_name: str,
-        parameter_value: str,
-        before: str | None = None,
-    ):
-        if not template.has(parameter_name):
-            template.add(parameter_name, parameter_value, before=before)
+    def to_card(self):
+        template_name = "Monstres/Résumé\n"
+        splitted_name = self.split_name()
 
-    def change_parameter_name(
-        self, template, parameter_name: str, new_parameter_name: str
-    ):
-        if template.has(parameter_name) and not template.has(new_parameter_name):
-            template.get(parameter_name).name = new_parameter_name
+        template = Template(template_name)
+        template.add(name="Nom", value=self.title + "\n")
 
-    def change_parameter_value(
-        self, template, parameter_name: str, new_parameter_value: str
-    ):
-        if template.has(parameter_name):
-            template.get(parameter_name).value = new_parameter_value
+        if len(splitted_name) == 2:
+            template.add(name="NomRéel", value=splitted_name[0])
 
-    def delete_parameter(self, template, parameter_name: str):
-        if template.has(parameter_name):
-            template.remove(parameter_name)
+        template.add(name="Niveaux", value=f"{self.get_parameter_value("Niveau")}, {self.get_parameter_value("Rang")}")
+        template.add(name="Élément", value=self.get_parameter_value("Élément"))
 
-    def match_template(self, template, template_name: str) -> bool:
-        return template.name.matches(template_name)
+        if self.has_parameter("Élément2"):
+            template.add(name="Élément2", value=self.get_parameter_value("Élément2"))
 
-    def change_text(self, text_to_change, new_text):
-        self.content = self.content.replace(text_to_change, new_text)
+        template.add(name="Type", value=self.get_parameter_value("Type"))
+        template.add(name="Dégât", value=self.get_parameter_value("Dégâts"))
+
+        if self.has_parameter("Compétence") or self.has_parameter("NombreCompétence"):
+            template.add(name="DC", value="True")
+
+        template.add(name="Image", value=f"{self.get_parameter_value("Image")}-min")
+
+        return template
 
 
     

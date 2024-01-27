@@ -110,13 +110,23 @@ class MediaWiki:
     def __init__(
         self,
         api_url: str,
+        lang: str = "fr",
         bot: Bot = None,
     ):
         self.api_url = api_url
-        self.bot = bot
+        self.lang = lang
+        self.bot = self._get_bot(bot)
         self.csrf_token = None
         self.session = self._new_session()
         self.logged = False
+
+    def _get_bot(self, val):
+        if isinstance(val, Bot):
+            return val
+        elif isinstance(val, bool):
+            if val:
+                bot_management = BotManagement(lang=self.lang)
+                return bot_management.get_default_bot()
 
     def _new_session(self):
         return requests.session()
@@ -231,7 +241,9 @@ class MediaWiki:
 
         return result
     
-    def pages(self, pages: list[dict]):
+    def pages(self, pages: list[dict], sort_by_vnum=False) -> list[Page]:
+        if sort_by_vnum:
+            return sorted([Page(page) for page in pages], key=lambda page: page.vnum)
         return [Page(page) for page in pages]
 
     def category(self, category: str, exclude_category: str = None):
