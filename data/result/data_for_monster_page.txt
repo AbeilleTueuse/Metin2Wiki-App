@@ -1,0 +1,5030 @@
+{{Monstres/Résumé
+|Nom=Chien errant
+|Niveaux=1, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Chienerrant-min
+}}
+{{Monstres/Résumé
+|Nom=Loup
+|Niveaux=3, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loup-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha
+|Niveaux=4, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loup-min
+}}
+{{Monstres/Résumé
+|Nom=Loup bleu
+|Niveaux=6, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleu-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha bleu
+|Niveaux=9, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleu-min
+}}
+{{Monstres/Résumé
+|Nom=Loup gris
+|Niveaux=13, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgris-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha gris
+|Niveaux=16, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgris-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier
+|Niveaux=7, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sanglier-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier rouge
+|Niveaux=10, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sanglierrouge-min
+}}
+{{Monstres/Résumé
+|Nom=Ours
+|Niveaux=12, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Ours-min
+}}
+{{Monstres/Résumé
+|Nom=Grizzly
+|Niveaux=15, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Grizzly-min
+}}
+{{Monstres/Résumé
+|Nom=Ours noir
+|Niveaux=19, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Ours brun
+|Niveaux=21, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursbrun-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre
+|Niveaux=18, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigre-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre blanc
+|Niveaux=24, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigreblanc-min
+}}
+{{Monstres/Résumé
+|Nom=Loup maudit
+|Niveaux=8, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha maudit
+|Niveaux=9, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup bleu maudit
+|Niveaux=11, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleumaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha bleu maudit
+|Niveaux=14, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleumaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup gris maudit
+|Niveaux=18, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgrismaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha gris maudit
+|Niveaux=21, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgrismaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier rouge maudit
+|Niveaux=15, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sanglierrougemaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours maudit
+|Niveaux=17, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Grizzly maudit
+|Niveaux=20, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Grizzlymaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours noir maudit
+|Niveaux=24, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursnoirmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours brun maudit
+|Niveaux=26, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursbrunmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre maudit
+|Niveaux=24, 3
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigremaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre blanc maudit
+|Niveaux=29, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigreblancmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Cung-Mok
+|Niveaux=9, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Cungmok-min
+}}
+{{Monstres/Résumé
+|Nom=Mu-Rang
+|Niveaux=16, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Murang-min
+}}
+{{Monstres/Résumé
+|Nom=Jug-Hyul
+|Niveaux=10, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Jughyul-min
+}}
+{{Monstres/Résumé
+|Nom=Young-Ji
+|Niveaux=21, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Youngji-min
+}}
+{{Monstres/Résumé
+|Nom=Li-An
+|Niveaux=24, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Lian-min
+}}
+{{Monstres/Résumé
+|Nom=Chien errant affamé
+|Niveaux=1, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Chienerrantaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup affamé
+|Niveaux=3, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha affamé
+|Niveaux=4, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup bleu affamé
+|Niveaux=6, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleuaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha bleu affamé
+|Niveaux=9, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleuaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup gris affamé
+|Niveaux=13, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgrisaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha gris affamé
+|Niveaux=16, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgrisaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier sauvage affamé
+|Niveaux=7, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sangliermaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier rouge affamé
+|Niveaux=10, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sanglierrougemaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours affamé
+|Niveaux=12, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Grizzly affamé
+|Niveaux=15, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Grizzlyaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Ours noir affamé
+|Niveaux=19, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursnoiraffame-min
+}}
+{{Monstres/Résumé
+|Nom=Ours brun affamé
+|Niveaux=21, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursbrunmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre affamé
+|Niveaux=18, 1
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigreaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre blanc affamé
+|Niveaux=24, 2
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigreblancaffame-min
+}}
+{{Monstres/Résumé
+|Nom=Lykos
+|Niveaux=30, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Lykos-min
+}}
+{{Monstres/Résumé
+|Nom=Scrofa
+|Niveaux=31, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Scrofa-min
+}}
+{{Monstres/Résumé
+|Nom=Bera
+|Niveaux=33, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Ours-min
+}}
+{{Monstres/Résumé
+|Nom=Tigris
+|Niveaux=35, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigris-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat du Serment Blanc
+|Niveaux=18, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatdusermentblanc-min
+}}
+{{Monstres/Résumé
+|Nom=Archer du Serment Blanc
+|Niveaux=20, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerdusermentblanc-min
+}}
+{{Monstres/Résumé
+|Nom=Général du Serment Blanc
+|Niveaux=25, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Generaldusermentblanc-min
+}}
+{{Monstres/Résumé
+|Nom=Cdt du Serment Blanc
+|Niveaux=25, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Generaldusermentblanc-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat du Serment Blanc (rang 2)
+|NomRéel=Soldat du Serment Blanc
+|Niveaux=18, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatdusermentblanc2-min
+}}
+{{Monstres/Résumé
+|Nom=Archer du Serment Blanc (rang 2)
+|NomRéel=Archer du Serment Blanc
+|Niveaux=20, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerdusermentblanc2-min
+}}
+{{Monstres/Résumé
+|Nom=Général du Serment Blanc (rang 3)
+|NomRéel=Général du Serment Blanc
+|Niveaux=25, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Generaldusermentblanc2-min
+}}
+{{Monstres/Résumé
+|Nom=Cdt du Serment Blanc (rang 3)
+|NomRéel=Cdt du Serment Blanc
+|Niveaux=25, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Generaldusermentblanc2-min
+}}
+{{Monstres/Résumé
+|Nom=Sold du Serment craintif
+|Niveaux=18, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Solddusermentcraintif-min
+}}
+{{Monstres/Résumé
+|Nom=Arc du Serment craintif
+|Niveaux=20, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Arcdusermentcraintif-min
+}}
+{{Monstres/Résumé
+|Nom=Cdt du Serment craintif
+|Niveaux=25, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Galdusermentcraintif-min
+}}
+{{Monstres/Résumé
+|Nom=Mi-Jung
+|Niveaux=23, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Mijung-min
+}}
+{{Monstres/Résumé
+|Nom=Eun-Jung
+|Niveaux=26, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Eunjung-min
+}}
+{{Monstres/Résumé
+|Nom=Se-Rang
+|Niveaux=28, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Serang-min
+}}
+{{Monstres/Résumé
+|Nom=Jin-Hee
+|Niveaux=31, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Jinhee-min
+}}
+{{Monstres/Résumé
+|Nom=Mi-Jung Déprimée
+|Niveaux=23, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Mijung-min
+}}
+{{Monstres/Résumé
+|Nom=Eun-Jung Déprimée
+|Niveaux=26, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Eunjung-min
+}}
+{{Monstres/Résumé
+|Nom=Se-Rang Déprimée
+|Niveaux=28, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Serang-min
+}}
+{{Monstres/Résumé
+|Nom=Jin-Hee déprimée
+|Niveaux=31, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Magique
+|Image=Jinhee-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat du Vent Noir
+|Niveaux=26, 1
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Maniac du Vent Noir
+|Niveaux=27, 1
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Maniacduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Archer du Vent Noir
+|Niveaux=29, 1
+|Élément=V
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Jak-To du Vent Noir
+|Niveaux=30, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Jaktoduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=To-Su du Vent Noir
+|Niveaux=33, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Tosuduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Gu-Ryung du Vent Noir
+|Niveaux=35, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Guryungduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Tempête Noire
+|Niveaux=31, 3
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Maniac Tempête Noire
+|Niveaux=33, 3
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Maniacduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Archer Tempête Noire
+|Niveaux=35, 3
+|Élément=V
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Joh-Hwan Tempête Noire
+|Niveaux=36, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Jaktoduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Kyuk-Jang Tempête Noire
+|Niveaux=38, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Tosuduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Pho-Hwan Tempête Noire
+|Niveaux=40, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Guryungduventnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat T.Noire du Mal
+|Niveaux=26, 1
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Soldattnoiredumal-min
+}}
+{{Monstres/Résumé
+|Nom=Archer T.Noire du Mal
+|Niveaux=29, 1
+|Élément=V
+|Type=Dh
+|Dégât=Fleche
+|Image=Archertnoiredumal-min
+}}
+{{Monstres/Résumé
+|Nom=Joh-Hwan T.Noire du Mal
+|Niveaux=30, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Johhwantnoiredumal-min
+}}
+{{Monstres/Résumé
+|Nom=Kyuk-Jang T.Noire du Mal
+|Niveaux=33, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Kyukjangtnoiredumal-min
+}}
+{{Monstres/Résumé
+|Nom=Pho-Hwang T.Noire du Mal
+|Niveaux=35, 2
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Phohwangtnoiredumal-min
+}}
+{{Monstres/Résumé
+|Nom=Mahon
+|Niveaux=32, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Mahon-min
+}}
+{{Monstres/Résumé
+|Nom=Bo
+|Niveaux=37, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Bo-min
+}}
+{{Monstres/Résumé
+|Nom=Goo-Pae
+|Niveaux=39, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Goopae-min
+}}
+{{Monstres/Résumé
+|Nom=Chuong
+|Niveaux=45, 4
+|Élément=V
+|Type=Dh
+|Dégât=Melee
+|Image=Chuong-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Barbare
+|Niveaux=29, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Minion Barbare
+|Niveaux=32, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Maniacbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Archer Barbare
+|Niveaux=35, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Général Barbare
+|Niveaux=36, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Specialistebestial-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat bestial
+|Niveaux=35, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Soldatbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Maniac bestial
+|Niveaux=37, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Maniacbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Archer bestial
+|Niveaux=40, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Archerbestial-min
+}}
+{{Monstres/Résumé
+|Nom=Spécialiste bestial
+|Niveaux=42, 4
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Specialistebestial-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Soldat Barbare
+|Niveaux=29, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Fortsoldatbarbare-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Minion Barbare
+|Niveaux=32, 1
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Fortminionbarbare-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Archer Barbare
+|Niveaux=35, 2
+|Élément=Aucun
+|Type=Dh
+|Dégât=Fleche
+|Image=Fortarcherbarbare-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Général Barbare
+|Niveaux=36, 3
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Fortgeneralbarbare-min
+}}
+{{Monstres/Résumé
+|Nom=Capitaine bestial
+|Niveaux=42, Boss
+|Élément=Aucun
+|Type=Dh
+|Dégât=Melee
+|Image=Capitainebestial-min
+}}
+{{Monstres/Résumé
+|Nom=Orc
+|Niveaux=26, 1
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Orc-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur orc
+|Niveaux=29, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Eclaireurorc-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant orc
+|Niveaux=31, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Combattantorc-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier orc
+|Niveaux=33, 3
+|Élément=Aucun
+|Type=O
+|Dégât=Magique
+|Image=Sorcierorc-min
+}}
+{{Monstres/Résumé
+|Nom=Orc d'élite
+|Niveaux=34, 1
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Orcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur orc d'élite
+|Niveaux=36, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Eclaireurorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant orc d'élite
+|Niveaux=39, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Combattantorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier orc d'élite
+|Niveaux=40, 3
+|Élément=Aucun
+|Type=O
+|Dégât=Magique
+|Image=Sorcierorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Général orc d'élite
+|Niveaux=44, 3
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Generalorcdelite-min
+}}
+{{Monstres/Résumé
+|Nom=Orc noir
+|Niveaux=46, 4
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Orcnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Géant orc noir
+|Niveaux=49, 4
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Geantorcnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Orc intrépide
+|Niveaux=34, 1
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Orcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur orc intrépide
+|Niveaux=36, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Eclaireurorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant orc intrépide
+|Niveaux=39, 2
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Combattantorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier orc intrépide
+|Niveaux=40, 3
+|Élément=Aucun
+|Type=O
+|Dégât=Magique
+|Image=Sorcierorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Général orc intrépide
+|Niveaux=44, 3
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Generalorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Orc noir intrépide
+|Niveaux=46, 4
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Orcnoirintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Géant orc noir intrépide
+|Niveaux=49, 4
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|Image=Geantorcnoirintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Chef orc
+|Niveaux=50, Boss
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Cheforc-min
+}}
+{{Monstres/Résumé
+|Nom=Fanatique funeste
+|Niveaux=35, 1
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fanatiquefuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Arahan funeste
+|Niveaux=38, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Arahanfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant funeste
+|Niveaux=41, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Combattantfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Chef arahan funeste
+|Niveaux=44, 3
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Chefarahanfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Exécuteur funeste
+|Niveaux=48, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Executeurfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Bourreau funeste
+|Niveaux=49, 4
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Bourreaufuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Invocateur funeste
+|Niveaux=51, 4
+|Élément=V
+|Type=My
+|Dégât=Magique
+|Image=Invocateurfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Fier fanatique funeste
+|Niveaux=52, 1
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fierfanatiquefuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Fier Arahan funeste
+|Niveaux=53, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fierarahanfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Fier combattant funeste
+|Niveaux=54, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fiercombattantfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Fier chef funeste
+|Niveaux=54, 3
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fiercheffuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Fier exécuteur funeste
+|Niveaux=55, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Fierexecuteurfuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Tourmenteur éso. élite
+|Niveaux=56, 4
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Tourmenteuresoelite-min
+}}
+{{Monstres/Résumé
+|Nom=Invocateur Ésot. élite
+|Niveaux=57, 4
+|Élément=V
+|Type=My
+|Dégât=Magique
+|Image=Invocateuresotelite-min
+}}
+{{Monstres/Résumé
+|Nom=Haut fanatique
+|Niveaux=35, 1
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautfanatique-min
+}}
+{{Monstres/Résumé
+|Nom=Haut arahan
+|Niveaux=38, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautarahan-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant Haut arahan
+|Niveaux=41, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Combattanthautarahan-min
+}}
+{{Monstres/Résumé
+|Nom=Haut arahan élite
+|Niveaux=44, 3
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautarahanelite-min
+}}
+{{Monstres/Résumé
+|Nom=Haut juge
+|Niveaux=48, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautjuge-min
+}}
+{{Monstres/Résumé
+|Nom=Haut Tourmenteur
+|Niveaux=49, 4
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hauttourmenteur-min
+}}
+{{Monstres/Résumé
+|Nom=Haut évocateur
+|Niveaux=51, 4
+|Élément=V
+|Type=My
+|Dégât=Magique
+|Image=Hautevocateur-min
+}}
+{{Monstres/Résumé
+|Nom=Fanatic bestial
+|Niveaux=52, 1
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautfanatique-min
+}}
+{{Monstres/Résumé
+|Nom=Arahan bestial
+|Niveaux=53, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautarahan-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant arahan best.
+|Niveaux=54, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Combattanthautarahan-min
+}}
+{{Monstres/Résumé
+|Nom=Chef arahan bestial
+|Niveaux=54, 3
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautarahanelite-min
+}}
+{{Monstres/Résumé
+|Nom=Juge bestial
+|Niveaux=55, 2
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hautjuge-min
+}}
+{{Monstres/Résumé
+|Nom=Tourmenteur bestial
+|Niveaux=56, 4
+|Élément=V
+|Type=My
+|Dégât=Melee
+|Image=Hauttourmenteur-min
+}}
+{{Monstres/Résumé
+|Nom=Evocateur bestial
+|Niveaux=57, 4
+|Élément=V
+|Type=My
+|Dégât=Magique
+|Image=Hautevocateur-min
+}}
+{{Monstres/Résumé
+|Nom=Chef funeste
+|Niveaux=54, Boss
+|Élément=V
+|Type=My
+|Dégât=Melee
+|DC=True
+|Image=Cheffuneste-min
+}}
+{{Monstres/Résumé
+|Nom=Ame d'un corps sans vie
+|Niveaux=49, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Ameduncorpssansvie-min
+}}
+{{Monstres/Résumé
+|Nom=Chien pestiféré
+|Niveaux=51, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Chienpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Pestiféré
+|Niveaux=53, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Pestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat pestiféré
+|Niveaux=55, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Soldatpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier pestiféré
+|Niveaux=58, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Archer pestiféré
+|Niveaux=58, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Chef pestiféré
+|Niveaux=59, 4
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Chefpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Ame furieuse
+|Niveaux=49, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Amefurieuse-min
+}}
+{{Monstres/Résumé
+|Nom=Chien infecté enragé
+|Niveaux=51, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Chieninfecteenrage-min
+}}
+{{Monstres/Résumé
+|Nom=Pestiféré furieux
+|Niveaux=53, 2
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Pestiferefurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant pest. furieux
+|Niveaux=55, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Combattantpestfurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier pest. furieux
+|Niveaux=58, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierpestfurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Archer pestiféré furieux
+|Niveaux=58, 3
+|Élément=Aucun
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerpestiferefurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Chef pestiféré furieux
+|Niveaux=59, 4
+|Élément=Aucun
+|Type=Mv
+|Dégât=Melee
+|Image=Chefpestiferefurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat démoniaque
+|Niveaux=57, 2
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Soldatdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Archer démon
+|Niveaux=58, 2
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerdemon-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier démoniaque
+|Niveaux=59, 2
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Chamane démoniaque
+|Niveaux=60, 3
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Chamanedemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Soldat démoniaque
+|Niveaux=67, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Soldatdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Archer démoniaque
+|Niveaux=69, 3
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerdemon-min
+}}
+{{Monstres/Résumé
+|Nom=Vil lancier démoniaque
+|Niveaux=70, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Chamane démoniaque
+|Niveaux=71, 3
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Chamanedemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit de rancune
+|Niveaux=72, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Espritderancune-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit du Chaos
+|Niveaux=73, 3
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Espritduchaos-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Chef démoniaque
+|Niveaux=71, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Vilchefdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Maître à épée squelette
+|Niveaux=72, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Maitreaepeesquelette-min
+}}
+{{Monstres/Résumé
+|Nom=Tête de mort volante
+|Niveaux=73, 4
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Tetedemortvolante-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit éternel
+|Niveaux=74, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Espriteternel-min
+}}
+{{Monstres/Résumé
+|Nom=Bête démoniaque
+|Niveaux=75, 4
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Betedemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Soldat démoniaque (réincarnation)
+|NomRéel=Vil Soldat démoniaque
+|Niveaux=67, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Vilsoldatdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Archer démoniaque (réincarnation)
+|NomRéel=Vil Archer démoniaque
+|Niveaux=69, 3
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Vilarcherdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil lancier démoniaque (réincarnation)
+|NomRéel=Vil lancier démoniaque
+|Niveaux=70, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Villancierdemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Chamane démoniaque (réincarnation)
+|NomRéel=Vil Chamane démoniaque
+|Niveaux=71, 3
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Vilchamanedemoniaque-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Esprit de rancune
+|Niveaux=72, 3
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Vilespritderancune-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Esprit du Chaos
+|Niveaux=73, 3
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Vilespritduchaos-min
+}}
+{{Monstres/Résumé
+|Nom=Vil Chef démoniaque (réincarnation)
+|NomRéel=Vil Chef démoniaque
+|Niveaux=71, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Vilchefdemoniaque2-min
+}}
+{{Monstres/Résumé
+|Nom=Maître à épée fantôme
+|Niveaux=72, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Maitreaepeefantome-min
+}}
+{{Monstres/Résumé
+|Nom=Vile Tête mort volante
+|Niveaux=73, 4
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Viletetemortvolante-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit éternel (réincarnation)
+|NomRéel=Esprit éternel
+|Niveaux=74, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Espriteternel2-min
+}}
+{{Monstres/Résumé
+|Nom=Bête démoniaque (réincarnation)
+|NomRéel=Bête démoniaque
+|Niveaux=75, 4
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Betedemoniaque2-min
+}}
+{{Monstres/Résumé
+|Nom=Roi démon
+|Niveaux=75, Boss
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|DC=True
+|Image=Roidemon-min
+}}
+{{Monstres/Résumé
+|Nom=Roi démon élite
+|Niveaux=75, Boss
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|DC=True
+|Image=Roidemonelite-min
+}}
+{{Monstres/Résumé
+|Nom=Faucheuse
+|Niveaux=78, 5
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|DC=True
+|Image=Faucheuse-min
+}}
+{{Monstres/Résumé
+|Nom=Glace enchantée
+|Niveaux=62, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Glaceenchantee-min
+}}
+{{Monstres/Résumé
+|Nom=Baleine de glace
+|Niveaux=63, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Baleinedeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Insecte de glace
+|Niveaux=64, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Insectedeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Lion de glace
+|Niveaux=64, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Liondeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Homme de glace furieux
+|Niveaux=65, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Hommedeglacefurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti
+|Niveaux=66, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Yeti-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de glace
+|Niveaux=66, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Glace enchantée moyenne
+|Niveaux=62, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Glaceenchanteemoyenne-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat gren. arboricole
+|Niveaux=57, 2
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Soldatgrenarboricole-min
+}}
+{{Monstres/Résumé
+|Nom=Chef gren. arboricole
+|Niveaux=59, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Chefgrenarboricole-min
+}}
+{{Monstres/Résumé
+|Nom=Croque-mitaine
+|Niveaux=58, 2
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Croquemitaine-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit du Tigre jaune
+|Niveaux=75, Boss
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Espritdutigrejaune-min
+}}
+{{Monstres/Résumé
+|Nom=Gal Grenouille-taureau
+|Niveaux=61, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Galgrenouilletaureau-min
+}}
+{{Monstres/Résumé
+|Nom=Gr. chef gren. arbori.
+|Niveaux=59, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Grchefgrenarbori-min
+}}
+{{Monstres/Résumé
+|Nom=Général grenouille-taur.
+|Niveaux=61, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Galgrenouilletaureau-min
+}}
+{{Monstres/Résumé
+|Nom=Destructeur
+|Niveaux=66, 2
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Destructeur-min
+}}
+{{Monstres/Résumé
+|Nom=Berserker
+|Niveaux=73, 3
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Berserker-min
+}}
+{{Monstres/Résumé
+|Nom=Millier Combattant
+|Niveaux=77, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Milliercombattant-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de pierre
+|Niveaux=69, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdepierre-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de Pierre
+|Niveaux=72, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdepierre2-min
+}}
+{{Monstres/Résumé
+|Nom=Golem Géant de Pierre
+|Niveaux=76, 3
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemgeantdepierre-min
+}}
+{{Monstres/Résumé
+|Nom=Ogre Guerrier
+|Niveaux=68, 1
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Ogreguerrier-min
+}}
+{{Monstres/Résumé
+|Nom=Ogre Boucher
+|Niveaux=70, 3
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Ogreboucher-min
+}}
+{{Monstres/Résumé
+|Nom=Ogre Berserker
+|Niveaux=75, 3
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Ogreberserker-min
+}}
+{{Monstres/Résumé
+|Nom=Neuf-Queues
+|Niveaux=72, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Neufqueues-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune Araignée
+|Niveaux=43, 1
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaignee-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée venimeuse
+|Niveaux=45, 1
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée rouge venimeuse
+|Niveaux=48, 2
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneerougevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée à griffes
+|Niveaux=50, 2
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneeagriffes-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Araignée
+|Niveaux=52, 2
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Soldataraignee-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune Araignée venimeuse
+|Niveaux=50, 3
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée mortelle
+|Niveaux=52, 3
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneemortelle-min
+}}
+{{Monstres/Résumé
+|Nom=Arai Rge Venim Furieuse
+|Niveaux=54, 4
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Arairgevenimfurieuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée à griffes (niv. 56)
+|NomRéel=Araignée à griffes
+|Niveaux=56, 4
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneeagriffes2-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Araignée venim.
+|Niveaux=58, 4
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Soldataraigneevenim-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Araignée élite
+|Niveaux=58, 4
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Soldataraigneevenim-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune venimeuse
+|Niveaux=43, 1
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée venimeuse (version 2)
+|NomRéel=Araignée venimeuse
+|Niveaux=45, 1
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneemortelle-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée rouge
+|Niveaux=48, 2
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Arairgevenimfurieuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée griffue
+|Niveaux=50, 2
+|Élément=Aucun
+|Type=I
+|Dégât=Melee
+|Image=Araigneeagriffes2-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune Araignée venimeuse (niv. 60)
+|NomRéel=Jeune Araignée venimeuse
+|Niveaux=60, 1
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaigneevenimeuse2-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée venimeuse (niv. 62)
+|NomRéel=Araignée venimeuse
+|Niveaux=62, 2
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneevenimeuse2-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée rouge venimeuse (niv. 64)
+|NomRéel=Araignée rouge venimeuse
+|Niveaux=64, 3
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneerougevenimeuse2-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée venim. griffue
+|Niveaux=66, 3
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneevenimgriffue-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Araignée venim. (niv. 68)
+|NomRéel=Soldat Araignée venim.
+|Niveaux=68, 4
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Soldataraigneevenim2-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune Araignée bestiale
+|Niveaux=60, 3
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaignee-min
+}}
+{{Monstres/Résumé
+|Nom=Araig, mortelle bestiale
+|Niveaux=62, 3
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée rouge bestiale
+|Niveaux=64, 4
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneerougevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée grif. bestiale
+|Niveaux=66, 4
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Araigneeagriffes-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Araignée bestiale
+|Niveaux=68, 4
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Soldataraignee-min
+}}
+{{Monstres/Résumé
+|Nom=Œil Volant
+|Niveaux=37, 2
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Oeilvolant-min
+}}
+{{Monstres/Résumé
+|Nom=Roi scorpion
+|Niveaux=39, 2
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Roiscorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune homme scorpion
+|Niveaux=44, 3
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Jeunehommescorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Archer scorpion
+|Niveaux=47, 3
+|Élément=Aucun
+|Type=D
+|Dégât=Fleche
+|Image=Archerscorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste serpent
+|Niveaux=48, 3
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Epeisteserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Archer serpent
+|Niveaux=51, 3
+|Élément=Aucun
+|Type=D
+|Dégât=Fleche
+|Image=Archerserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Hors la loi du Désert
+|Niveaux=54, 4
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Horslaloidudesert-min
+}}
+{{Monstres/Résumé
+|Nom=Homme scorpion bestial
+|Niveaux=60, 1
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Jeunehommescorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Archer scorpion (niv. 62)
+|NomRéel=Archer scorpion
+|Niveaux=62, 2
+|Élément=Feu
+|Type=I
+|Dégât=Fleche
+|Image=Archerscorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste serpent (niv. 64)
+|NomRéel=Épéiste serpent
+|Niveaux=64, 3
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Epeisteserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Archer serpent (niv. 66)
+|NomRéel=Archer serpent
+|Niveaux=66, 3
+|Élément=Feu
+|Type=I
+|Dégât=Fleche
+|Image=Archerserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Hors la loi du désert
+|Niveaux=68, 4
+|Élément=Feu
+|Type=I
+|Dégât=Melee
+|Image=Horslaloidudesert-min
+}}
+{{Monstres/Résumé
+|Nom=Fort bandit du désert
+|Niveaux=54, 4
+|Élément=Aucun
+|Type=D
+|Dégât=Melee
+|Image=Fortbanditdudesert-min
+}}
+{{Monstres/Résumé
+|Nom=Tortue des sables Géante
+|Niveaux=67, Boss
+|Élément=V
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Tortuedessablesgeante-min
+}}
+{{Monstres/Résumé
+|Nom=Arbre fantôme
+|Niveaux=65, 1
+|Élément=T
+|Type=Aucun
+|Dégât=Magique
+|Image=Arbrefantome-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit de la souche
+|Niveaux=67, 1
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Espritdelasouche-min
+}}
+{{Monstres/Résumé
+|Nom=Dryade
+|Niveaux=69, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Magique
+|Image=Dryade-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit du saule pleureur
+|Niveaux=70, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Espritdusaulepleureur-min
+}}
+{{Monstres/Résumé
+|Nom=Arbre maléfique
+|Niveaux=71, 3
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Arbremalefique-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit rouge de l'arbre
+|Niveaux=74, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Magique
+|Image=Espritrougedelarbre-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit rge de la souche
+|Niveaux=76, 3
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Espritrgedelasouche-min
+}}
+{{Monstres/Résumé
+|Nom=Dryade rouge
+|Niveaux=77, 3
+|Élément=T
+|Type=Aucun
+|Dégât=Magique
+|Image=Dryaderouge-min
+}}
+{{Monstres/Résumé
+|Nom=Saule pleureur rouge
+|Niveaux=80, 4
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Saulepleureurrouge-min
+}}
+{{Monstres/Résumé
+|Nom=Arbre maléfique rouge
+|Niveaux=82, 4
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Arbremalefiquerouge-min
+}}
+{{Monstres/Résumé
+|Nom=Beran-Setaou
+|Niveaux=97, 5
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Beransetaou-min
+}}
+{{Monstres/Résumé
+|Nom=Hydre (première tête)
+|NomRéel=Hydre
+|Niveaux=120, 5
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|DC=True
+|Image=Hydre-min
+}}
+{{Monstres/Résumé
+|Nom=Hydre (deuxième tête)
+|NomRéel=Hydre
+|Niveaux=120, 5
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|DC=True
+|Image=Hydre-min
+}}
+{{Monstres/Résumé
+|Nom=Hydre (troisième tête)
+|NomRéel=Hydre
+|Niveaux=120, 5
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|DC=True
+|Image=Hydre-min
+}}
+{{Monstres/Résumé
+|Nom=ST : combattant En-Tai (niv. 107)
+|NomRéel=ST : combattant En-Tai
+|Niveaux=107, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : Guerrier En-Tai (niv. 109)
+|NomRéel=ST : Guerrier En-Tai
+|Niveaux=109, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : druide En-Tai (niv. 111)
+|NomRéel=ST : druide En-Tai
+|Niveaux=111, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : guérisseur En-Tai (niv. 112)
+|NomRéel=ST : guérisseur En-Tai
+|Niveaux=112, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : destructeur En-Tai (niv. 113)
+|NomRéel=ST : destructeur En-Tai
+|Niveaux=113, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : combattant En-Tai (niv. 119)
+|NomRéel=ST : combattant En-Tai
+|Niveaux=119, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : Guerrier En-Tai (niv. 120)
+|NomRéel=ST : Guerrier En-Tai
+|Niveaux=120, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : druide En-Tai (niv. 120)
+|NomRéel=ST : druide En-Tai
+|Niveaux=120, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : guérisseur En-Tai (niv. 121)
+|NomRéel=ST : guérisseur En-Tai
+|Niveaux=121, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ST : destructeur En-Tai (niv. 125)
+|NomRéel=ST : destructeur En-Tai
+|Niveaux=125, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : combattant En-Tai (niv. 107)
+|NomRéel=ÉV : combattant En-Tai
+|Niveaux=107, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : guerrier En-Tai (niv. 109)
+|NomRéel=ÉV : guerrier En-Tai
+|Niveaux=109, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : druide En-Tai (niv. 111)
+|NomRéel=ÉV : druide En-Tai
+|Niveaux=111, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : guérisseur En-Tai (niv. 112)
+|NomRéel=ÉV : guérisseur En-Tai
+|Niveaux=112, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : destructeur En-Tai (niv. 113)
+|NomRéel=ÉV : destructeur En-Tai
+|Niveaux=113, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : combattant En-Tai (niv. 119)
+|NomRéel=ÉV : combattant En-Tai
+|Niveaux=119, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : guerrier En-Tai (niv. 120)
+|NomRéel=ÉV : guerrier En-Tai
+|Niveaux=120, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : druide En-Tai (niv. 120)
+|NomRéel=ÉV : druide En-Tai
+|Niveaux=120, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : guérisseur En-Tai (niv. 121)
+|NomRéel=ÉV : guérisseur En-Tai
+|Niveaux=121, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=ÉV : destructeur En-Tai (niv. 125)
+|NomRéel=ÉV : destructeur En-Tai
+|Niveaux=125, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Singe de pierre (boss)
+|NomRéel=Singe de pierre
+|Niveaux=30, Boss
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Singedepierre-min
+}}
+{{Monstres/Résumé
+|Nom=Singe qui marche
+|Niveaux=43, Boss
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Singequimarche-min
+}}
+{{Monstres/Résumé
+|Nom=Seigneur Singe
+|Niveaux=55, Boss
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Seigneursinge-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit flamme ardent
+|Niveaux=97, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Espritflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre flamme ardent
+|Niveaux=99, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Tigreflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Flamme ardente
+|Niveaux=100, 2
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Flammeardente-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier flamme ardent
+|Niveaux=100, 2
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Guerrierflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Roi flamme ardent
+|Niveaux=103, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Roiflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Troll flamme ardent
+|Niveaux=103, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Trollflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Barbeflamme ardent
+|Niveaux=105, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Barbeflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Général flamme ardent
+|Niveaux=105, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Generalflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Prince flamme ardent
+|Niveaux=107, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Princeflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Ignator
+|Niveaux=107, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Princeflammeardent-min
+}}
+{{Monstres/Résumé
+|Nom=Razador
+|Niveaux=108, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Razador-min
+}}
+{{Monstres/Résumé
+|Nom=Cristal gelé
+|Niveaux=97, 1
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Cristalgele-min
+}}
+{{Monstres/Résumé
+|Nom=Insecte algide
+|Niveaux=99, 1
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Insectealgide-min
+}}
+{{Monstres/Résumé
+|Nom=Homme algide
+|Niveaux=100, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Hommealgide-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti algide
+|Niveaux=100, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Yetialgide-min
+}}
+{{Monstres/Résumé
+|Nom=Golem algide
+|Niveaux=103, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemalgide-min
+}}
+{{Monstres/Résumé
+|Nom=Troll algide
+|Niveaux=103, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Trollalgide-min
+}}
+{{Monstres/Résumé
+|Nom=Barbegel
+|Niveaux=105, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Barbegel-min
+}}
+{{Monstres/Résumé
+|Nom=Général algide
+|Niveaux=105, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Generalalgide-min
+}}
+{{Monstres/Résumé
+|Nom=Seigneur algide
+|Niveaux=107, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Seigneuralgide-min
+}}
+{{Monstres/Résumé
+|Nom=Yeti de magma (niv. 103)
+|NomRéel=Yeti de magma
+|Niveaux=103, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Yetidemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de magma (niv. 107)
+|NomRéel=Golem de magma
+|Niveaux=107, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Insecte de magma (niv. 105)
+|NomRéel=Insecte de magma
+|Niveaux=105, 2
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Insectedemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Homme magmatique (niv. 105)
+|NomRéel=Homme magmatique
+|Niveaux=105, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Hommemagmatique-min
+}}
+{{Monstres/Résumé
+|Nom=Cristal de magma (guilde)
+|NomRéel=Cristal de magma
+|Niveaux=103, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Cristaldemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Wyverne de magma (niv. 110)
+|NomRéel=Wyverne de magma
+|Niveaux=110, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Wyvernedemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Idall, garde du dragon (niv. 113)
+|NomRéel=Idall, garde du dragon
+|Niveaux=113, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Idallgardedudragon-min
+}}
+{{Monstres/Résumé
+|Nom=Sbire d'Idall
+|Niveaux=97, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Sbiredidall-min
+}}
+{{Monstres/Résumé
+|Nom=Szel
+|Niveaux=107, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Seigneuralgide-min
+}}
+{{Monstres/Résumé
+|Nom=Nemere
+|Niveaux=108, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Nemere-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti de magma (niv. 97)
+|NomRéel=Yéti de magma
+|Niveaux=97, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Yetidemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de magma (niv. 98)
+|NomRéel=Golem de magma
+|Niveaux=98, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Insecte de magma (niv. 99)
+|NomRéel=Insecte de magma
+|Niveaux=99, 2
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Insectedemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Homme magmatique (niv. 101)
+|NomRéel=Homme magmatique
+|Niveaux=101, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Hommemagmatique-min
+}}
+{{Monstres/Résumé
+|Nom=Cristal de magma (groupe)
+|NomRéel=Cristal de magma
+|Niveaux=103, 1
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Cristaldemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Wyverne de magma (niv. 105)
+|NomRéel=Wyverne de magma
+|Niveaux=105, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Wyvernedemagma-min
+}}
+{{Monstres/Résumé
+|Nom=Idall, garde du dragon (niv. 107)
+|NomRéel=Idall, garde du dragon
+|Niveaux=107, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Idallgardedudragon-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant En-Tai
+|Niveaux=100, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier En-Tai
+|Niveaux=102, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=Druide En-Tai
+|Niveaux=104, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=Guérisseur En-Tai
+|Niveaux=105, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Destructeur En-Tai
+|Niveaux=108, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Seigneur En-Tai
+|Niveaux=112, Boss
+|Élément=G
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Seigneurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Combattant En-Tai
+|Niveaux=117, 1
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Guerrier En-Tai
+|Niveaux=118, 2
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Druide En-Tai
+|Niveaux=118, 2
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Guérisseur En-Tai
+|Niveaux=119, 3
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Fort Destructeur En-Tai
+|Niveaux=120, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Akzadur, roi dragon
+|Niveaux=120, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Akzadurroidragon-min
+}}
+{{Monstres/Résumé
+|Nom=Nafaroth, le roi dragon
+|Niveaux=121, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Nafarothleroidragon-min
+}}
+{{Monstres/Résumé
+|Nom=Exédyar, le roi dragon
+|Niveaux=122, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Akzadurroidragon-min
+}}
+{{Monstres/Résumé
+|Nom=Ruilith, le roi dragon
+|Niveaux=123, Boss
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Nafarothleroidragon-min
+}}
+{{Monstres/Résumé
+|Nom=Tyolduran, le roi dragon
+|Niveaux=115, 5
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Tyolduranleroidragon-min
+}}
+{{Monstres/Résumé
+|Nom=Jin bing (obscurité)
+|NomRéel=Jin bing
+|Niveaux=119, 2
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Epeistejinobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Ki (obscurité)
+|NomRéel=Soldat Ki
+|Niveaux=119, 3
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Lancierkiobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Ki (niv. 120, obscurité)
+|NomRéel=Soldat Ki
+|Niveaux=120, 3
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Lanciermaoobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Gong (obscurité)
+|NomRéel=Soldat Gong
+|Niveaux=120, 4
+|Élément=O
+|Type=Dh
+|Dégât=Fleche
+|Image=Archergongobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Mage de front (obscurité)
+|NomRéel=Mage de front
+|Niveaux=120, 4
+|Élément=O
+|Type=Dh
+|Dégât=Magique
+|Image=Moinemysterieuxobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Kao (obscurité)
+|NomRéel=Kao
+|Niveaux=123, Boss
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Epeistekaoobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Roi Bao (quête)
+|NomRéel=Roi Bao
+|Niveaux=125, Boss
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Roibaoquete-min
+}}
+{{Monstres/Résumé
+|Nom=Jin bing (glace)
+|NomRéel=Jin bing
+|Niveaux=119, 2
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Epeistejinglace-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Ki (glace)
+|NomRéel=Soldat Ki
+|Niveaux=119, 3
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Lancierkiglace-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Ki (niv. 120, glace)
+|NomRéel=Soldat Ki
+|Niveaux=120, 3
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Lanciermaoglace-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat Gong (glace)
+|NomRéel=Soldat Gong
+|Niveaux=120, 4
+|Élément=G
+|Type=Dh
+|Dégât=Fleche
+|Image=Archergongglace-min
+}}
+{{Monstres/Résumé
+|Nom=Mage de front (glace)
+|NomRéel=Mage de front
+|Niveaux=120, 4
+|Élément=G
+|Type=Dh
+|Dégât=Magique
+|Image=Moinemysterieuxglace-min
+}}
+{{Monstres/Résumé
+|Nom=Kao (glace)
+|NomRéel=Kao
+|Niveaux=123, Boss
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Epeistekaoglace-min
+}}
+{{Monstres/Résumé
+|Nom=Roi Bao
+|Niveaux=125, Boss
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Roibao-min
+}}
+{{Monstres/Résumé
+|Nom=Chien infernal (obscurité)
+|NomRéel=Chien infernal
+|Niveaux=119, 2
+|Élément=O
+|Type=A
+|Dégât=Melee
+|Image=Chieninfernalobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat troll (obscurité)
+|NomRéel=Soldat troll
+|Niveaux=119, 3
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Soldattrollobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier troll (obscurité)
+|NomRéel=Guerrier troll
+|Niveaux=120, 3
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Guerriertrollobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Archère troll (obscurité)
+|NomRéel=Archère troll
+|Niveaux=120, 4
+|Élément=O
+|Type=M
+|Dégât=Fleche
+|Image=Archeretrollobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Chamane troll (obscurité)
+|NomRéel=Chamane troll
+|Niveaux=120, 4
+|Élément=O
+|Type=M
+|Dégât=Magique
+|Image=Chamanetrollobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Natanan (obscurité)
+|NomRéel=Natanan
+|Niveaux=123, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Natananobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Argos (obscurité)
+|NomRéel=Argos
+|Niveaux=125, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Argosobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit malmené
+|Niveaux=119, 4
+|Élément=O
+|Type=M
+|Dégât=Magique
+|DC=True
+|Image=Espritmalmene-min
+}}
+{{Monstres/Résumé
+|Nom=Chien infernal (feu)
+|NomRéel=Chien infernal
+|Niveaux=119, 2
+|Élément=Feu
+|Type=A
+|Dégât=Melee
+|Image=Chieninfernalfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat troll (feu)
+|NomRéel=Soldat troll
+|Niveaux=119, 3
+|Élément=Feu
+|Type=M
+|Dégât=Melee
+|Image=Soldattrollfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier troll (feu)
+|NomRéel=Guerrier troll
+|Niveaux=120, 3
+|Élément=Feu
+|Type=M
+|Dégât=Melee
+|Image=Guerriertrollfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Archère troll (feu)
+|NomRéel=Archère troll
+|Niveaux=120, 4
+|Élément=Feu
+|Type=M
+|Dégât=Fleche
+|Image=Archeretrollfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Chamane troll (feu)
+|NomRéel=Chamane troll
+|Niveaux=120, 4
+|Élément=Feu
+|Type=M
+|Dégât=Magique
+|Image=Chamanetrollfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Natanan (feu)
+|NomRéel=Natanan
+|Niveaux=123, Boss
+|Élément=Feu
+|Type=M
+|Dégât=Melee
+|Image=Natananfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Argos (feu)
+|NomRéel=Argos
+|Niveaux=125, Boss
+|Élément=Feu
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Argosfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Kovix myre (terre)
+|NomRéel=Kovix myre
+|Niveaux=119, 3
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Kovixmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Prolétarien myre (terre)
+|NomRéel=Prolétarien myre
+|Niveaux=119, 3
+|Élément=T
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Proletarienmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Golem myre (terre)
+|NomRéel=Golem myre
+|Niveaux=120, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Golemmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant myre (terre)
+|NomRéel=Combattant myre
+|Niveaux=120, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Combattantmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier myre (terre)
+|NomRéel=Sorcier myre
+|Niveaux=120, 4
+|Élément=T
+|Type=D
+|Dégât=Magique
+|Image=Sorciermyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Vétéran myre (terre)
+|NomRéel=Vétéran myre
+|Niveaux=123, Boss
+|Élément=T
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Veteranmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Primus myre (terre)
+|NomRéel=Primus myre
+|Niveaux=125, Boss
+|Élément=T
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Primusmyreterre-min
+}}
+{{Monstres/Résumé
+|Nom=Kovix myre (vent)
+|NomRéel=Kovix myre
+|Niveaux=119, 3
+|Élément=V
+|Type=D
+|Dégât=Melee
+|Image=Kovixmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Prolétarien myre (vent)
+|NomRéel=Prolétarien myre
+|Niveaux=119, 3
+|Élément=V
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Proletarienmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Golem myre (vent)
+|NomRéel=Golem myre
+|Niveaux=120, 4
+|Élément=V
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Golemmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant myre (vent)
+|NomRéel=Combattant myre
+|Niveaux=120, 4
+|Élément=V
+|Type=D
+|Dégât=Fleche
+|DC=True
+|Image=Combattantmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier myre (vent)
+|NomRéel=Sorcier myre
+|Niveaux=120, 4
+|Élément=V
+|Type=D
+|Dégât=Magique
+|Image=Sorciermyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Vétéran myre (vent)
+|NomRéel=Vétéran myre
+|Niveaux=123, Boss
+|Élément=V
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Veteranmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Primus myre (vent)
+|NomRéel=Primus myre
+|Niveaux=125, Boss
+|Élément=V
+|Type=D
+|Dégât=Melee
+|DC=True
+|Image=Primusmyrevent-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat kappa (niv. 124)
+|NomRéel=Soldat kappa
+|Niveaux=124, Boss
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Soldatkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Ouvrier kappa
+|Niveaux=123, 2
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Ouvrierkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat kappa (niv. 123)
+|NomRéel=Soldat kappa
+|Niveaux=123, 3
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|Image=Soldatkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Magicien kappa
+|Niveaux=123, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Magique
+|Image=Magicienkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Chasseur kappa
+|Niveaux=123, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Fleche
+|Image=Chasseurkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Kappa cruel
+|Niveaux=124, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Kappacruel-min
+}}
+{{Monstres/Résumé
+|Nom=Scorpent (terre)
+|NomRéel=Scorpent
+|Niveaux=123, 2
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|Image=Scorpentterre-min
+}}
+{{Monstres/Résumé
+|Nom=Ouvrier serpent (glace)
+|NomRéel=Ouvrier serpent
+|Niveaux=123, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Ouvrierserpentglace-min
+}}
+{{Monstres/Résumé
+|Nom=Serpent kappa (vent)
+|NomRéel=Serpent kappa
+|Niveaux=124, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Serpentkappavent-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat serpent (vent)
+|NomRéel=Soldat serpent
+|Niveaux=125, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Soldatserpentvent-min
+}}
+{{Monstres/Résumé
+|Nom=Ascète serpent
+|Niveaux=124, 4
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Asceteserpentvent-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier serpent cruel (glace)
+|NomRéel=Guerrier serpent cruel
+|Niveaux=128, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Fleche
+|DC=True
+|Image=Guerrierserpentcruelglace-min
+}}
+{{Monstres/Résumé
+|Nom=Reine Nethis
+|Niveaux=129, Boss
+|Élément=T
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Reinenethis-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat corrompu (obscurité)
+|NomRéel=Soldat corrompu
+|Niveaux=122, 2
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Soldatcorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Tirailleur corrompu (obscurité)
+|NomRéel=Tirailleur corrompu
+|Niveaux=122, 3
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Tirailleurcorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier corrompu (obscurité)
+|NomRéel=Guerrier corrompu
+|Niveaux=122, 4
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Guerriercorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Moine corrompu (obscurité)
+|NomRéel=Moine corrompu
+|Niveaux=123, 4
+|Élément=O
+|Type=M
+|Dégât=Magique
+|Image=Moinecorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Général corrompu (obscurité)
+|NomRéel=Général corrompu
+|Niveaux=123, 4
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Generalcorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Chef corrompu (obscurité)
+|NomRéel=Chef corrompu
+|Niveaux=124, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Chefcorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier corrompu (obscurité)
+|NomRéel=Chef guerrier corrompu
+|Niveaux=126, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriercorrompuobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier serpent cruel (terre)
+|NomRéel=Guerrier serpent cruel
+|Niveaux=128, 4
+|Élément=T
+|Type=Aucun
+|Dégât=Fleche
+|DC=True
+|Image=Guerrierserpentcruelglace-min
+}}
+{{Monstres/Résumé
+|Nom=Renard gelé
+|Niveaux=123, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Renardgele-min
+}}
+{{Monstres/Résumé
+|Nom=Guetteur gelé (glace)
+|NomRéel=Guetteur gelé
+|Niveaux=123, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Guetteurgeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier gelé (glace)
+|NomRéel=Guerrier gelé
+|Niveaux=123, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Guerriergeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Chasseur gelé (glace)
+|NomRéel=Chasseur gelé
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Fleche
+|Image=Chasseurgeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Général gelé (glace)
+|NomRéel=Général gelé
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Generalgeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Chef gelé (glace)
+|NomRéel=Chef gelé
+|Niveaux=125, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefgeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier gelé (glace)
+|NomRéel=Chef guerrier gelé
+|Niveaux=127, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriergeleglace-min
+}}
+{{Monstres/Résumé
+|Nom=Cerf de glace possédé
+|Niveaux=123, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Cerfdeglacepossede-min
+}}
+{{Monstres/Résumé
+|Nom=Léopard de glace possédé (glace)
+|NomRéel=Léopard de glace possédé
+|Niveaux=123, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Leoparddeglacepossedeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti d'Aquilon (glace)
+|NomRéel=Yéti d'Aquilon
+|Niveaux=123, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Yetidaquilonglace-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit d'Aquilon (glace)
+|NomRéel=Esprit d'Aquilon
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|DC=True
+|Image=Espritdaquilonglace-min
+}}
+{{Monstres/Résumé
+|Nom=Golem d'Aquilon (glace)
+|NomRéel=Golem d'Aquilon
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Golemdaquilonglace-min
+}}
+{{Monstres/Résumé
+|Nom=Bigfoot (glace)
+|NomRéel=Bigfoot
+|Niveaux=125, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Bigfootglace-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier d'Aquilon (glace)
+|NomRéel=Chef guerrier d'Aquilon
+|Niveaux=127, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerrierdaquilonglace-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat d'Aquilon
+|Niveaux=124, 2
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Soldatdaquilon-min
+}}
+{{Monstres/Résumé
+|Nom=Tirailleur de la cita.
+|Niveaux=124, 3
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Tirailleurdelacita-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier Cita. d'Aquilon
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Guerriercitadaquilon-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier Cita. d'Aquilon
+|Niveaux=125, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Sorciercitadaquilon-min
+}}
+{{Monstres/Résumé
+|Nom=Général Citad. d'Aquilon
+|Niveaux=125, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Generalcitaddaquilon-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier citadelle
+|Niveaux=130, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriercitadelle-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat d'Aquilon (foudre)
+|NomRéel=Soldat d'Aquilon
+|Niveaux=125, 2
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Soldatdaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Tirailleur de la cita. (foudre)
+|NomRéel=Tirailleur de la cita.
+|Niveaux=125, 3
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Tirailleurdelacitafoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier Cita. d'Aquilon (foudre)
+|NomRéel=Guerrier Cita. d'Aquilon
+|Niveaux=125, 4
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Guerriercitadaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier Cita. d'Aquilon (foudre)
+|NomRéel=Sorcier Cita. d'Aquilon
+|Niveaux=125, 4
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Sorciercitadaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Général Citad. d'Aquilon (foudre)
+|NomRéel=Général Citad. d'Aquilon
+|Niveaux=126, 4
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Generalcitaddaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier citadelle (foudre)
+|NomRéel=Chef guerrier citadelle
+|Niveaux=131, Boss
+|Élément=F
+|Élément2=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriercitadellefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier gnoll
+|Niveaux=119, 2
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Guerriergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur gnoll
+|Niveaux=120, 3
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Guerriergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier gnoll
+|Niveaux=120, 4
+|Élément=T
+|Type=A
+|Dégât=Magique
+|Image=Sorciergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Marshall gnoll
+|Niveaux=122, 4
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Marshallgnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Maître gnoll
+|Niveaux=124, Boss
+|Élément=T
+|Type=A
+|Dégât=Melee
+|DC=True
+|Image=Maitregnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Capitaine gnoll
+|Niveaux=125, Boss
+|Élément=T
+|Type=A
+|Dégât=Melee
+|DC=True
+|Image=Maitregnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat gnoll
+|Niveaux=119, 2
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Guerriergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Espion gnoll
+|Niveaux=119, 3
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Guerriergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Magicien gnoll (NC)
+|NomRéel=Magicien gnoll
+|Niveaux=120, 4
+|Élément=T
+|Type=A
+|Dégât=Magique
+|Image=Sorciergnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Commandant gnoll
+|Niveaux=123, 4
+|Élément=T
+|Type=A
+|Dégât=Melee
+|Image=Marshallgnoll-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier ahtrin
+|Niveaux=120, 2
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Guerrierahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur ahtrin
+|Niveaux=121, 3
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Guerrierahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier ahtrin
+|Niveaux=121, 4
+|Élément=O
+|Type=M
+|Dégât=Magique
+|Image=Sorcierahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Commandant ahtrin
+|Niveaux=124, 4
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Commandantahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Capitaine ahtrin (niv. 126)
+|NomRéel=Capitaine ahtrin
+|Niveaux=126, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Capitaineahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Capitaine ahtrin (niv. 127)
+|NomRéel=Capitaine ahtrin
+|Niveaux=127, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Capitaineahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Espion ahtrin
+|Niveaux=123, 3
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Guerrierahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Magicien ahtrin
+|Niveaux=123, 4
+|Élément=O
+|Type=M
+|Dégât=Magique
+|Image=Sorcierahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Commandant ahtrin (niv. 127)
+|NomRéel=Commandant ahtrin
+|Niveaux=127, 4
+|Élément=O
+|Type=M
+|Dégât=Melee
+|Image=Commandantahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Maître ahtrin
+|Niveaux=129, Boss
+|Élément=T
+|Type=A
+|Dégât=Melee
+|DC=True
+|Image=Maitreahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Grand maître ahtrin
+|Niveaux=130, Boss
+|Élément=O
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Maitreahtrin-min
+}}
+{{Monstres/Résumé
+|Nom=Ouvrier serpent (feu)
+|NomRéel=Ouvrier serpent
+|Niveaux=123, 3
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Ouvrierserpentfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Serpent kappa (glace)
+|NomRéel=Serpent kappa
+|Niveaux=124, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Serpentkappaglace-min
+}}
+{{Monstres/Résumé
+|Nom=Boucher serpent
+|Niveaux=124, 4
+|Élément=V
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Asceteserpentvent-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste Jin (obscurité)
+|NomRéel=Épéiste Jin
+|Niveaux=123, 3
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Epeistejinobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier Ki (obscurité)
+|NomRéel=Lancier Ki
+|Niveaux=123, 3
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Lancierkiobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier Mao (obscurité)
+|NomRéel=Lancier Mao
+|Niveaux=123, 3
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|Image=Lanciermaoobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Archer Gong (obscurité)
+|NomRéel=Archer Gong
+|Niveaux=123, 3
+|Élément=O
+|Type=Dh
+|Dégât=Fleche
+|Image=Archergongobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste Kao (obscurité)
+|NomRéel=Épéiste Kao
+|Niveaux=125, 4
+|Élément=O
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Epeistekaoobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste Jin (glace)
+|NomRéel=Épéiste Jin
+|Niveaux=123, 3
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Epeistejinglace-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier Ki (glace)
+|NomRéel=Lancier Ki
+|Niveaux=123, 3
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Lancierkiglace-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier Mao (glace)
+|NomRéel=Lancier Mao
+|Niveaux=123, 3
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|Image=Lanciermaoglace-min
+}}
+{{Monstres/Résumé
+|Nom=Archer Gong (glace)
+|NomRéel=Archer Gong
+|Niveaux=123, 3
+|Élément=G
+|Type=Dh
+|Dégât=Fleche
+|Image=Archergongglace-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste Kao (glace)
+|NomRéel=Épéiste Kao
+|Niveaux=125, 4
+|Élément=G
+|Type=Dh
+|Dégât=Melee
+|DC=True
+|Image=Epeistekaoglace-min
+}}
+{{Monstres/Résumé
+|Nom=Moine mystérieux (glace)
+|NomRéel=Moine mystérieux
+|Niveaux=127, Boss
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Moinemysterieuxglace-min
+}}
+{{Monstres/Résumé
+|Nom=Moine mystérieux (obscurité)
+|NomRéel=Moine mystérieux
+|Niveaux=127, Boss
+|Élément=O
+|Type=Aucun
+|Dégât=Magique
+|Image=Moinemysterieuxobscurite-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat corrompu (terre)
+|NomRéel=Soldat corrompu
+|Niveaux=122, 2
+|Élément=T
+|Type=M
+|Dégât=Melee
+|Image=Soldatcorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Tirailleur corrompu (terre)
+|NomRéel=Tirailleur corrompu
+|Niveaux=122, 3
+|Élément=T
+|Type=M
+|Dégât=Melee
+|Image=Tirailleurcorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Moine corrompu (terre)
+|NomRéel=Moine corrompu
+|Niveaux=123, 4
+|Élément=T
+|Type=M
+|Dégât=Magique
+|Image=Moinecorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Général corrompu (terre)
+|NomRéel=Général corrompu
+|Niveaux=123, 4
+|Élément=T
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Generalcorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef corrompu (terre)
+|NomRéel=Chef corrompu
+|Niveaux=124, Boss
+|Élément=T
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Chefcorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier corrompu (terre)
+|NomRéel=Chef guerrier corrompu
+|Niveaux=126, Boss
+|Élément=T
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriercorromputerre-min
+}}
+{{Monstres/Résumé
+|Nom=Renard anâme
+|Niveaux=123, 2
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Renardaname-min
+}}
+{{Monstres/Résumé
+|Nom=Guetteur gelé (foudre)
+|NomRéel=Guetteur gelé
+|Niveaux=123, 3
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Guetteurgelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier gelé (foudre)
+|NomRéel=Guerrier gelé
+|Niveaux=123, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Guerriergelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Chasseur gelé (foudre)
+|NomRéel=Chasseur gelé
+|Niveaux=124, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Fleche
+|Image=Chasseurgelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Général gelé (foudre)
+|NomRéel=Général gelé
+|Niveaux=124, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Generalgelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef gelé (foudre)
+|NomRéel=Chef gelé
+|Niveaux=125, Boss
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefgelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier gelé (foudre)
+|NomRéel=Chef guerrier gelé
+|Niveaux=127, Boss
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerriergelefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Cerfroid maudit
+|Niveaux=123, 2
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Cerfroidmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Léopard de glace possédé (foudre)
+|NomRéel=Léopard de glace possédé
+|Niveaux=123, 3
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|Image=Leoparddeglacepossedefoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti d'Aquilon (foudre)
+|NomRéel=Yéti d'Aquilon
+|Niveaux=123, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Yetidaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit d'Aquilon (foudre)
+|NomRéel=Esprit d'Aquilon
+|Niveaux=124, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Magique
+|DC=True
+|Image=Espritdaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Golem d'Aquilon (foudre)
+|NomRéel=Golem d'Aquilon
+|Niveaux=124, 4
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Golemdaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Bigfoot (foudre)
+|NomRéel=Bigfoot
+|Niveaux=125, Boss
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Bigfootfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Chef guerrier d'Aquilon (foudre)
+|NomRéel=Chef guerrier d'Aquilon
+|Niveaux=127, Boss
+|Élément=F
+|Type=Aucun
+|Dégât=Melee
+|DC=True
+|Image=Chefguerrierdaquilonfoudre-min
+}}
+{{Monstres/Résumé
+|Nom=Loup maudit (niv. 130)
+|NomRéel=Loup maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup alpha maudit (niv. 130)
+|NomRéel=Loup alpha maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup bleu maudit (niv. 130)
+|NomRéel=Loup bleu maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupbleumaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Loup gris maudit (niv. 130)
+|NomRéel=Loup gris maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Loupgrismaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier maudit (niv. 130)
+|NomRéel=Sanglier maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sangliermaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Sanglier rouge maudit (niv. 130)
+|NomRéel=Sanglier rouge maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Sanglierrougemaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours maudit (niv. 130)
+|NomRéel=Ours maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Grizzly maudit (niv. 130)
+|NomRéel=Grizzly maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Grizzlymaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours noir maudit (niv. 130)
+|NomRéel=Ours noir maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursnoirmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Ours brun maudit (niv. 130)
+|NomRéel=Ours brun maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Oursbrunmaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre maudit (niv. 130)
+|NomRéel=Tigre maudit
+|Niveaux=130, 4
+|Élément=Aucun
+|Type=A
+|Dégât=Melee
+|Image=Tigremaudit-min
+}}
+{{Monstres/Résumé
+|Nom=Orc d'élite (niv. 130)
+|NomRéel=Orc d'élite
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Orcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur orc d'élite (niv. 130)
+|NomRéel=Éclaireur orc d'élite
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Eclaireurorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant orc d'élite (niv. 130)
+|NomRéel=Combattant orc d'élite
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Combattantorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier orc d'élite (niv. 130)
+|NomRéel=Sorcier orc d'élite
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Magique
+|Image=Sorcierorcelite-min
+}}
+{{Monstres/Résumé
+|Nom=Général orc d'élite (niv. 130)
+|NomRéel=Général orc d'élite
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Generalorcdelite-min
+}}
+{{Monstres/Résumé
+|Nom=Orc noir (niv. 130)
+|NomRéel=Orc noir
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Orcnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Géant orc noir (niv. 130)
+|NomRéel=Géant orc noir
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Geantorcnoir-min
+}}
+{{Monstres/Résumé
+|Nom=Orc intrépide (niv. 130)
+|NomRéel=Orc intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Orcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Éclaireur orc intrépide (niv. 130)
+|NomRéel=Éclaireur orc intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Eclaireurorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant orc intrépide (niv. 130)
+|NomRéel=Combattant orc intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Combattantorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Sorcier orc intrépide (niv. 130)
+|NomRéel=Sorcier orc intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Magique
+|Image=Sorcierorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Général orc intrépide (niv. 130)
+|NomRéel=Général orc intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Generalorcintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Orc noir intrépide (niv. 130)
+|NomRéel=Orc noir intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Orcnoirintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Géant orc noir intrépide (niv. 130)
+|NomRéel=Géant orc noir intrépide
+|Niveaux=130, 4
+|Élément=F
+|Type=O
+|Dégât=Melee
+|Image=Geantorcnoirintrepide-min
+}}
+{{Monstres/Résumé
+|Nom=Œil Volant (niv. 130)
+|NomRéel=Œil Volant
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Oeilvolant-min
+}}
+{{Monstres/Résumé
+|Nom=Roi scorpion (niv. 130)
+|NomRéel=Roi scorpion
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Roiscorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune homme scorpion (niv. 130)
+|NomRéel=Jeune homme scorpion
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Jeunehommescorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Archer scorpion (niv. 130)
+|NomRéel=Archer scorpion
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Fleche
+|Image=Archerscorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Épéiste serpent (niv. 130)
+|NomRéel=Épéiste serpent
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Epeisteserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Archer serpent (niv. 130)
+|NomRéel=Archer serpent
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Fleche
+|Image=Archerserpent-min
+}}
+{{Monstres/Résumé
+|Nom=Hors la loi du désert (niv. 130)
+|NomRéel=Hors la loi du désert
+|Niveaux=130, 4
+|Élément=T
+|Type=D
+|Dégât=Melee
+|Image=Horslaloidudesert-min
+}}
+{{Monstres/Résumé
+|Nom=Homme scorpion bestial (niv. 130)
+|NomRéel=Homme scorpion bestial
+|Niveaux=130, 4
+|Élément=T
+|Type=I
+|Dégât=Melee
+|Image=Jeunehommescorpion-min
+}}
+{{Monstres/Résumé
+|Nom=Jeune venimeuse (niv. 130)
+|NomRéel=Jeune venimeuse
+|Niveaux=130, 4
+|Élément=T
+|Type=I
+|Dégât=Melee
+|Image=Jeunearaigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée venimeuse (niv. 130)
+|NomRéel=Araignée venimeuse
+|Niveaux=130, 4
+|Élément=T
+|Type=I
+|Dégât=Melee
+|Image=Araigneevenimeuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée rouge (niv. 130)
+|NomRéel=Araignée rouge
+|Niveaux=130, 4
+|Élément=T
+|Type=I
+|Dégât=Melee
+|Image=Arairgevenimfurieuse-min
+}}
+{{Monstres/Résumé
+|Nom=Araignée griffue (niv. 130)
+|NomRéel=Araignée griffue
+|Niveaux=130, 4
+|Élément=T
+|Type=I
+|Dégât=Melee
+|Image=Araigneeagriffes2-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre minion (niv. 130)
+|NomRéel=Tigre minion
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Tigreminion-min
+}}
+{{Monstres/Résumé
+|Nom=Esprit flamme (niv. 130)
+|NomRéel=Esprit flamme
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Espritflamme-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre de combat (niv. 130)
+|NomRéel=Tigre de combat
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Tigredecombat-min
+}}
+{{Monstres/Résumé
+|Nom=Flamme (niv. 130)
+|NomRéel=Flamme
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Flamme-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier flamme (niv. 130)
+|NomRéel=Guerrier flamme
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Guerrierflamme-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre minion fort (niv. 130)
+|NomRéel=Tigre minion fort
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Tigreminionfort-min
+}}
+{{Monstres/Résumé
+|Nom=Fort esprit flamme (niv. 130)
+|NomRéel=Fort esprit flamme
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Magique
+|Image=Fortespritflamme-min
+}}
+{{Monstres/Résumé
+|Nom=Tigre de combat fort (niv. 130)
+|NomRéel=Tigre de combat fort
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Tigredecombatfort-min
+}}
+{{Monstres/Résumé
+|Nom=Fort esprit des flammes (niv. 130)
+|NomRéel=Fort esprit des flammes
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Fortespritdesflammes-min
+}}
+{{Monstres/Résumé
+|Nom=Fort guerrier flamme (niv. 130)
+|NomRéel=Fort guerrier flamme
+|Niveaux=130, 4
+|Élément=Feu
+|Type=Aucun
+|Dégât=Melee
+|Image=Fortguerrierflamme-min
+}}
+{{Monstres/Résumé
+|Nom=Glace enchantée (niv. 130)
+|NomRéel=Glace enchantée
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Magique
+|Image=Glaceenchantee-min
+}}
+{{Monstres/Résumé
+|Nom=Baleine de glace (niv. 130)
+|NomRéel=Baleine de glace
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Baleinedeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Insecte de glace (niv. 130)
+|NomRéel=Insecte de glace
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Insectedeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Lion de glace (niv. 130)
+|NomRéel=Lion de glace
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Liondeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Homme de glace furieux (niv. 130)
+|NomRéel=Homme de glace furieux
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Hommedeglacefurieux-min
+}}
+{{Monstres/Résumé
+|Nom=Yéti (niv. 130)
+|NomRéel=Yéti
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Yeti-min
+}}
+{{Monstres/Résumé
+|Nom=Golem de glace (niv. 130)
+|NomRéel=Golem de glace
+|Niveaux=130, 4
+|Élément=G
+|Type=Aucun
+|Dégât=Melee
+|Image=Golemdeglace-min
+}}
+{{Monstres/Résumé
+|Nom=Chien pestiféré (niv. 130)
+|NomRéel=Chien pestiféré
+|Niveaux=130, 4
+|Élément=G
+|Type=Mv
+|Dégât=Melee
+|Image=Chienpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Pestiféré (niv. 130)
+|NomRéel=Pestiféré
+|Niveaux=130, 4
+|Élément=G
+|Type=Mv
+|Dégât=Melee
+|Image=Pestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat pestiféré (niv. 130)
+|NomRéel=Soldat pestiféré
+|Niveaux=130, 4
+|Élément=G
+|Type=Mv
+|Dégât=Melee
+|Image=Soldatpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier pestiféré (niv. 130)
+|NomRéel=Lancier pestiféré
+|Niveaux=130, 4
+|Élément=G
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Archer pestiféré (niv. 130)
+|NomRéel=Archer pestiféré
+|Niveaux=130, 4
+|Élément=G
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerpestifere-min
+}}
+{{Monstres/Résumé
+|Nom=Méduse infernale (niv. 130)
+|NomRéel=Méduse infernale
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Meduseinfernale-min
+}}
+{{Monstres/Résumé
+|Nom=Chien infernal (niv. 130)
+|NomRéel=Chien infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Chieninfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Zombie (niv. 130)
+|NomRéel=Zombie
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Zombie-min
+}}
+{{Monstres/Résumé
+|Nom=Officier infernal (niv. 130)
+|NomRéel=Officier infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Officierinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Garde infernal (niv. 130)
+|NomRéel=Garde infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Gardeinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Archer bicéphernal (niv. 130)
+|NomRéel=Archer bicéphernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerbicephernal-min
+}}
+{{Monstres/Résumé
+|Nom=Griffeur infernal (niv. 130)
+|NomRéel=Griffeur infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Griffeurinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier infernal (niv. 130)
+|NomRéel=Guerrier infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Guerrierinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Archer infernal (niv. 130)
+|NomRéel=Archer infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Fleche
+|Image=Archerinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Lancier infernal (niv. 130)
+|NomRéel=Lancier infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Lancierinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Prêtre infernal (niv. 130)
+|NomRéel=Prêtre infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Magique
+|Image=Pretreinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Major infernal (niv. 130)
+|NomRéel=Major infernal
+|Niveaux=130, 4
+|Élément=O
+|Type=Mv
+|Dégât=Melee
+|Image=Majorinfernal-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant En-Tai (niv. 130)
+|NomRéel=Combattant En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantentai-min
+}}
+{{Monstres/Résumé
+|Nom=Guerrier En-Tai (niv. 130)
+|NomRéel=Guerrier En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Guerrierentai-min
+}}
+{{Monstres/Résumé
+|Nom=Druide En-Tai (niv. 130)
+|NomRéel=Druide En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Druideentai-min
+}}
+{{Monstres/Résumé
+|Nom=Guérisseur En-Tai (niv. 130)
+|NomRéel=Guérisseur En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Guerisseurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Destructeur En-Tai (niv. 130)
+|NomRéel=Destructeur En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Destructeurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Seigneur En-Tai (niv. 130)
+|NomRéel=Seigneur En-Tai
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|DC=True
+|Image=Seigneurentai-min
+}}
+{{Monstres/Résumé
+|Nom=Magicien lémure (niv. 130)
+|NomRéel=Magicien lémure
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Magique
+|Image=Magicienlemure-min
+}}
+{{Monstres/Résumé
+|Nom=Combattant lémure (niv. 130)
+|NomRéel=Combattant lémure
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Combattantlemure-min
+}}
+{{Monstres/Résumé
+|Nom=Soldat lémure (niv. 130)
+|NomRéel=Soldat lémure
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Soldatlemure-min
+}}
+{{Monstres/Résumé
+|Nom=Bourreau lémure (niv. 130)
+|NomRéel=Bourreau lémure
+|Niveaux=130, 4
+|Élément=V
+|Type=M
+|Dégât=Melee
+|Image=Bourreaulemure-min
+}}
+{{Monstres/Résumé
+|Nom=Commandant envahisseur
+|Niveaux=135, 5
+|Élément=Aucun
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commandantenvahisseur-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur feu
+|Niveaux=135, 5
+|Élément=Feu
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseurfeu-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur glace
+|Niveaux=135, 5
+|Élément=G
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseurglace-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur éclair
+|Niveaux=135, 5
+|Élément=F
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseureclair-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur vent
+|Niveaux=135, 5
+|Élément=V
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseurvent-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur terre
+|Niveaux=135, 5
+|Élément=T
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseurterre-min
+}}
+{{Monstres/Résumé
+|Nom=Comm. envahisseur obscur
+|Niveaux=135, 5
+|Élément=O
+|Type=O
+|Dégât=Melee
+|DC=True
+|Image=Commenvahisseurobscur-min
+}}
