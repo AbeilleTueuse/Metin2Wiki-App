@@ -4,9 +4,9 @@ from mwparserfromhell.wikicode import Wikicode
 from mwparserfromhell.nodes.template import Template
 from mwparserfromhell.nodes.extras.parameter import Parameter
 from mwparserfromhell.nodes.wikilink import Wikilink
-from unidecode import unidecode
 
-from utils.utils import code_to_vnum
+from utils.utils import code_to_vnum, vnum_conversion, image_formatting
+from data.read_files import MobProto, MobNames
 
 
 class Page:
@@ -55,13 +55,9 @@ class Page:
     def has_parameter(self, parameter_name: str):
         return self.templates[0].has(parameter_name)
 
-    def split_name(self):
-        sep = r" ("
-        return self.title.split(sep)
-
     def to_card(self):
         template_name = "Monstres/Résumé\n"
-        splitted_name = self.split_name()
+        splitted_name = self.title.split(" (")
 
         template = Template(template_name)
         template.add(name="Nom", value=self.title + "\n")
@@ -84,140 +80,44 @@ class Page:
         template.add(name="Image", value=f"{self.get_parameter_value("Image")}-min")
 
         return template
-
-
     
-class EntityPage(Page):
-    def __init__(self, data: dict, entity: Literal["Monstres", "Metin"] = "Monstre"):
-        super().__init__(data=data)
-        self.entity = entity
-        self.template = self.content.filter(Template)[0]
-        self.vnum = self._get_vnum()
+    @staticmethod
+    def _new_monster_page(vnum: int, localisation="", zone="", lang="fr"):
+        mob_data = MobProto().get_data_for_pages(vnum, lang)
+        # print(mob_data)
+        # template = Template(name="Monstres\n")
+        # template.add(name="Code", value=vnum_conversion(vnum) + "\n")
+        # template.add(name="Image", value=image_formatting(mob_data["Name"]))
+        # parameters = ["Niveau", "Rang", "Type", "Exp", "Élément", "Dégâts", "Agressif", "Poison", "Ralentissement", "Étourdissement"]
+        
+        # for param in parameters:
+        #     template.add(name=param, value=mob_data[param])
 
-    def _get_vnum(self):
-        return code_to_vnum(self.template.get("Code").value.strip())
+        # template.add(name="Repousser", value="")
+        # template.add(name="Localisation", value=localisation)
+        # template.add(name="Zones", value=zone)
+        # template.add(name="Lâche", value="")
 
-    def get_parameters(self):
-        return super().get_parameters(self.template)
+        # if int(mob_data["PM"]):
+        #     template.add(name="PM", value=mob_data["PM"])
 
-    # def get_proto_values(self):
+        # template.add(name="InfoSup", value="")
 
-    #     values = {parameter: str(self.template.get(parameter).value).strip() for parameter in self.PROTO_PARAMETERS['obligatory']}
-    #     values['Agressif'] = values['Agressif'].replace('NO', 'N')
-    #     if self.template.has('Nom'):
-    #         values['Nom'] = str(self.template.get('Nom').value).strip()
-    #     else:
-    #         if not self.name.endswith('(quête)'):
-    #             values['Nom'] = self.name.split(' (')[0]
-    #         else:
-    #             values['Nom'] = self.name
+        # if vnum in mob_drop:
+        #     param = template.get("Lâche")
+        #     drop_template = Template("Drop\n")
+        #     drop_template.add(name="Catégorie", value="\n")
+        #     for index, item in enumerate(mob_drop[vnum]):
+        #         L_template = Template("L")
+        #         item_image = image_formatting(item)
+        #         L_template.add(name="1", value=item_image)
+        #         if item_image != item:
+        #             L_template.add(name="2", value=item)
 
-    #     if self.template.has('Élément2'):
-    #         values['Élément'] += f'|{str(self.template.get("Élément2").value).strip()}'
+        #         drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
+        #         param.value = "\n" + str(drop_template) + "\n"
 
-    #     if self.template.has('PM'):
-    #         values['PM'] = str(self.template.get('PM').value).strip()
-
-    #    return values
-
-    # def compare_with_proto(self, proto):
-
-    #     proto_values = self.get_proto_values()
-    #     proto_true = proto.loc[self.vnum]
-
-    #     for parameter_name in proto_values:
-    #         if proto_values[parameter_name] != proto_true[parameter_name]:
-    #             print(f'Monster: {self.name} ({self.vnum}), error: {parameter_name} ({proto_values[parameter_name]} instead of {proto_true[parameter_name]})')
-
-    #     if (proto_true['PM']) != '0' or ('PM' in proto_values):
-    #         if proto_true['PM'] != proto_values['PM']:
-    #             print(f'Monster: {self.name} ({self.vnum}), error: PM ({proto_values["PM"]} instead of {proto_true["PM"]})')
-
-    def add_parameter(
-        self, parameter_name: str, parameter_value: str, before: str | None = None
-    ):
-        return super().add_parameter(
-            self.template, parameter_name, parameter_value, before
-        )
-
-    def change_parameter_name(self, parameter_name: str, new_parameter_name: str):
-        return super().change_parameter_name(
-            self.template, parameter_name, new_parameter_name
-        )
-
-    def change_parameter_value(self, parameter_name: str, new_parameter_value: str):
-        return super().change_parameter_value(
-            self.template, parameter_name, new_parameter_value
-        )
-
-    def delete_parameter(self, parameter_name: str):
-        return super().delete_parameter(self.template, parameter_name)
-
-
-class MonsterPage(EntityPage):
-    def __init__(self, data: dict):
-        super().__init__(data=data, entity="Monstres")
-
-
-class MetinPage(EntityPage):
-    def __init__(self, page: Page):
-        super().__init__(page=page, entity="Metin")
-
-def vnum_conversion(number: int):
-    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-    ALPHABET += ALPHABET.upper()
-    BASE = len(ALPHABET)
-
-    if number == 0:
-        return "a"
-
-    converted_number = ""
-
-    while number > 0:
-        number, remainder = divmod(number, BASE)
-        converted_number += ALPHABET[remainder]
-
-    return converted_number
-
-def image_formatting(name: str):
-    if isinstance(name, int):
-        return name
-    if name[-2] == "+" and name[-1].isdigit():
-        name = name[:-2]
-    return "".join(letter for letter in unidecode(name.lower()) if letter.isalnum()).capitalize()
-
-def create_monster_page(vnum, mob_proto, mob_drop, localisation="", zone=""):
-    mob_data = mob_proto.loc[vnum]
-    template = Template(name="Monstres\n")
-    template.add(name="Code", value=vnum_conversion(vnum) + "\n")
-    template.add(name="Image", value=image_formatting(mob_data["NameFR"]))
-    parameters = ["Niveau", "Rang", "Type", "Exp", "Élément", "Dégâts", "Agressif", "Poison", "Ralentissement", "Étourdissement"]
-    
-    for param in parameters:
-        template.add(name=param, value=mob_data[param])
-
-    template.add(name="Repousser", value="")
-    template.add(name="Localisation", value=localisation)
-    template.add(name="Zones", value=zone)
-    template.add(name="Lâche", value="")
-    if int(mob_data["PM"]):
-        template.add(name="PM", value=mob_data["PM"])
-    template.add(name="InfoSup", value="")
-
-    if vnum in mob_drop:
-        param = template.get("Lâche")
-        drop_template = Template("Drop\n")
-        drop_template.add(name="Catégorie", value="\n")
-        for index, item in enumerate(mob_drop[vnum]):
-            L_template = Template("L")
-            item_image = image_formatting(item)
-            L_template.add(name="1", value=item_image)
-            if item_image != item:
-                L_template.add(name="2", value=item)
-
-            drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
-            param.value = "\n" + str(drop_template) + "\n"
-
-    print(template)
-    
-
+    @staticmethod
+    def new_page(category: Literal["mob"], vnum: int, localisation="", zone=""):
+        if category == "mob":
+            Page._new_monster_page(vnum, localisation, zone)

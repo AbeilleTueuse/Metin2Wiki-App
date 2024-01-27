@@ -3,7 +3,7 @@ import time
 import json
 from json import JSONEncoder
 
-from models.page import Page, MonsterPage
+from models.page import Page
 from utils.utils import data_slicing
 from config import config
 
@@ -111,7 +111,7 @@ class MediaWiki:
         self,
         api_url: str,
         lang: str = "fr",
-        bot: Bot = None,
+        bot: Bot | None = None,
     ):
         self.api_url = api_url
         self.lang = lang
@@ -120,13 +120,10 @@ class MediaWiki:
         self.session = self._new_session()
         self.logged = False
 
-    def _get_bot(self, val):
-        if isinstance(val, Bot):
-            return val
-        elif isinstance(val, bool):
-            if val:
-                bot_management = BotManagement(lang=self.lang)
-                return bot_management.get_default_bot()
+    def _get_bot(self, bot: Bot | None):
+        if bot is None:
+            return BotManagement(lang=self.lang).get_default_bot()
+        return bot
 
     def _new_session(self):
         return requests.session()

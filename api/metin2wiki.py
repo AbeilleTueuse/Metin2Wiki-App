@@ -20,7 +20,7 @@ class Metin2Wiki(MediaWiki):
     def __init__(
         self,
         lang="fr",
-        bot: Bot | bool = None,
+        bot: Bot | None = None,
     ):
         super().__init__(
             api_url=self.construct_api_url(lang=lang),
@@ -40,7 +40,7 @@ class Metin2Wiki(MediaWiki):
         pages = self.get_content(pages)
         mob_proto = MobProto()
 
-        return mob_proto.get_mob_data_for_calculator(
+        return mob_proto.get_data_for_calculator(
             (page.vnum, page.title) for page in self.pages(pages)
         )
 
@@ -51,7 +51,7 @@ class Metin2Wiki(MediaWiki):
         pages = self.category("Armes")
         pages = self.get_content(pages)
 
-        return item_proto.get_item_data_for_calculator(
+        return item_proto.get_data_for_calculator(
             [page.vnum for page in self.pages(pages)], item_names, en_names
         )
 
