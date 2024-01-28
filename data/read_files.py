@@ -1,5 +1,4 @@
-from typing import Literal
-import json
+from collections import UserDict
 import polars as pl
 
 from config.config import *
@@ -16,9 +15,9 @@ class GameNames:
     VNUM = "VNUM"
     LOCAL_NAME = "LOCALE_NAME"
     SEPARATOR = "\t"
-    SCHEMA = {VNUM: pl.Int64, LOCAL_NAME: pl.String}
+    SCHEMA = {VNUM: pl.Int32, LOCAL_NAME: pl.String}
 
-    def _read_csv(self, path: str, lang: str):
+    def _read_csv(self, path: str, lang: str, vnum_label: str | None = None):
         names = (
             pl.read_csv(
                 source=path.format(lang=lang),
@@ -35,24 +34,73 @@ class GameNames:
             )
         )
 
+        if vnum_label is not None:
+            return names.rename({self.VNUM: vnum_label})
+
         return names
 
 
 class MobNames(GameNames):
-    def __init__(self, lang: str = "fr"):
+    def __init__(self, lang: str = "fr", vnum_label: str | None = None):
         self.lang = lang
-        self.data = self._read_csv(MOB_NAMES_PATH, lang)
+        self.data = self._read_csv(MOB_NAMES_PATH, lang, vnum_label)
 
 
 class ItemNames(GameNames):
-    def __init__(self, lang: str = "fr"):
+    def __init__(self, lang: str = "fr", vnum_label: str | None = None):
         self.lang = lang
-        self.data = self._read_csv(ITEM_NAMES_PATH, lang)
+        self.data = self._read_csv(ITEM_NAMES_PATH, lang, vnum_label)
 
     def prepare_for_calculator(self, vnum_col: str):
         self.data = self.data.with_columns(
             pl.col(self.LOCAL_NAME).str.replace(UPGRADE_PATTERN, "")
         ).rename({self.VNUM: vnum_col})
+
+
+class MobDropItem(UserDict):
+    START_MOB = "mob"
+    END_MOB = "}"
+
+    def __init__(self):
+        super().__init__()
+        self._read_data()
+
+    def _read_data(self):
+        with open(MOB_DROP_ITEM_PATH, "r") as file:
+            is_reading_drop_list = False
+            current_list = []
+            vnum = 0
+
+            for line in file.readlines():
+                line = line.lower().strip()
+
+                if not line:
+                    continue
+
+                if line.startswith(self.START_MOB):
+                    vnum = int(line.split()[1])
+                    self[vnum] = []
+                    is_reading_drop_list = True
+                    current_list = []
+
+                elif is_reading_drop_list and not line.startswith(self.END_MOB):
+                    current_list.append(int(line.split()[1]))
+
+                elif line.startswith(self.END_MOB):
+                    self[vnum].append(current_list)
+                    is_reading_drop_list = False
+                    current_list = []
+
+    def get_translation(self, vnums: list[int], item_names: ItemNames):
+        translation = {}
+        for monster_vnum in vnums:
+            if monster_vnum not in self:
+                continue
+
+            for item_vnum in self[monster_vnum]:
+                pass
+
+        return translation
 
 
 class GameProto:
@@ -93,8 +141,9 @@ class MobProto(GameProto):
 
         return {row[-1]: list(row[:-1]) for row in data.iter_rows()}
 
-    def get_data_for_pages(self, vnums: int | list[int], lang: str):
-        mob_names = MobNames(lang=lang)
+    def get_data_for_pages(self, vnums: int | list[int], lang: str, to_dicts=False):
+        mob_names = MobNames(lang=lang, vnum_label=MPV.VNUM).data
+        item_names = ItemNames(lang=lang, vnum_label=MPV.VNUM).data
 
         if isinstance(vnums, int):
             vnums = [vnums]
@@ -102,10 +151,23 @@ class MobProto(GameProto):
         data = (
             self.data[MPV.PAGE_MOB_COLS]
             .filter(pl.col(MPV.VNUM).is_in(vnums))
-            .with_columns(
+            .select(
+                pl.col(MPV.VNUM),
+                pl.col(MPV.LEVEL),
                 pl.col(MPV.RANK).replace(TW.RANK_MAPPING),
                 pl.col(MPV.RACE_FLAGS).replace(TW.RACE_MAPPING),
                 pl.col(MPV.BATTLE_TYPE).replace(TW.BATTLE_MAPPING),
+                pl.col(MPV.DROP_ITEM_GROUP),
+                # pl.when(pl.col(MPV.DROP_ITEM_GROUP) > 0).then(
+                #     item_names.filter(
+                #         pl.col(MPV.VNUM).is_in(pl.col(MPV.DROP_ITEM_GROUP))
+                #     )[ItemNames.LOCAL_NAME]
+                # ),
+                # pl.col(MPV.DROP_ITEM_GROUP).map(
+                #     lambda col: item_names.filter(pl.col(MPV.VNUM).is_in(col))[
+                #         ItemNames.LOCAL_NAME
+                #     ]
+                # ),
                 pl.max_horizontal(MPV.EXP, MPV.SUNGMA_EXP),
                 pl.concat_list(
                     pl.when(pl.col(element) >= 1)
@@ -114,11 +176,36 @@ class MobProto(GameProto):
                     for element, wiki_element in TW.ELEMENT_MAPPING.items()
                 )
                 .list.drop_nulls()
-                .alias(TW.ATT),
+                .keep_name(),
+                pl.when(pl.col(MPV.AI_FLAGS_0).str.split(",").list.contains(TW.AGGR))
+                .then(TW.TRUE)
+                .otherwise(TW.FALSE)
+                .alias(TW.AGGRESSIVE),
+                *[
+                    pl.when(pl.col(col_name) > 0)
+                    .then(TW.TRUE)
+                    .otherwise(TW.FALSE)
+                    .keep_name()
+                    for col_name in TW.EFFECT_NAMES
+                ],
+                pl.col(MPV.DRAIN_SP),
             )
-            .select(TW.TO_WIKI.keys())
+            .with_columns(
+                pl.when(pl.col(MPV.ATT_ELEC).list.len() == 0)
+                .then([TW.NONE])
+                .otherwise(pl.col(MPV.ATT_ELEC))
+                .keep_name()
+            )
+            .join(mob_names, on=MPV.VNUM)
             .rename(TW.TO_WIKI)
         )
+
+        mob_drops = MobDropItem().get_translation(vnums, item_names)
+
+        if to_dicts:
+            return data.to_dicts()
+
+        return data
 
 
 class ItemProto(GameProto):
@@ -136,47 +223,49 @@ class ItemProto(GameProto):
     ):
         item_names.prepare_for_calculator(IPV.VNUM)
         en_names.prepare_for_calculator(IPV.VNUM)
+        (
+            item_weapon_label,
+            anti_musa_label,
+            hero_weapon_range,
+            exclude_weapon_range,
+        ) = IPV.WEAPON_INFO
 
         data = (
             self.data.filter(
-                pl.col("Type") == IPV.WEAPON_INFO["ITEM_WEAPON"],
+                pl.col(IPV.TYPE) == item_weapon_label,
                 (pl.col(IPV.VNUM) <= max(page_vnums) + 9)
-                & (
-                    pl.col(IPV.VNUM)
-                    .is_between(*IPV.WEAPON_INFO["EXCLUDE_WEAPON_RANGE"])
-                    .not_()
-                )
-                | (pl.col(IPV.VNUM).is_between(*IPV.WEAPON_INFO["HERO_WEAPON_RANGE"])),
+                & (pl.col(IPV.VNUM).is_between(*exclude_weapon_range).not_())
+                | (pl.col(IPV.VNUM).is_between(*hero_weapon_range)),
             )
             .with_columns(
-                pl.col("SubType").replace(
+                pl.col(IPV.SUB_TYPE).replace(
                     IPV.WEAPON_MAPPING, default=-1, return_dtype=pl.Int8
                 ),
             )
             .with_columns(
                 pl.when(
-                    pl.col("SubType") == 0,
-                    pl.col("AntiFlags").str.contains("ANTI_MUSA"),
+                    pl.col(IPV.SUB_TYPE) == 0,
+                    pl.col(IPV.ANTI_FLAGS).str.contains(anti_musa_label),
                 )
                 .then(7)
-                .otherwise(pl.col("SubType"))
-                .alias("SubType"),
+                .otherwise(pl.col(IPV.SUB_TYPE))
+                .keep_name()
             )
             .join(en_names.data, on=IPV.VNUM)
             .group_by(en_names.LOCAL_NAME)
             .agg(
                 pl.col(IPV.VNUM).first(),
-                pl.col("SubType").first(),
+                pl.col(IPV.SUB_TYPE).first(),
                 pl.first(f"Value{index}" for index in range(1, 5)),
-                pl.col("Value5"),
+                pl.col(IPV.VALUE5),
             )
             .filter(
                 pl.col(IPV.VNUM).is_in(page_vnums)
-                | pl.col(IPV.VNUM).is_between(*IPV.WEAPON_INFO["HERO_WEAPON_RANGE"]),
+                | pl.col(IPV.VNUM).is_between(*hero_weapon_range),
             )
             .sort(pl.col(IPV.VNUM))
             .with_columns(pl.concat_list(f"Value{index}" for index in range(1, 5)))
-            .join(item_names.data, on=IPV.VNUM, suffix=f"_{item_names.lang}")
+            .join(item_names.data, on=IPV.VNUM)
         )
 
         item_data_for_calculator = IPV.WEAPON_FIST

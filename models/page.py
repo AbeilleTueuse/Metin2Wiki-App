@@ -6,7 +6,7 @@ from mwparserfromhell.nodes.extras.parameter import Parameter
 from mwparserfromhell.nodes.wikilink import Wikilink
 
 from utils.utils import code_to_vnum, vnum_conversion, image_formatting
-from data.read_files import MobProto, MobNames
+from data.read_files import MobProto, MobDropItem
 
 
 class Page:
@@ -83,39 +83,55 @@ class Page:
     
     @staticmethod
     def _new_monster_page(vnum: int, localisation="", zone="", lang="fr"):
-        mob_data = MobProto().get_data_for_pages(vnum, lang)
-        # print(mob_data)
-        # template = Template(name="Monstres\n")
-        # template.add(name="Code", value=vnum_conversion(vnum) + "\n")
-        # template.add(name="Image", value=image_formatting(mob_data["Name"]))
-        # parameters = ["Niveau", "Rang", "Type", "Exp", "Élément", "Dégâts", "Agressif", "Poison", "Ralentissement", "Étourdissement"]
+        mob_data = MobProto().get_data_for_pages(vnum, lang, to_dicts=True)[0]
+        mob_drop_item = MobDropItem()
+        elements = mob_data["Élément"]
+
+        template = Template(name="Monstres\n")
+        template.add(name="Code", value=vnum_conversion(vnum) + "\n")
+        template.add(name="Image", value=image_formatting(mob_data["LOCALE_NAME"]))
+        parameters = ["Niveau", "Rang", "Type", "Exp", "Dégâts", "Agressif", "Poison", "Ralentissement", "Étourdissement"]
         
-        # for param in parameters:
-        #     template.add(name=param, value=mob_data[param])
+        for param in parameters:
+            template.add(name=param, value=mob_data[param])
 
-        # template.add(name="Repousser", value="")
-        # template.add(name="Localisation", value=localisation)
-        # template.add(name="Zones", value=zone)
-        # template.add(name="Lâche", value="")
+        template.add(name="Élément", value=elements[0], before="Dégâts")
 
-        # if int(mob_data["PM"]):
-        #     template.add(name="PM", value=mob_data["PM"])
+        if len(elements) == 2:
+            template.add(name="Élément2", value=elements[1], before="Dégâts")
 
-        # template.add(name="InfoSup", value="")
+        template.add(name="Repousser", value="")
+        template.add(name="Localisation", value=localisation)
+        template.add(name="Zones", value=zone)
+        template.add(name="Lâche", value="")
 
-        # if vnum in mob_drop:
-        #     param = template.get("Lâche")
-        #     drop_template = Template("Drop\n")
-        #     drop_template.add(name="Catégorie", value="\n")
-        #     for index, item in enumerate(mob_drop[vnum]):
-        #         L_template = Template("L")
-        #         item_image = image_formatting(item)
-        #         L_template.add(name="1", value=item_image)
-        #         if item_image != item:
-        #             L_template.add(name="2", value=item)
+        if mob_data["PM"]:
+            template.add(name="PM", value=mob_data["PM"])
 
-        #         drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
-        #         param.value = "\n" + str(drop_template) + "\n"
+        template.add(name="InfoSup", value="")
+
+        if vnum in mob_drop_item:
+            print(mob_drop_item[vnum])
+
+        print(mob_data["Drop"])
+        print(template)
+
+        if vnum in mob_drop_item:
+            param = template.get("Lâche")
+
+            for item_list in mob_drop_item[vnum]:
+                drop_template = Template("Drop\n")
+                drop_template.add(name="Catégorie", value="\n")
+
+                for index, item in enumerate(item_list):
+                    L_template = Template("L")
+                    item_image = image_formatting(item)
+                    L_template.add(name="1", value=item_image)
+                    if item_image != item:
+                        L_template.add(name="2", value=item)
+
+                    drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
+                    param.value = "\n" + str(drop_template) + "\n"
 
     @staticmethod
     def new_page(category: Literal["mob"], vnum: int, localisation="", zone=""):

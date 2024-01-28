@@ -130,17 +130,23 @@ class MobProtoVariables:
     PAGE_MOB_COLS = [
         VNUM,
         RANK,
-        LEVEL,
-        RACE_FLAGS,
         BATTLE_TYPE,
+        LEVEL,
+        AI_FLAGS_0,
+        RACE_FLAGS,
         EXP,
         SUNGMA_EXP,
+        DROP_ITEM_GROUP,
+        ENCHANT_SLOW,
+        ENCHANT_POISON,
+        ENCHANT_STUN,
         ATT_ELEC,
         ATT_FIRE,
         ATT_ICE,
         ATT_WIND,
         ATT_EARTH,
         ATT_DARK,
+        DRAIN_SP,
     ]
 
     RANK_MAPPING = {
@@ -197,11 +203,12 @@ class ItemProtoVariable:
         "WEAPON_FAN": 6,
     }
 
-    WEAPON_INFO = {
-        "ITEM_WEAPON": "ITEM_WEAPON",
-        "HERO_WEAPON_RANGE": [21900, 21976],
-        "EXCLUDE_WEAPON_RANGE": [7180, 7189],
-    }
+    WEAPON_INFO = [
+        "ITEM_WEAPON",
+        "ANTI_MUSA",
+        [21900, 21976],
+        [7180, 7189],
+    ]
 
     WEAPON_FIST = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
 
@@ -216,8 +223,11 @@ class ItemProtoVariable:
 
 class ToWiki:
     AGGRESSIVE = "Aggressive"
-    ATT = "Att"
     WIKI_NAME = "wiki_name"
+    TRUE = pl.lit("O")
+    FALSE = pl.lit("N")
+    NONE = "Aucun"
+    AGGR = "AGGR"
 
     TO_WIKI = {
         MobProtoVariables.VNUM: "Vnum",
@@ -225,12 +235,14 @@ class ToWiki:
         MobProtoVariables.LEVEL: "Niveau",
         MobProtoVariables.RACE_FLAGS: "Type",
         MobProtoVariables.BATTLE_TYPE: "Dégâts",
+        MobProtoVariables.DROP_ITEM_GROUP: "Drop",
         AGGRESSIVE: "Agressif",
         MobProtoVariables.ENCHANT_POISON: "Poison",
         MobProtoVariables.ENCHANT_SLOW: "Ralentissement",
         MobProtoVariables.ENCHANT_STUN: "Étourdissement",
         MobProtoVariables.EXP: "Exp",
-        ATT: "Élément",
+        MobProtoVariables.ATT_ELEC: "Élément",
+        MobProtoVariables.DRAIN_SP: "PM",
     }
 
     RANK_MAPPING = {
@@ -269,3 +281,9 @@ class ToWiki:
         MobProtoVariables.ATT_EARTH: "T",
         MobProtoVariables.ATT_DARK: "O",
     }
+
+    EFFECT_NAMES = [
+        MobProtoVariables.ENCHANT_SLOW,
+        MobProtoVariables.ENCHANT_POISON,
+        MobProtoVariables.ENCHANT_STUN,
+    ]
