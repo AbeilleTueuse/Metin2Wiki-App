@@ -137,3 +137,16 @@ class Page:
     def new_page(category: Literal["mob"], vnum: int, localisation="", zone=""):
         if category == "mob":
             Page._new_monster_page(vnum, localisation, zone)
+
+    def update_links(self):
+        loot_parameter: Parameter = self.templates[0].get("Lâche")
+        for template in loot_parameter.value.nodes:
+            if not isinstance(template, Template):
+                continue
+            
+            for param in template.params[1:]:
+                if not isinstance(param, Parameter):
+                    continue
+
+                print(param.value)
+
