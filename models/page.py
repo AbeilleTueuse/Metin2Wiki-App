@@ -4,9 +4,10 @@ from mwparserfromhell.wikicode import Wikicode
 from mwparserfromhell.nodes.template import Template
 from mwparserfromhell.nodes.extras.parameter import Parameter
 from mwparserfromhell.nodes.wikilink import Wikilink
+import re
 
 from utils.utils import code_to_vnum, vnum_conversion, image_formatting
-from data.read_files import MobProto, MobDropItem
+from data.read_files import MobProto, MobDropItem, UPGRADE_PATTERN
 
 
 class Page:
@@ -83,8 +84,10 @@ class Page:
     
     @staticmethod
     def _new_monster_page(vnum: int, localisation="", zone="", lang="fr"):
-        mob_data = MobProto().get_data_for_pages(vnum, lang, to_dicts=True)[0]
-        mob_drop_item = MobDropItem()
+        mob_data, mob_drop = MobProto().get_data_for_pages(vnum, lang, to_dicts=True)
+        mob_data = mob_data[0]
+        mob_drop = mob_drop[vnum]
+
         elements = mob_data["Élément"]
 
         template = Template(name="Monstres\n")
@@ -110,28 +113,33 @@ class Page:
 
         template.add(name="InfoSup", value="")
 
-        if vnum in mob_drop_item:
-            print(mob_drop_item[vnum])
+        param: Parameter = template.get("Lâche")
 
-        print(mob_data["Drop"])
+        for item_list in mob_drop:
+            drop_template = Template("Drop\n")
+            drop_template.add(name="Catégorie", value="\n")
+
+            for index, item_name in enumerate(item_list):
+                L_template = Template("L")
+                item_image = image_formatting(item_name)
+                L_template.add(name="1", value=item_image)
+                upgrade = ""
+
+                if item_image != item_name:
+                    match = UPGRADE_PATTERN.search(item_name)
+                    
+                    if match is not None:
+                        upgrade = match.group(0)
+                        L_template.add(name="2", value=item_name.replace(upgrade, ""))
+                    else:
+                        L_template.add(name="2", value=item_name)
+
+                drop_template.add(name=index+1, value=f"{L_template}{upgrade}\n", preserve_spacing=False)
+
+            param.value = f"{param.value}{drop_template}\n"
+
+        # add mob_drop["Drop"]
         print(template)
-
-        if vnum in mob_drop_item:
-            param = template.get("Lâche")
-
-            for item_list in mob_drop_item[vnum]:
-                drop_template = Template("Drop\n")
-                drop_template.add(name="Catégorie", value="\n")
-
-                for index, item in enumerate(item_list):
-                    L_template = Template("L")
-                    item_image = image_formatting(item)
-                    L_template.add(name="1", value=item_image)
-                    if item_image != item:
-                        L_template.add(name="2", value=item)
-
-                    drop_template.add(name=index+1, value=str(L_template) + "\n", preserve_spacing=False)
-                    param.value = "\n" + str(drop_template) + "\n"
 
     @staticmethod
     def new_page(category: Literal["mob"], vnum: int, localisation="", zone=""):

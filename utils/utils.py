@@ -5,7 +5,7 @@ ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 ALPHABET += ALPHABET.upper()
 BASE = len(ALPHABET)
 
-UPGRADE_PATTERN = r" ?\+\d{1,3}$"
+UPGRADE_PATTERN = re.compile(r" ?\+\d{1,3}$")
 
 
 def code_to_vnum(letters: str) -> int:

@@ -79,7 +79,8 @@ class MobDropItem(UserDict):
 
                 if line.startswith(self.START_MOB):
                     vnum = int(line.split()[1])
-                    self[vnum] = []
+                    if vnum not in self:
+                        self[vnum] = []
                     is_reading_drop_list = True
                     current_list = []
 
@@ -91,14 +92,29 @@ class MobDropItem(UserDict):
                     is_reading_drop_list = False
                     current_list = []
 
-    def get_translation(self, vnums: list[int], item_names: ItemNames):
-        translation = {}
+    def get_translation(self, vnums: list[int], item_names: pl.DataFrame):
+        translation: dict[int, list[list[str]]] = {}
+
         for monster_vnum in vnums:
             if monster_vnum not in self:
                 continue
 
-            for item_vnum in self[monster_vnum]:
-                pass
+            translation[monster_vnum] = []
+
+            # disgusting code
+            for item_vnums in self[monster_vnum]:
+                item_vnums = list(sorted(item_vnums))
+                item_translation = item_names.filter(pl.col(IPV.VNUM).is_in(item_vnums))
+                mapping = dict(
+                    zip(
+                        item_translation[IPV.VNUM],
+                        item_translation[ItemNames.LOCAL_NAME],
+                    )
+                )
+
+                translation[monster_vnum].append(
+                    [mapping[vnum] for vnum in item_vnums if vnum in mapping]
+                )
 
         return translation
 
@@ -203,9 +219,9 @@ class MobProto(GameProto):
         mob_drops = MobDropItem().get_translation(vnums, item_names)
 
         if to_dicts:
-            return data.to_dicts()
+            return data.to_dicts(), mob_drops
 
-        return data
+        return data, mob_drops
 
 
 class ItemProto(GameProto):
