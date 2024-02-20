@@ -1,4 +1,4 @@
-import polars as pl
+import os
 
 from api.mediawiki import MediaWiki, Bot
 from data.read_files import (
@@ -72,6 +72,10 @@ class Metin2Wiki(MediaWiki):
         pages = self.category("Monstres (temporaire)")
         pages = self.get_content(pages)
         pages = self.pages(pages, sort_by_vnum=True)
+        monster_data_dirname = os.path.dirname(MONSTER_DATA_PATH)
+
+        if not os.path.exists(monster_data_dirname):
+            os.mkdir(monster_data_dirname)
 
         with open(MONSTER_DATA_PATH, "w") as file:
             for page in pages:

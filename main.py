@@ -15,5 +15,4 @@ if __name__ == "__main__":
 
     metin2wiki = Metin2Wiki()
     metin2wiki.login()
-    page = metin2wiki.page(title="Prince Ochao")
-    page.update_links()
+    metin2wiki.save_data_for_monster_page()
