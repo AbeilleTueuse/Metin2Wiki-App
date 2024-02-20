@@ -238,6 +238,9 @@ class MediaWiki:
 
         return result
     
+    def page(self, title: str):
+        return Page(self.get_content([{"title": title}], with_ids=False)[0])
+    
     def pages(self, pages: list[dict], sort_by_vnum=False) -> list[Page]:
         if sort_by_vnum:
             return sorted([Page(page) for page in pages], key=lambda page: page.vnum)
@@ -344,14 +347,14 @@ class MediaWiki:
         pages = pages.filter_by()
         return pages
 
-    def get_content(self, pages: list[dict]) -> list[dict]:
+    def get_content(self, pages: list[dict], with_ids=True) -> list[dict]:
         pages_with_content = []
         for pages_slice in data_slicing(pages, self.MAX_PARAMS):
-            pages_with_content += self._get_content_limited(pages_slice)
+            pages_with_content += self._get_content_limited(pages_slice, with_ids)
 
         return pages_with_content
 
-    def _get_content_limited(self, pages: list[dict]) -> list[dict]:
+    def _get_content_limited(self, pages: list[dict], with_ids: bool) -> list[dict]:
         if len(pages) > self.MAX_PARAMS:
             raise ValueError(f"Number of pages must be inferior to {self.MAX_PARAMS}")
 
@@ -361,8 +364,12 @@ class MediaWiki:
             "prop": "revisions",
             "rvprop": "content",
             "formatversion": "2",
-            "pageids": "|".join(str(page["pageid"]) for page in pages),
         }
+
+        if with_ids:
+            query_params["pageids"] = "|".join(str(page["pageid"]) for page in pages)
+        else:
+            query_params["titles"] = "|".join(str(page["title"]) for page in pages)
 
         request_result = self.wiki_request(query_params)
 
