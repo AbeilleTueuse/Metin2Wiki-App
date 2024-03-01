@@ -53,7 +53,8 @@ class ItemNames(GameNames):
 
     def prepare_for_calculator(self, vnum_col: str):
         self.data = self.data.with_columns(
-            pl.col(self.LOCAL_NAME).str.replace(UPGRADE_PATTERN, "")
+            pl.col(self.LOCAL_NAME).str.replace(UPGRADE_PATTERN.pattern, ""),
+            pl.col(self.VNUM),
         ).rename({self.VNUM: vnum_col})
 
 
@@ -231,14 +232,13 @@ class ItemProto(GameProto):
 
     def _remove_string_vnum(self):
         return self.data.with_columns(
-            pl.col(IPV.VNUM).str.to_integer(strict=False),
+            pl.col(IPV.VNUM).str.to_integer(strict=False).cast(pl.Int32),
         ).drop_nulls()
 
     def get_data_for_calculator(
-        self, page_vnums: list[str], item_names: ItemNames, en_names: ItemNames
+        self, page_vnums: list[str], item_names: ItemNames
     ):
         item_names.prepare_for_calculator(IPV.VNUM)
-        en_names.prepare_for_calculator(IPV.VNUM)
         (
             item_weapon_label,
             anti_musa_label,
@@ -267,8 +267,8 @@ class ItemProto(GameProto):
                 .otherwise(pl.col(IPV.SUB_TYPE))
                 .keep_name()
             )
-            .join(en_names.data, on=IPV.VNUM)
-            .group_by(en_names.LOCAL_NAME)
+            .join(item_names.data, on=IPV.VNUM)
+            .group_by(item_names.LOCAL_NAME)
             .agg(
                 pl.col(IPV.VNUM).first(),
                 pl.col(IPV.SUB_TYPE).first(),
@@ -281,17 +281,16 @@ class ItemProto(GameProto):
             )
             .sort(pl.col(IPV.VNUM))
             .with_columns(pl.concat_list(f"Value{index}" for index in range(1, 5)))
-            .join(item_names.data, on=IPV.VNUM)
         )
-
+        print(data)
         item_data_for_calculator = IPV.WEAPON_FIST
         item_data_for_calculator.update(
             {
-                row[0]: [
-                    row[-1],
+                row[1]: [
+                    row[0],
                     row[2],
                     row[3],
-                    row[-2],
+                    row[-1],
                 ]
                 for row in data.iter_rows()
             }

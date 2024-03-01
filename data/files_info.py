@@ -210,7 +210,7 @@ class ItemProtoVariable:
         [7180, 7189],
     ]
 
-    WEAPON_FIST = {"Fist": ["Poings", 8, [0, 0, 0, 0], []]}
+    WEAPON_FIST = {0: ["Poings", 8, [0, 0, 0, 0], []]}
 
     @classmethod
     def get_value_type(cls) -> dict[str, str]:

@@ -47,12 +47,11 @@ class Metin2Wiki(MediaWiki):
     def _get_item_data_for_calculator(self):
         item_proto = ItemProto()
         item_names = ItemNames(lang=self.lang)
-        en_names = ItemNames(lang="en")
         pages = self.category("Armes")
         pages = self.get_content(pages)
 
         return item_proto.get_data_for_calculator(
-            [page.vnum for page in self.pages(pages)], item_names, en_names
+            [page.vnum for page in self.pages(pages)], item_names
         )
 
     def save_data_for_calculator(self):

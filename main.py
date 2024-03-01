@@ -15,4 +15,4 @@ if __name__ == "__main__":
 
     metin2wiki = Metin2Wiki()
     metin2wiki.login()
-    metin2wiki.save_data_for_monster_page()
+    metin2wiki.save_data_for_calculator()
