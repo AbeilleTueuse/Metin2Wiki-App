@@ -148,6 +148,9 @@ class MobProto(GameProto):
             .with_columns(
                 pl.col(MPV.RANK).replace(MPV.RANK_MAPPING, return_dtype=pl.Int8),
                 pl.col(MPV.TYPE).replace(MPV.TYPE_MAPPING, return_dtype=pl.Int8),
+                pl.col(MPV.BATTLE_TYPE).replace(
+                    MPV.BATTLE_TYPE_MAPPING, default=0, return_dtype=pl.Int8
+                ),
                 pl.col(MPV.RACE_FLAGS).replace(
                     MPV.RACE_MAPPING, default=-1, return_dtype=pl.Int8
                 ),
@@ -235,9 +238,7 @@ class ItemProto(GameProto):
             pl.col(IPV.VNUM).str.to_integer(strict=False).cast(pl.Int32),
         ).drop_nulls()
 
-    def get_data_for_calculator(
-        self, page_vnums: list[str], item_names: ItemNames
-    ):
+    def get_data_for_calculator(self, page_vnums: list[str], item_names: ItemNames):
         item_names.prepare_for_calculator(IPV.VNUM)
         (
             item_weapon_label,
@@ -282,7 +283,6 @@ class ItemProto(GameProto):
             .sort(pl.col(IPV.VNUM))
             .with_columns(pl.concat_list(f"Value{index}" for index in range(1, 5)))
         )
-        print(data)
         item_data_for_calculator = IPV.WEAPON_FIST
         item_data_for_calculator.update(
             {

@@ -92,6 +92,7 @@ class MobProtoVariables:
         VNUM,
         RANK,
         TYPE,
+        BATTLE_TYPE,
         LEVEL,
         RACE_FLAGS,
         ST,
@@ -159,6 +160,8 @@ class MobProtoVariables:
     }
 
     TYPE_MAPPING = {"MONSTER": 0, "STONE": 1}
+
+    BATTLE_TYPE_MAPPING = {"MELEE": 0, "RANGE": 1, "MAGIC": 2}
 
     RACE_MAPPING = {
         "ANIMAL": 0,
